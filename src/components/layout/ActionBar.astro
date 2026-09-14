@@ -1,0 +1,45 @@
+---
+/** Sticky conversion bar below 1100px. Call, WhatsApp and Admissions at equal weight. */
+import { pathFor, type Locale } from '../../i18n/routes';
+import { telHref, waHref, type SiteData } from '../../i18n/ui';
+import Icon from '../ui/Icon.astro';
+interface Props { site: SiteData; locale: Locale }
+const { site, locale } = Astro.props;
+---
+<nav class="actionbar" aria-label={site.ui.admissionsCta}>
+  {/* site.headerPhone, not phones[0]. The school confirmed on 13 September 2026
+      that this line is registered on WhatsApp, so this bar and the header now
+      offer the same number — a visitor no longer sees one number in the drawer
+      and dials another from the bar. The footer, the contact page and the
+      structured data still publish BOTH of the school's numbers. */}
+  <a href={telHref(site.headerPhone)}><Icon name="phone" size={20} />{site.ui.call}</a>
+  <a href={waHref(site.headerPhone)} rel="noopener noreferrer" target="_blank">
+    <Icon name="whatsapp" size={20} />{site.ui.whatsapp}
+  </a>
+  <a href={pathFor('admissions', locale)} class="actionbar__primary">
+    <Icon name="arrow" size={20} />{site.nav.admissions}
+  </a>
+</nav>
+
+<style>
+  .actionbar {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 90;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    background: var(--paper); border-top: 1px solid var(--n-200);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .actionbar a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; min-height: 56px; padding: 8px 4px;
+    font-size: var(--fs-micro); font-weight: 650; text-align: center;
+    color: var(--blue-700); text-decoration: none;
+  }
+  .actionbar a + a { border-left: 1px solid var(--n-200); }
+  /* Written as `.actionbar a.actionbar__primary`, not `.actionbar__primary`.
+     The plain class is (0,1,0) and loses to `.actionbar a` at (0,1,1), so the
+     white below never applied and the label rendered blue-700 on blue-600 —
+     1.27:1, an invisible primary action on every page below 1100px. */
+  .actionbar a.actionbar__primary { background: var(--blue-600); color: var(--paper); }
+  .actionbar a.actionbar__primary:hover { background: var(--blue-700); color: var(--paper); }
+  @media (min-width: 1100px) { .actionbar { display: none; } }
+</style>

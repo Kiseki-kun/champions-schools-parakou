@@ -1,0 +1,61 @@
+# privacy — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: privacy
+title: How this website handles your information
+lead: This notice describes the website itself. It is not a data-protection policy for the school
+  as an institution.
+hero:
+  eyebrow: Privacy
+blocks:
+- type: prose
+  measure: prose
+  tone: paper
+  eyebrow: What the site collects
+  title: Nothing
+  body:
+  - This website is a set of static pages. It has no accounts, no login and no forms that send information
+    anywhere. It does not ask you for your name, your telephone number, your email address or anything
+    else about you.
+  - Nothing you do while reading these pages is recorded or sent to the school.
+- type: prose
+  measure: prose
+  tone: tint
+  eyebrow: Cookies and tracking
+  title: No cookies, no analytics, no third parties
+  body:
+  - The site sets no cookies of its own. It uses no analytics, advertising or social-media tracking.
+  - Its typefaces and images are served from the site itself rather than from another company, so
+    opening a page does not send a request anywhere else.
+- type: prose
+  measure: prose
+  tone: paper
+  eyebrow: When you contact the school
+  title: Your message goes to the school, not to this site
+  body:
+  - If you write to the school’s email address or call one of its telephone numbers, your message
+    and your details reach the school directly. This website plays no part in that and keeps no copy.
+  - What the school does with what you send it is a matter between you and the school.
+- type: prose
+  measure: prose
+  tone: deep
+  eyebrow: The limits of this notice
+  title: What this page does not cover
+  body:
+  - This notice states only what the website itself does, which is what can be verified from the
+    site. It is not legal advice, and it does not describe how the school handles records, admissions
+    files or any other information it holds.
+  - For anything beyond the website, please contact the school directly.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Contact the school
+  body: Address, telephone numbers and the school’s official email address.
+  primary:
+    label: Contact
+    page: contact
+  secondary:
+    label: Back to the school
+    page: about

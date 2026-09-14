@@ -1,0 +1,218 @@
+---
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/public-sans/wght.css';
+import '../styles/global.css';
+
+/* The two latin subsets every page on this site certainly uses. Without a
+   preload the browser cannot discover them until it has downloaded and parsed
+   the stylesheet that declares them, so the text waits on a request that could
+   already have been in flight. Imported rather than hard-coded so the hashed
+   filenames stay correct through every build.
+
+   Only the LATIN subsets are preloaded: the latin-ext and vietnamese subsets
+   are built and correctly never fetched for this content (unicode-range does
+   its job), and preloading a file the page will not use is worse than not
+   preloading at all. */
+import frauncesLatin from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
+import publicSansLatin from '@fontsource-variable/public-sans/files/public-sans-latin-wght-normal.woff2?url';
+
+import { getImage } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import { LOCALES, DEFAULT_LOCALE, urlFor, pathFor, type Locale, type PageKey } from '../i18n/routes';
+import { getSite } from '../i18n/ui';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import ActionBar from '../components/layout/ActionBar.astro';
+
+/* Used by the pages that name no picture of their own — the 404 and anything
+   future. A real photograph of a real lesson, chosen because it shows the one
+   thing that defines the school: the two languages side by side on one board. */
+const SOCIAL_FALLBACK = 'hero-bilingual-lesson';
+
+interface Props {
+  locale: Locale; pageKey: PageKey; title?: string; description?: string;
+  /** The header sits on the page's opening photograph instead of above it. */
+  overlayHeader?: boolean;
+  /**
+   * A page that is not a route in the map — currently only 404. It still needs
+   * a pageKey so the language switcher has somewhere to send people, but it
+   * must NOT tell a crawler it is that page, and it must not light that page up
+   * in the navigation as though the visitor were on it.
+   */
+  standalone?: boolean;
+  /**
+   * Manifest id of the photograph to use as this page's social card. Every
+   * inner page already names one for its opening band, so the card is the
+   * picture the visitor will actually see — not a generic house shot.
+   */
+  socialImage?: string;
+}
+const {
+  locale, pageKey, title, description,
+  overlayHeader = false, standalone = false,
+  socialImage = SOCIAL_FALLBACK,
+} = Astro.props;
+
+const site = await getSite(locale);
+const ownTitle = title ?? site.pageTitles[pageKey] ?? site.schoolName;
+/* A result reading only "Admissions" or "Contact Us" carries no brand at all.
+   The school's name is appended unless the page's own title already says it,
+   so every result in a search page is identifiably this school and no title
+   says the name twice. Composed here rather than written into 26 YAML strings:
+   one rule, and the page keeps its own name. */
+const pageTitle = ownTitle.includes(site.schoolName)
+  ? ownTitle
+  : `${ownTitle} — ${site.schoolName}`;
+const pageDesc = description ?? site.pageDescriptions[pageKey] ?? site.tagline;
+const canonical = urlFor(pageKey, locale, Astro.site!);
+const ogLocale: Record<Locale, string> = { fr: 'fr_FR', en: 'en_GB' };
+
+/* ---------- the social card ----------
+   The site declared `twitter:card: summary_large_image` and then shipped no
+   image at all, so every share on WhatsApp, Facebook, LinkedIn or X arrived as
+   a bare line of text — and the card type was a promise the page could not
+   keep. WhatsApp is a channel this school actually uses.
+
+   The picture is derived through the same pipeline as every other image on the
+   site: the original file is never touched, and nothing is regenerated. */
+const socialEntry = await getEntry('media', socialImage);
+if (!socialEntry) throw new Error(`BaseLayout: social image "${socialImage}" is not in the media manifest.`);
+if (socialEntry.data.status === 'concept') {
+  /* A concept image as the site's social card would put the campus that is
+     still being built in front of every share as though it stood today. */
+  throw new Error(
+    `BaseLayout: "${socialImage}" is a future-campus concept and cannot be a social card. `
+    + 'Social cards must be photographs of what exists.',
+  );
+}
+const socialFiles = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpg,jpeg,png,webp}');
+const socialLoader = socialFiles[`/src/assets/${socialEntry.data.category}/${socialImage}.jpg`];
+if (!socialLoader) throw new Error(`BaseLayout: no web master for social image "${socialImage}".`);
+/* The card is 1.91:1, the ratio Facebook, LinkedIn and X all lay out against,
+   and 1200px wide WHERE THE MASTER ALLOWS IT.
+   Asking flatly for 1200x630 was wrong: a photograph is never enlarged (the
+   asset rules permit upscaling only for concept art), so a master narrower
+   than 1200 came back at its own width with the height still 630 — a 1080x630
+   card, ratio 1.71, while og:image:width went on declaring 1200x630. Three of
+   the eight cards shipped that way. Deriving both the request and the
+   declaration from one width fixes the mismatch and keeps every card at the
+   same ratio; the three affected cards are simply smaller, which is what the
+   supplied photograph actually supports. */
+const socialSrc = (await socialLoader()).default;
+const cardW = Math.min(1200, socialSrc.width);
+const cardH = Math.round((cardW * 630) / 1200);
+const socialCard = await getImage({
+  src: socialSrc,
+  width: cardW, height: cardH, fit: 'cover', format: 'jpeg', quality: 82,
+});
+const socialUrl = new URL(socialCard.src, Astro.site!).href;
+/* The manifest's own description, in this page's language — never invented,
+   and never a claim the picture does not support. */
+const socialAlt = socialEntry.data.decorative ? site.tagline : socialEntry.data.alt[locale];
+
+/* The emblem, for the organisation's structured data. Same pipeline, same
+   untouched original — square, because that is what a logo field wants. */
+const logoLoader = socialFiles['/src/assets/brand/logo.jpg'];
+if (!logoLoader) throw new Error('BaseLayout: no web master for the school emblem.');
+const logoCard = await getImage({ src: (await logoLoader()).default, width: 512, format: 'png' });
+
+/* Structured data — only what the source document supports.
+   No aggregateRating, no Review, no accreditation, no invented fields. */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'School',
+  name: site.schoolName,
+  url: new URL(pathFor('home', locale), Astro.site!).href,
+  description: site.pageDescriptions.home,
+  foundingDate: '2009',
+  /* The school's own emblem, as supplied. Google uses it for the organisation
+     panel; it is not a claim, just the mark. */
+  logo: new URL(logoCard.src, Astro.site!).href,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Vers rond point la vie, Sinagourou',
+    addressLocality: 'Parakou',
+    addressCountry: 'BJ',
+  },
+  telephone: site.phones,
+  email: site.email,
+  areaServed: 'Parakou, Benin',
+  inLanguage: ['fr', 'en'],
+};
+
+/* See the <script> below: `<` is escaped so no value can terminate the element
+   it is serialised into. */
+const jsonLdSafe = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+---
+<!doctype html>
+<html lang={locale}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDesc} />
+  {standalone
+    ? <meta name="robots" content="noindex, follow" />
+    : <link rel="canonical" href={canonical} />}
+
+  {/* Reciprocity is structural: both sides come from the same route-map row.
+      A standalone page is not a route, so it declares no alternates. */}
+  {!standalone && LOCALES.map((l) => (
+    <link rel="alternate" hreflang={l} href={urlFor(pageKey, l, Astro.site!)} />
+  ))}
+  {!standalone && (
+    <link rel="alternate" hreflang="x-default" href={urlFor(pageKey, DEFAULT_LOCALE, Astro.site!)} />
+  )}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDesc} />
+  {!standalone && <meta property="og:url" content={canonical} />}
+  <meta property="og:site_name" content={site.schoolName} />
+  <meta property="og:locale" content={ogLocale[locale]} />
+  {LOCALES.filter((l) => l !== locale).map((l) => (
+    <meta property="og:locale:alternate" content={ogLocale[l]} />
+  ))}
+  <meta property="og:image" content={socialUrl} />
+  <meta property="og:image:width" content={String(cardW)} />
+  <meta property="og:image:height" content={String(cardH)} />
+  <meta property="og:image:alt" content={socialAlt} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={socialUrl} />
+  <meta name="twitter:image:alt" content={socialAlt} />
+  <link rel="preload" as="font" type="font/woff2" href={frauncesLatin} crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href={publicSansLatin} crossorigin />
+  <meta name="theme-color" content="#1F4C9C" />
+  <link rel="icon" href="/icon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  {/* JSON.stringify does not escape `<`, so a value containing the closing
+      sequence of a script tag would break out of this element and become
+      markup. Nothing in the school's approved information does today — this is
+      the one place on the site where content reaches HTML through a raw sink,
+      and the sink is closed rather than trusted. `\u003c` is decoded back to
+      `<` by every JSON parser, so the structured data is unchanged. */}
+  <script type="application/ld+json" set:html={jsonLdSafe} is:inline />
+</head>
+<body>
+  <a class="skip-link" href="#main">{site.ui.skipToContent}</a>
+  <Header site={site} locale={locale} current={pageKey}
+          overlay={overlayHeader} markCurrent={!standalone} />
+  <main id="main" tabindex="-1" class:list={[overlayHeader && 'main--under-header']}>
+    <slot />
+  </main>
+  <Footer site={site} locale={locale} current={pageKey} />
+  <ActionBar site={site} locale={locale} />
+
+  <style is:global>
+    body { display: flex; flex-direction: column; min-height: 100svh; }
+    /* The overlay header is taken out of flow, so the page starts at y=0 and
+       the opening photograph runs under it. */
+    .main--under-header { margin-top: 0; }
+    main { flex: 1 0 auto; }
+    /* The sticky action bar never covers content. */
+    @media (max-width: 1099px) { body { padding-bottom: var(--actionbar-height); } }
+  </style>
+</body>
+</html>

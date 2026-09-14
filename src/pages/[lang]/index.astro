@@ -1,0 +1,866 @@
+---
+/**
+ * HOMEPAGE — art-direction redesign pass (supersedes the Phase 5 composition).
+ *
+ * The Phase 5 page was eight well-made components stacked in a column: every
+ * section opened eyebrow -> heading -> paragraph -> button, every background
+ * was a flat block, and the hero was type with a photograph underneath. The
+ * three reference schools do something else, and the principles borrowed are
+ * named at each section below.
+ *
+ * The narrative, and the shape each moment takes:
+ *
+ *   1 OPENING      full-bleed photographic field, header on the image (EXL)
+ *   2 RECORD       dense dark band, fused to the hero — one continuous field
+ *   3 BILINGUAL    split: photograph bleeding off the left edge (Alderley)
+ *   4 PROGRESSION  editorial index — three full-width rows, not three cards
+ *   5 SCHOOL LIFE  asymmetric mosaic, lead image bleeding off the right edge
+ *   6 LEADERSHIP   four approved portraits, editorial rather than cards
+ *   7 TRUST        compact dark band, one large serif voice
+ *   8 FUTURE       dark statement strip, then the concepts at scale (Chadwick)
+ *   9 INVITATION   split closer: deep field + the graduation photograph
+ *
+ * Dark / light / dark alternation carries the momentum; only sections 2 and 6
+ * are flat colour fields, and both are dense rather than sparse.
+ *
+ * Rules this page is still built under, unchanged:
+ *  - Every claim is traceable to 01-School-Information. Nothing is invented.
+ *  - Every image reaches the page through SchoolImage and the media manifest.
+ *  - Concept images are labelled by the manifest; the page cannot override it.
+ *  - No Review or aggregateRating structured data is emitted for the quotation.
+ */
+import { getEntry } from 'astro:content';
+import { LOCALES, pathFor, type Locale } from '../../i18n/routes';
+import { getHome, getSite, telHref, waHref } from '../../i18n/ui';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroSequence from '../../components/home/HeroSequence.astro';
+import SchoolImage from '../../components/media/SchoolImage.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang }, props: { locale: lang as Locale } }));
+}
+const { locale } = Astro.props;
+const site = await getSite(locale);
+const t = await getHome(locale);
+
+/* The five hero frames locked in 04.5F §27 (revised audit):
+   bilingual teaching -> concentration -> the youngest -> beyond the classroom
+   -> achievement. The sequence is unchanged; only its presentation is new. */
+/* The bilingual photograph carries its manifest caption as a plate on the
+   image itself: it is the evidence for the claim beside it, so it is labelled
+   rather than left as decoration. The text still comes from the manifest. */
+const bilingualEntry = await getEntry('media', 'hero-bilingual-lesson');
+const bilingualCaption = bilingualEntry!.data.caption![locale];
+
+const HERO_IDS = [
+  'hero-bilingual-lesson',
+  'hero-classroom-focus',
+  'hero-nursery-gate',
+  'hero-demonstration',
+  'hero-graduation',
+];
+
+/* Per-frame focal points, set after reviewing each photograph at hero scale.
+   A single shared object-position suited none of them: the five frames place
+   their subject at very different heights. This is presentation only — the
+   source files are untouched and nothing is filtered, graded or blurred.
+     01 the blackboard sits high in the frame — hold the two languages
+     02 the working pupils sit low — come down off the wall
+     03 the girl's face is high and slightly right of centre
+     04 a crowd around a demonstration — favour faces over backs and ground
+     05 mortarboards near the top — trim floor, keep the group whole      */
+const HERO_FOCUS = ['50% 36%', '50% 48%', '53% 33%', '50% 30%', '50% 38%'];
+---
+{/* The opening frame of the hero sequence is the homepage's social card. */}
+<BaseLayout locale={locale} pageKey="home" overlayHeader socialImage={HERO_IDS[0]}>
+
+  <!-- 1 ─ OPENING ───────────────────────────────────────────────────────
+       EXL: the first viewport is one art-directed composition, not an
+       introduction followed by a picture. -->
+  <HeroSequence
+    locale={locale}
+    ids={HERO_IDS}
+    focus={HERO_FOCUS}
+    eyebrow={site.tagline}
+    headlines={t.hero.headlines}
+    lead={t.hero.lead}
+    labels={t.hero}
+    primaryHref={pathFor('admissions', locale)}
+    primaryLabel={site.ui.admissionsCta}
+    secondaryHref={pathFor('academics', locale)}
+    secondaryLabel={site.ui.discover}
+  />
+
+  <!-- 2 ─ THE RECORD ────────────────────────────────────────────────────
+       Chadwick: state the institution's standing plainly and at scale. The
+       band is blue-900, exactly where the hero's scrim ends, so the opening
+       reads as one dark field two screens tall before the page cuts to light. -->
+  <section class="record" aria-labelledby="record-title">
+    <div class="container container--wide record__inner">
+      <div class="record__say">
+        <p class="kicker kicker--gold">{t.results.eyebrow}</p>
+        <h2 id="record-title" class="record__title">{t.results.title}</h2>
+        {t.results.note && <p class="record__note">{t.results.note}</p>}
+      </div>
+      <dl class="record__figures">
+        {t.results.items.map((item) => (
+          <div class="figure">
+            <dd class="figure__value">{item.value}</dd>
+            <dt class="figure__label">{item.label}</dt>
+            <dd class="figure__detail">{item.detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- 3 ─ THE BILINGUAL MODEL ───────────────────────────────────────────
+       Alderley: image and message as one composition. The photograph runs off
+       the left edge of the viewport at full section height — it is the
+       evidence for the claim beside it, not decoration next to it. -->
+  <section class="split split--left" aria-labelledby="bilingual-title">
+    <div class="split__media">
+      {/* The SAME widths the hero sequence uses. This photograph appears twice
+          on this page, and below 1024 both places render it at 100vw — but the
+          two width lists did not overlap, so the browser fetched a 640px copy
+          for the hero and a 700px copy for this, ~28 KB of the same picture
+          twice on a phone. One list, one file, identical rendering. */}
+      <SchoolImage
+        id="hero-bilingual-lesson" locale={locale}
+        widths={[640, 960, 1280, 1600, 2000, 2400]} sizes="(min-width: 1024px) 58vw, 100vw"
+      />
+      {/* The photograph is seated in a deep field rather than cropped to fill
+          the column: at this width a full-height crop would cut away one of
+          the two languages on the board, which is the whole reason the frame
+          matters. The field beneath it carries the claim and the caption. */}
+      <div class="split__foot">
+        <p class="split__mark" aria-hidden="true">
+          <span class="split__ratio">50<i>/</i>50</span>
+          <span class="split__mark-label">{t.results.items[3].label}</span>
+        </p>
+        <p class="split__plate">{bilingualCaption}</p>
+      </div>
+    </div>
+
+    <div class="split__body">
+      <div class="split__body-inner">
+        <p class="kicker">{t.bilingual.eyebrow}</p>
+        <h2 id="bilingual-title" class="split__title">{t.bilingual.title}</h2>
+        <p class="split__lead">{t.bilingual.body}</p>
+
+        <ol class="points" role="list">
+          {t.bilingual.points.map((p, i) => (
+            <li class="point">
+              <span class="point__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="point__title">{p.title}</h3>
+                <p class="point__body">{p.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <Button href={pathFor('academics', locale)} variant="secondary">{t.bilingual.cta}</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ─ PROGRESSION ───────────────────────────────────────────────────
+       Chadwick: authority through restraint. Three full-width rows read as an
+       index from the youngest upward — progression you scan top to bottom —
+       instead of three equal cards that read as three unrelated options. -->
+  <section class="ladder" aria-labelledby="levels-title">
+    <div class="container container--wide">
+      <div class="ladder__head">
+        <div>
+          <p class="kicker">{t.levels.eyebrow}</p>
+          <h2 id="levels-title" class="ladder__title">{t.levels.title}</h2>
+        </div>
+        <p class="ladder__intro">{t.levels.intro}</p>
+      </div>
+
+      <ul class="ladder__list" role="list">
+        {t.levels.items.map((lvl) => (
+          <li class="rung">
+            <span class="rung__index" aria-hidden="true">{lvl.index}</span>
+            <h3 class="rung__name">{lvl.name}</h3>
+            <p class="rung__range">{lvl.range}</p>
+            <p class="rung__body">{lvl.body}</p>
+            <p class="rung__hours">
+              <span class="rung__hours-label">{lvl.hoursLabel}</span>
+              <span class="rung__hours-value">{lvl.hours}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="ladder__cta">
+        <Button href={pathFor('calendar', locale)} variant="secondary">{t.levels.cta}</Button>
+      </p>
+    </div>
+  </section>
+
+  <!-- 5 ─ SCHOOL LIFE ───────────────────────────────────────────────────
+       Kept and enlarged: the mosaic was the strongest thing on the Phase 5
+       page. The lead photograph now bleeds off the right edge and the words
+       sit in the left column beside it, so the section is one composition
+       rather than a head followed by a grid. -->
+  <section class="life" aria-labelledby="life-title">
+    <div class="life__grid">
+      <div class="life__words">
+        <p class="kicker">{t.life.eyebrow}</p>
+        <h2 id="life-title" class="life__title">{t.life.title}</h2>
+        <p class="life__lead">{t.life.body}</p>
+        <p class="life__clubs-label">{t.life.clubsLabel}</p>
+        <ul class="chips" role="list">
+          {t.life.clubs.map((club) => <li class="chip">{club}</li>)}
+        </ul>
+        <Button href={pathFor('school-life', locale)} variant="secondary">{t.life.cta}</Button>
+      </div>
+
+      <div class="life__lead-shot">
+        <SchoolImage id="excursion-friends" locale={locale} caption
+                     widths={[700, 1000, 1400]} sizes="(min-width: 1024px) 56vw, 100vw" />
+      </div>
+
+      <div class="life__pair">
+        <SchoolImage id="sports-day-houses" locale={locale} ratio="4/3" caption
+                     widths={[400, 700, 900]} sizes="(min-width: 1024px) 26vw, 50vw" />
+        <SchoolImage id="excursion-fountain" locale={locale} ratio="4/3" caption
+                     widths={[400, 700, 900]} sizes="(min-width: 1024px) 26vw, 50vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 ─ LEADERSHIP ───────────────────────────────────────────────────
+       The approved portraits carry this section: consistent 3:4 framing, a
+       numeral, a name, a role, a hairline. No card, no shadow, no container
+       chrome — the same editorial devices used by the progression rows. -->
+  <section class="heads" aria-labelledby="heads-title">
+    <div class="container container--wide">
+      <div class="heads__head">
+        <div>
+          <p class="kicker">{t.heads.eyebrow}</p>
+          <h2 id="heads-title" class="heads__title">{t.heads.title}</h2>
+        </div>
+        <p class="heads__intro">{t.heads.intro}</p>
+      </div>
+
+      <ul class="heads__grid" role="list">
+        {t.heads.items.map((h) => (
+          <li class="head">
+            <span class="head__index" aria-hidden="true">{h.index}</span>
+            <div class="head__portrait">
+              <SchoolImage id={h.image} locale={locale} ratio="4/5"
+                           widths={[300, 500, 700]} sizes="(min-width: 1024px) 24vw, (min-width: 420px) 46vw, 88vw" />
+            </div>
+            <h3 class="head__name">{h.name}</h3>
+            <p class="head__role">{h.role}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="heads__cta">
+        <Button href={pathFor('founders', locale)} variant="secondary">{t.heads.cta}</Button>
+      </p>
+    </div>
+  </section>
+
+  <!-- 7 ─ TRUST ─────────────────────────────────────────────────────────
+       The Phase 5 testimonial floated in an oversized warm field. It is now a
+       compact dark band: one voice, set large, measured, and finished. No
+       decoration was added to fill space; the space was removed.
+       Deliberately no Review / aggregateRating structured data. -->
+  <section class="voice" aria-labelledby="voice-title">
+    <div class="container container--wide voice__inner">
+      <h2 id="voice-title" class="kicker kicker--gold voice__kicker">{t.testimonial.eyebrow}</h2>
+      <figure class="voice__figure">
+        <blockquote class="voice__block">
+          <p class="voice__quote">{t.testimonial.quote}</p>
+          <p class="voice__body">{t.testimonial.body}</p>
+        </blockquote>
+        <figcaption class="voice__by">
+          <span class="voice__name">{t.testimonial.attribution}</span>
+          {t.testimonial.note && <span class="voice__note">{t.testimonial.note}</span>}
+        </figcaption>
+        <p class="voice__cta">
+          <Button href={pathFor('achievements', locale)} variant="onphoto">{t.testimonial.cta}</Button>
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 8 ─ THE FUTURE ────────────────────────────────────────────────────
+       Chadwick: sense of place, stated once and at scale. The dark strip
+       carries the school's own slogan and the kicker; the concepts follow on
+       light ground at full size. The concept labelling is untouched — it comes
+       from the manifest and the page cannot override it. -->
+  <section class="future" aria-labelledby="future-title">
+    <div class="future__banner">
+      <div class="container container--wide">
+        <p class="future__slogan">{t.future.slogan}</p>
+        <p class="future__kicker">{t.future.kicker}</p>
+      </div>
+    </div>
+
+    <div class="container container--wide future__inner">
+      <div class="future__head">
+        <h2 id="future-title" class="future__title">{t.future.title}</h2>
+        <div>
+          <p class="future__body">{t.future.body}</p>
+          <p class="future__status"><span aria-hidden="true">●</span>{t.future.status}</p>
+        </div>
+      </div>
+
+      <div class="future__grid">
+        <div class="future__shot future__shot--a">
+          <SchoolImage id="campus-playground" locale={locale} ratio="4/3" caption
+                       widths={[600, 900, 1200]} sizes="(min-width: 900px) 46vw, 100vw" />
+        </div>
+        <div class="future__shot future__shot--b">
+          <SchoolImage id="campus-classroom" locale={locale} ratio="4/3" caption
+                       widths={[600, 900, 1200]} sizes="(min-width: 900px) 46vw, 100vw" />
+        </div>
+      </div>
+
+      <p class="future__cta">
+        <Button href={pathFor('future-campus', locale)} variant="secondary">{t.future.cta}</Button>
+      </p>
+    </div>
+  </section>
+
+  <!-- 9 ─ THE INVITATION ────────────────────────────────────────────────
+       A closing composition rather than a footer block, and a deliberate
+       bookend to section 3: there the photograph bleeds left, here it bleeds
+       right. Graduation is the last image on the page because it is where the
+       invitation leads. -->
+  <section class="invite" aria-labelledby="invite-title">
+    <div class="invite__body">
+      <div class="invite__body-inner">
+        <p class="kicker kicker--gold">{t.admissions.mission}</p>
+        <h2 id="invite-title" class="invite__title">{t.admissions.title}</h2>
+        <p class="invite__lead">{t.admissions.body}</p>
+
+        <div class="invite__actions">
+          <Button href={pathFor('admissions', locale)} variant="ondark">{t.admissions.cta}</Button>
+          {/* site.headerPhone, not phones[0]: the school confirmed on
+              13 September 2026 that this is the preferred primary contact
+              number and that it is registered on WhatsApp. The header, the
+              sticky action bar and these two buttons now all offer the same
+              line. The footer, the contact page and the structured data still
+              publish BOTH of the school's numbers. */}
+          <Button href={telHref(site.headerPhone)} variant="onphoto">
+            <Icon name="phone" size={20} />{site.ui.call}
+          </Button>
+          <Button href={waHref(site.headerPhone)} variant="onphoto" target="_blank" rel="noopener noreferrer">
+            <Icon name="whatsapp" size={20} />{site.ui.whatsapp}
+          </Button>
+        </div>
+
+        <div class="invite__req">
+          <h3 class="invite__req-title">{t.admissions.requirementsLabel}</h3>
+          <ol class="req" role="list">
+            {t.admissions.requirements.map((r, i) => (
+              <li class="req__item">
+                <span class="req__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span>{r}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="invite__contact">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <span>{site.address}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="invite__media">
+      {/* The column is taller than it is wide, so a cover crop needs a source
+          wider than the column: the sizes hint accounts for that rather than
+          fetching a 662px variant and upscaling it. */}
+      <SchoolImage id="hero-graduation" locale={locale}
+                   widths={[600, 900, 1100, 1280]} sizes="(min-width: 1024px) 68vw, 100vw" />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ══ shared devices ══════════════════════════════════════════════════
+     One kicker, one rule, one numeral treatment — used across sections so
+     the variation in composition never reads as inconsistency. */
+  .kicker {
+    display: flex; align-items: center; gap: var(--space-3);
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--blue-700);
+  }
+  .kicker::before {
+    content: ""; width: 34px; height: 2px; flex: 0 0 34px;
+    background: var(--gold-500);
+  }
+  .kicker--gold { color: var(--gold-300); }
+  .kicker--gold::before { background: var(--gold-300); }
+
+  /* ══ 2 — the record ══════════════════════════════════════════════════ */
+  .record {
+    background: var(--blue-900); color: var(--paper);
+    padding-block: var(--space-10) var(--space-9);
+  }
+  .record__inner { display: grid; gap: var(--space-8); }
+  @media (min-width: 1024px) {
+    .record__inner {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      column-gap: var(--space-10);
+      align-items: start;
+    }
+  }
+  .record__title {
+    margin-top: var(--space-5);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-statement); line-height: 1.06;
+    letter-spacing: -0.025em; color: var(--paper);
+    max-width: 14ch; text-wrap: balance;
+  }
+  .record__note {
+    margin-top: var(--space-5);
+    font-size: var(--fs-micro); color: var(--blue-200); max-width: 34ch;
+  }
+  .record__figures {
+    display: grid; gap: var(--space-7) var(--space-6); margin: 0;
+  }
+  @media (min-width: 560px) { .record__figures { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .record__figures { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .figure { border-top: 1px solid rgba(251, 250, 248, .22); padding-top: var(--space-4); }
+  .figure__value {
+    margin: 0;
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-numeral); line-height: 0.95;
+    letter-spacing: -0.035em; color: var(--gold-300);
+    font-variant-numeric: tabular-nums;
+    /* "100 %" is one figure in French; it must never break after the digits. */
+    white-space: nowrap;
+  }
+  /* Four across from 1280, so each numeral gets a quarter of the figures
+     column — 154px at 1280, 167px from 1440 up. At --fs-numeral's full 4.5rem
+     "50/50" is 192px of nowrap type, so it overran its cell and kept going past
+     the page's right edge: 7px from the screen at 1280, 25px beyond the
+     container at 1440. Sized here to the cell it actually has, and only in the
+     four-up state — the two-up columns below 1280 take the full scale.
+     Placed AFTER the rule above: same specificity, so source order decides. */
+  @media (min-width: 1280px) {
+    .figure__value { font-size: clamp(2.75rem, 2.1rem + 1.6vw, 3.4rem); }
+  }
+  .figure__label {
+    margin-top: var(--space-4);
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper);
+  }
+  .figure__detail { margin: var(--space-1) 0 0; font-size: var(--fs-small); color: var(--blue-200); }
+
+  /* ══ 3 & 8 — split compositions ══════════════════════════════════════
+     The photograph runs to the viewport edge; the words keep the container's
+     measure. Below 1024px the image sits above the words, full-bleed, so the
+     phone gets a composition rather than a squeezed desktop. */
+  .split { display: grid; background: var(--paper); }
+  @media (min-width: 1024px) {
+    .split { grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); align-items: stretch; }
+    .split--left .split__media { grid-column: 1; }
+    .split--left .split__body { grid-column: 2; }
+  }
+  .split__media {
+    position: relative;
+    background: var(--blue-900);
+    display: flex; flex-direction: column;
+  }
+  .split .split__media :global(img) {
+    width: 100%; height: auto;
+    aspect-ratio: 3 / 2; object-fit: cover; object-position: 50% 42%;
+    border-radius: 0;
+  }
+  .split__foot {
+    flex: 1 0 auto;
+    display: grid; align-content: center; gap: var(--space-5);
+    padding: var(--space-7) var(--space-6) var(--space-7) var(--gutter);
+    color: var(--paper);
+  }
+  @media (min-width: 1024px) {
+    .split__foot {
+      padding: var(--space-8) var(--space-9) var(--space-8)
+               max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter)));
+    }
+  }
+  .split__mark { display: grid; gap: var(--space-2); justify-items: start; }
+  .split__ratio {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2.5rem, 1.8rem + 2.4vw, 3.75rem); line-height: 0.9;
+    letter-spacing: -0.04em; color: var(--paper);
+  }
+  .split__ratio i { font-style: normal; color: var(--gold-300); }
+  .split__mark-label {
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-300);
+  }
+  .split__plate {
+    font-size: var(--fs-small); line-height: 1.55;
+    color: var(--blue-200); max-width: 40ch;
+    border-top: 2px solid var(--gold-300); padding-top: var(--space-4);
+  }
+
+  .split__body { display: flex; align-items: center; }
+  .split__body-inner {
+    padding: var(--space-9) var(--gutter);
+    max-width: calc((var(--container-wide) / 2) + var(--gutter));
+  }
+  @media (min-width: 1024px) {
+    .split__body-inner { padding: var(--space-9) var(--space-9); }
+  }
+  .split__title {
+    margin-top: var(--space-5);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.75rem, 1.2rem + 1.9vw, 2.6rem);
+    line-height: 1.08; letter-spacing: -0.025em; max-width: 20ch; text-wrap: balance;
+  }
+  .split__lead { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--n-700); }
+
+
+  .points { list-style: none; padding: 0; margin-top: var(--space-6); display: grid; }
+  .point {
+    display: grid; grid-template-columns: 3.25rem 1fr;
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--n-200);
+  }
+  .point:last-child { border-bottom: 1px solid var(--n-200); }
+  .point__num {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-small); color: var(--gold-700);
+    font-variant-numeric: tabular-nums; padding-top: 3px;
+  }
+  .point__title { font-size: var(--fs-h4); }
+  .point__body { color: var(--n-700); margin-top: var(--space-2); font-size: var(--fs-small); }
+  .split__body-inner .btn { margin-top: var(--space-6); }
+
+  /* ══ 4 — progression ═════════════════════════════════════════════════ */
+  .ladder { background: var(--n-100); padding-block: var(--space-9); }
+  .ladder__head { display: grid; gap: var(--space-5); margin-bottom: var(--space-7); }
+  @media (min-width: 900px) {
+    .ladder__head {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      column-gap: var(--space-9); align-items: end;
+    }
+  }
+  .ladder__title {
+    margin-top: var(--space-4);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-section); line-height: 1.08; letter-spacing: -0.022em;
+    max-width: 18ch; text-wrap: balance;
+  }
+  .ladder__intro { font-size: var(--fs-body); color: var(--n-700); max-width: 40ch; }
+
+  .ladder__list { list-style: none; padding: 0; display: grid; }
+  .rung {
+    display: grid; gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--n-300);
+    align-items: baseline;
+  }
+  .rung:last-child { border-bottom: 1px solid var(--n-300); }
+  @media (min-width: 860px) {
+    .rung {
+      grid-template-columns: 5.5rem minmax(0, 10rem) minmax(0, 15rem) minmax(0, 1fr) auto;
+      column-gap: var(--space-7);
+      padding-block: var(--space-7);
+    }
+  }
+  .rung__index {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem); line-height: 1;
+    /* gold-500 measures 1.78:1 on this ground; gold-700 is the only gold that
+       reads as text on a light field. */
+    color: var(--gold-700); font-variant-numeric: tabular-nums;
+  }
+  .rung__name {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);
+    line-height: 1.05; letter-spacing: -0.02em;
+  }
+  .rung__range { font-size: var(--fs-small); font-weight: 650; color: var(--blue-700); }
+  .rung__body { color: var(--n-700); font-size: var(--fs-small); }
+  .rung__hours { display: flex; align-items: baseline; gap: var(--space-3); white-space: nowrap; }
+  .rung__hours-label {
+    font-size: var(--fs-micro); font-weight: 650; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--n-700);
+  }
+  .rung__hours-value { font-weight: 650; font-variant-numeric: tabular-nums; }
+  .ladder__cta { margin-top: var(--space-7); }
+
+  /* ══ 5 — school life ═════════════════════════════════════════════════ */
+  /* Tightened in the refinement pass: this section carried the largest
+     unused gap on the page, above and below the mosaic. */
+  .life { background: var(--paper); padding-block: var(--space-9); }
+  .life__grid {
+    display: grid; gap: var(--space-6);
+    padding-inline: var(--gutter);
+    max-width: var(--container-wide); margin-inline: auto;
+  }
+  @media (min-width: 1024px) {
+    .life {
+      padding-inline: 0;
+    }
+    .life__grid {
+      max-width: none; margin: 0;
+      padding-left: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter)));
+      padding-right: 0;
+      grid-template-columns: minmax(0, 30fr) minmax(0, 44fr) minmax(0, 26fr);
+      column-gap: var(--space-6);
+      align-items: start;
+    }
+    .life__words { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
+  }
+  .life__title {
+    margin-top: var(--space-4);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-section); line-height: 1.08; letter-spacing: -0.022em;
+    max-width: 16ch; text-wrap: balance;
+  }
+  .life__lead { margin-top: var(--space-4); color: var(--n-700); }
+  .life__clubs-label {
+    margin-top: var(--space-5);
+    font-size: var(--fs-micro); font-weight: 650; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--n-700);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0; margin-top: var(--space-3); }
+  .chip {
+    border: 1px solid var(--n-500); border-radius: var(--radius-pill);
+    padding: 7px 15px; font-size: var(--fs-small); color: var(--n-900);
+  }
+  .life__words .btn { margin-top: var(--space-5); }
+  .life__lead-shot :global(img) { aspect-ratio: 5 / 4; object-fit: cover; width: 100%; height: auto; }
+  .life__pair { display: grid; gap: var(--space-5); }
+  @media (min-width: 560px) and (max-width: 1023px) {
+    .life__pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    /* The right column runs off the edge of the viewport: the grid ends, the
+       pictures do not. */
+    /* The lead shot carries more height so the three columns finish closer
+       together and the bottom-left of the mosaic stops reading as a hole. */
+    .life__pair { margin-top: var(--space-6); }
+    .life__lead-shot :global(img) { aspect-ratio: 5 / 4; border-radius: var(--radius-md); }
+    /* The pictures run off the edge; their CAPTIONS must not. Without this a
+       caption line ended 9px from the screen at 1024 and 5px at 1280. */
+    .life__pair :global(figcaption) { padding-right: var(--gutter); }
+  }
+
+  /* ══ 6 — leadership ══════════════════════════════════════════════════
+     The portraits do the work. A numeral, a hairline, a consistent 4:5 frame,
+     a name and a role — the same devices as the progression rows, so the
+     section belongs to the page rather than arriving from a template. */
+  .heads { background: var(--n-100); padding-block: var(--space-9); }
+  .heads__head { display: grid; gap: var(--space-5); margin-bottom: var(--space-8); }
+  @media (min-width: 900px) {
+    .heads__head {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      column-gap: var(--space-9); align-items: end;
+    }
+  }
+  .heads__title {
+    margin-top: var(--space-4);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-section); line-height: 1.08; letter-spacing: -0.022em;
+    max-width: 18ch; text-wrap: balance;
+  }
+  .heads__intro { font-size: var(--fs-body); color: var(--n-700); max-width: 40ch; }
+
+  .heads__grid { list-style: none; padding: 0; display: grid; gap: var(--space-7) var(--space-6); }
+  @media (min-width: 420px) { .heads__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .heads__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .head { display: flex; flex-direction: column; }
+  /* A quiet stagger on the even portraits: rhythm, not a four-cell grid. */
+  @media (min-width: 1024px) {
+    .head:nth-child(even) { margin-top: var(--space-8); }
+  }
+  .head__index {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-small); color: var(--gold-700);
+    font-variant-numeric: tabular-nums;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--n-300);
+  }
+  .head__portrait { margin-top: var(--space-5); }
+  .head__portrait :global(img) {
+    width: 100%; height: auto; aspect-ratio: 4 / 5;
+    object-fit: cover; object-position: 50% 18%;
+    border-radius: var(--radius-sm);
+  }
+  .head__name {
+    margin-top: var(--space-5);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-h4); line-height: 1.16; letter-spacing: -0.015em;
+  }
+  .head__role {
+    margin-top: var(--space-2);
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--n-700);
+  }
+  .heads__cta { margin-top: var(--space-8); }
+
+  /* ══ 7 — trust ═══════════════════════════════════════════════════════ */
+  .voice {
+    background: var(--blue-800); color: var(--paper);
+    padding-block: var(--space-9);
+  }
+  .voice__kicker { font-family: var(--font-text); margin-bottom: var(--space-6); }
+  /* DOM order is the reading order — quote, then who said it, then the link.
+     Desktop moves the attribution beside the quote by placement, not by DOM. */
+  .voice__figure { margin: 0; display: grid; gap: var(--space-6); }
+  @media (min-width: 900px) {
+    .voice__figure {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      column-gap: var(--space-10);
+      align-items: start;
+    }
+    .voice__block { grid-column: 2; grid-row: 1 / span 2; }
+    .voice__by { grid-column: 1; grid-row: 1; align-self: start; }
+    .voice__cta { grid-column: 1; grid-row: 2; align-self: start; margin: 0; }
+  }
+  .voice__block { margin: 0; }
+  .voice__quote {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.7rem, 1.1rem + 2.1vw, 2.75rem);
+    line-height: 1.1; letter-spacing: -0.025em;
+    color: var(--paper); text-wrap: balance;
+  }
+  .voice__quote::before { content: "\201C"; }
+  .voice__quote::after { content: "\201D"; }
+  /* Supporting, not competing: smaller, quieter, on a narrower measure, and
+     set off by a hairline so the eye reaches the quote first. */
+  .voice__body {
+    margin-top: var(--space-5); padding-top: var(--space-5);
+    border-top: 1px solid rgba(251, 250, 248, .18);
+    color: var(--blue-200);
+    font-size: var(--fs-small); line-height: 1.68;
+    max-width: 54ch;
+  }
+  .voice__by { display: grid; gap: 3px; }
+  .voice__name { font-size: var(--fs-small); font-weight: 650; color: var(--gold-300); }
+  .voice__note { font-size: var(--fs-micro); color: var(--blue-200); }
+
+  /* ══ 8 — the future ══════════════════════════════════════════════════ */
+  .future { background: var(--paper); }
+  .future__banner {
+    background: var(--blue-900); color: var(--paper);
+    padding-block: var(--space-8);
+  }
+  .future__slogan {
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-300);
+  }
+  .future__kicker {
+    margin-top: var(--space-4);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2rem, 1.2rem + 3.2vw, 3.75rem);
+    line-height: 1; letter-spacing: -0.03em;
+    text-transform: uppercase; color: var(--paper);
+  }
+  .future__inner { padding-block: var(--space-9) var(--space-10); }
+  .future__head { display: grid; gap: var(--space-5); margin-bottom: var(--space-8); }
+  @media (min-width: 900px) {
+    .future__head {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      column-gap: var(--space-9); align-items: start;
+    }
+  }
+  .future__title {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-statement); line-height: 1.06; letter-spacing: -0.025em;
+    max-width: 14ch; text-wrap: balance;
+  }
+  .future__body { font-size: var(--fs-lead); color: var(--n-700); }
+  .future__status {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: var(--space-4);
+    font-size: var(--fs-small); font-weight: 650; color: var(--blue-900);
+    background: var(--blue-100); border-radius: var(--radius-pill);
+    padding: 7px 16px;
+  }
+  .future__status span { color: var(--terra-600); font-size: 0.7em; }
+  .future__grid { display: grid; gap: var(--space-8); align-items: start; }
+  @media (min-width: 900px) {
+    .future__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-7); }
+    /* A small stagger: two concepts placed, not two cells filled. */
+    .future__shot--b { margin-top: var(--space-10); }
+  }
+  .future__cta { margin-top: var(--space-9); }
+
+  /* ══ 9 — the invitation ══════════════════════════════════════════════ */
+  .invite { display: grid; background: var(--blue-900); color: var(--paper); }
+  /* On a phone the closer opens on the photograph, like the split section, so
+     the last moment of the page is an invitation and not a form-like list. */
+  .invite__media { order: -1; }
+  @media (min-width: 1024px) {
+    .invite__media { order: 0; }
+    .invite { grid-template-columns: minmax(0, 54fr) minmax(0, 46fr); align-items: stretch; }
+    .invite__body { grid-column: 1; }
+    .invite__media { grid-column: 2; }
+  }
+  .invite__body { display: flex; align-items: center; }
+  .invite__body-inner {
+    padding: var(--space-9) var(--gutter);
+    margin-left: auto;
+    max-width: calc((var(--container-wide) * 0.54) + var(--gutter));
+    width: 100%;
+  }
+  @media (min-width: 1024px) {
+    .invite__body-inner { padding: var(--space-11) var(--space-9) var(--space-11) 0; }
+  }
+  @media (min-width: 1024px) {
+    .invite__body { padding-left: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter))); }
+  }
+  .invite__title {
+    margin-top: var(--space-5);
+    font-family: var(--font-display); font-weight: 600;
+    text-wrap: balance;
+    font-size: clamp(2rem, 1.35rem + 2.4vw, 3.1rem);
+    line-height: 1.03; letter-spacing: -0.03em; color: var(--paper);
+    max-width: 13ch;
+  }
+  .invite__lead { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--blue-200); max-width: 44ch; }
+  .invite__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+  .invite__req { margin-top: var(--space-8); padding-top: var(--space-6); border-top: 1px solid rgba(251, 250, 248, .22); }
+  .invite__req-title {
+    font-size: var(--fs-micro); font-weight: 650; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold-300);
+  }
+  .req { list-style: none; padding: 0; margin-top: var(--space-5); display: grid; gap: var(--space-3); }
+  @media (min-width: 640px) { .req { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-6); } }
+  .req__item { display: flex; gap: var(--space-3); align-items: baseline; font-size: var(--fs-small); }
+  .req__num {
+    font-family: var(--font-display); font-weight: 600;
+    color: var(--gold-500); font-variant-numeric: tabular-nums; font-size: var(--fs-micro);
+  }
+  .invite__contact {
+    margin-top: var(--space-7); display: grid; gap: 2px;
+    font-size: var(--fs-small); color: var(--blue-200);
+  }
+  .invite__contact a { color: var(--gold-300); }
+  .invite__contact a:hover { color: var(--gold-200); }
+
+  .invite__media { position: relative; }
+  .invite .invite__media :global(img) {
+    width: 100%; height: auto;
+    aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 34%;
+    border-radius: 0;
+  }
+  @media (min-width: 1024px) {
+    .invite .invite__media :global(.school-image) { position: absolute; inset: 0; }
+    .invite .invite__media :global(picture) { display: block; height: 100%; }
+    .invite .invite__media :global(img) { height: 100%; aspect-ratio: auto; }
+  }
+</style>

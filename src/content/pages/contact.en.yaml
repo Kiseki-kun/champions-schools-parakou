@@ -1,0 +1,51 @@
+# contact — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: contact
+title: Speak to the school
+lead: One address, two telephone numbers and one email address — the school’s own, and the only ones
+  this site publishes.
+hero:
+  image: college-group
+  focus: 50% 40%
+  eyebrow: Contact
+blocks:
+- type: contact
+  eyebrow: Reach us
+  title: Champions Schools Parakou
+  body:
+  - Enquiries reach the school’s official email address. You are welcome to call during school hours.
+  addressLabel: Address
+  phoneLabel: Telephone
+  emailLabel: Email
+- type: index
+  tone: tint
+  eyebrow: When to call
+  title: School hours, by section
+  items:
+  - index: '01'
+    name: Nursery
+    asideLabel: Hours
+    aside: 7:30 – 2:30
+  - index: '02'
+    name: Primary
+    asideLabel: Hours
+    aside: 7:30 – 3:30
+  - index: '03'
+    name: College
+    asideLabel: Hours
+    aside: 7:00 – 4:00
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Enquiring about a place?
+  body: The four documents required for admission, and the levels your child can join.
+  primary:
+    label: Admissions
+    page: admissions
+  secondary:
+    label: Calendar & hours
+    page: calendar
+  image: hero-nursery-gate

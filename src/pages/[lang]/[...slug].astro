@@ -1,0 +1,70 @@
+---
+/**
+ * Every non-home page, in both languages, generated from the route map.
+ *
+ * Because the generator iterates locales, a page cannot exist in one language
+ * and not the other — a missing translation is a build failure, not a silent gap.
+ *
+ * Phase 6 replaced the Phase 4 placeholder shell with the real thing: each page
+ * is an opening band plus an ordered list of blocks drawn from one vocabulary
+ * (see PageBlocks.astro). The compositions are the homepage's, so moving from
+ * the homepage into the site does not feel like changing websites.
+ */
+import { getEntry } from 'astro:content';
+import { LOCALES, PAGE_KEYS, ROUTES, type Locale, type PageKey } from '../../i18n/routes';
+import { getSite } from '../../i18n/ui';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/page/PageHero.astro';
+import PageBlocks from '../../components/page/PageBlocks.astro';
+import GalleryViewer from '../../components/media/GalleryViewer.astro';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((lang) =>
+    PAGE_KEYS.filter((k) => k !== 'home').map((key) => ({
+      params: { lang, slug: ROUTES[key][lang] },
+      props: { locale: lang as Locale, pageKey: key },
+    }))
+  );
+}
+const { locale, pageKey } = Astro.props as { locale: Locale; pageKey: PageKey };
+const site = await getSite(locale);
+
+/* Section pages sit under a parent in the breadcrumb, matching the route map's
+   nested slugs. */
+const parent: Partial<Record<PageKey, PageKey>> = {
+  founders: 'about', leadership: 'about', achievements: 'about',
+  gallery: 'school-life', calendar: 'admissions',
+};
+
+const entry = await getEntry('pages', `${pageKey}.${locale}`);
+if (!entry) {
+  throw new Error(
+    `Missing content for "${pageKey}" in ${locale}. Expected ` +
+      `src/content/pages/${pageKey}.${locale}.yaml. Every route in the map needs ` +
+      'a file in both languages — that is what keeps the two sites the same size.',
+  );
+}
+const p = entry.data;
+if (p.page !== pageKey) {
+  throw new Error(
+    `src/content/pages/${pageKey}.${locale}.yaml declares page: "${p.page}". ` +
+      'The filename keys the entry, so the two must agree.',
+  );
+}
+---
+{/* The page's own opening photograph is its social card, so a link shared to
+    WhatsApp shows the picture the visitor is about to see. A page may name a
+    different one — see `social` in the hero schema; only the Gallery does. */}
+<BaseLayout locale={locale} pageKey={pageKey} socialImage={p.hero.social ?? p.hero.image}>
+  <PageHero
+    locale={locale} site={site} pageKey={pageKey} parentKey={parent[pageKey]}
+    title={p.title} lead={p.lead}
+    eyebrow={p.hero.eyebrow} image={p.hero.image} focus={p.hero.focus}
+  />
+  <PageBlocks blocks={p.blocks} locale={locale} site={site} />
+  {/* The viewer ships only on a page that actually has photographs opted into
+      it, so no other page carries its markup or its script. */}
+  {p.blocks.some((b) => 'lightbox' in b && b.lightbox) && (
+    <GalleryViewer locale={locale} site={site} />
+  )}
+</BaseLayout>

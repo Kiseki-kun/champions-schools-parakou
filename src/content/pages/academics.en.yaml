@@ -1,0 +1,138 @@
+# academics — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: academics
+title: Growing Globally
+lead: Welcome to a world without borders. Our academic programme offers a fully integrated, dual-language
+  immersion curriculum in English and French.
+hero:
+  image: hero-classroom-focus
+  focus: 50% 46%
+  eyebrow: Academic programme
+blocks:
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: Our programme
+  title: Our Bilingual Academic Programme
+  body:
+  - We prepare young learners to think, communicate and thrive in two languages while fostering a
+    deep appreciation for global cultures.
+  - Champions Schools has been distinguished by its bilingual approach since its beginnings, giving
+    students access to both English and French systems of learning. This allows our learners to communicate
+    across linguistic and cultural boundaries while opening pathways to both national and international
+    examinations.
+- type: feature
+  side: left
+  image: hero-bilingual-lesson
+  focus: 50% 36%
+  eyebrow: Our bilingual immersion model
+  title: We balance our instructional time to ensure fluency and academic mastery in both languages
+  body:
+  - Two languages are not two subjects here. They are the two languages the school day is taught
+    in, alternating across the core curriculum.
+  points:
+  - title: The 50/50 Approach
+    body: Core subjects are split equally between languages. Your child will study mathematics in
+      French on one day and science in English the next, ensuring true cognitive flexibility.
+  - title: Native-Speaking Educators
+    body: All classes are co-taught or led by native speakers of English and French, providing authentic
+      pronunciation and cultural context.
+  - title: Translanguaging Confidence
+    body: Students learn to switch effortlessly between languages, developing advanced problem-solving
+      and critical-thinking skills.
+- type: index
+  tone: tint
+  eyebrow: Our levels
+  title: From Nursery to College
+  intro: Champions Schools teaches learners from Nursery through to College, with boarding facilities.
+  items:
+  - index: '01'
+    name: Nursery
+    meta: Nursery 1 – 3 · Maternelle 1 au 3
+    body: The three nursery years, and the shortest school day.
+    asideLabel: Hours
+    aside: 7:30 – 2:30
+  - index: '02'
+    name: Primary
+    meta: Primary 1 – 6 · CI au CM2
+    body: Six years across which the bilingual immersion programme unfolds, subject by subject.
+    asideLabel: Hours
+    aside: 7:30 – 3:30
+  - index: '03'
+    name: College
+    meta: JSS 1 – SS 1 · 6ème au 3ème
+    body: The College years, through to the BEPC, and the longest school day.
+    asideLabel: Hours
+    aside: 7:00 – 4:00
+- type: index
+  tone: paper
+  eyebrow: The core curriculum
+  title: Le Curriculum Fondamental
+  titleLang: fr
+  intro: The core subjects, taught along two tracks. The French track follows the official programmes.
+  items:
+  - index: '01'
+    name: Literacy & Phonics
+    meta: English Track
+    body: Building fluent readers and expressive writers through comprehensive phonics programmes,
+      creative storytelling and public speaking.
+  - index: '02'
+    name: STEM & Inquiry Science
+    meta: English Track
+    body: Encouraging hands-on exploration, engineering design challenges and scientific reasoning.
+  - index: '03'
+    name: Maîtrise de la Langue
+    meta: French Track
+    body: Developing deep grammatical accuracy, vocabulary expansion and structural writing skills
+      in French.
+  - index: '04'
+    name: Mathématiques & Logique
+    meta: French Track
+    body: Teaching computational skills, geometry and logical reasoning through the proven methods
+      of the French curriculum.
+  - index: '05'
+    name: Histoire & Géographie
+    meta: French Track
+    body: Exploring cultural heritage, civic awareness and world geography.
+- type: feature
+  side: right
+  image: practical-tie-dye
+  focus: 50% 45%
+  eyebrow: Specialist & enrichment classes
+  title: A well-rounded education extends beyond the traditional classroom
+  body:
+  - Our specialist classes are taught interchangeably in both languages.
+  points:
+  - title: The Arts · Les Arts Visuels
+    body: Developing self-expression through painting, sculpting and studying global art history.
+  - title: Music & Performance · Musique
+    body: Enhancing auditory skills and memory through bilingual choral singing and rhythm exercises.
+  - title: Physical Education · EPS
+    body: Promoting coordination, teamwork and healthy lifestyle habits through active games and
+      sports.
+- type: prose
+  measure: wide
+  tone: deep
+  eyebrow: Holistic child development
+  title: Épanouissement global
+  titleLang: fr
+  body:
+  - Language learning is deeply tied to emotional growth. Our integrated programme fosters cultural
+    empathy — celebrating diverse perspectives, international traditions and global citizenship.
+  - 'And social-emotional learning: teaching mindfulness, emotional regulation and constructive peer
+    conflict resolution.'
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Enrol your child
+  body: Write or call. Enquiries reach the school’s official email address.
+  primary:
+    label: Request admission
+    page: admissions
+  secondary:
+    label: Calendar & hours
+    page: calendar
+  image: computer-lab

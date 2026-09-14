@@ -1,0 +1,130 @@
+# gallery — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+#
+# REDESIGNED 13 September 2026 (final) — see the English file for the note.
+
+locale: fr
+page: gallery
+title: Photographies de la vie scolaire
+lead: Les images conceptuelles du futur campus sont réunies sur leur propre page, où elles sont
+  signalées comme telles.
+hero:
+  image: assembly
+  focus: 50% 40%
+  social: students-excursion
+  eyebrow: Galerie
+blocks:
+- type: jump
+  label: Aller à
+  items:
+  - label: Autour de l’école
+    anchor: g-class
+  - label: Journée Sportive 2026
+    anchor: g-sport
+  - label: Cérémonies
+    anchor: g-ceremony
+  - label: Sorties
+    anchor: g-excursion
+- type: album
+  anchor: g-class
+  eyebrow: La journée de classe
+  title: Autour de l’école
+  body:
+  - Des leçons dans les deux langues, la salle informatique, un cours pratique, la maternelle,
+    l’uniforme et celles et ceux qui font l’école.
+  tone: paper
+  lightbox: true
+  images:
+  - hero-bilingual-lesson
+  - hero-classroom-focus
+  - computer-lab
+  - practical-tie-dye
+  - hero-nursery-gate
+  - nursery-classroom
+  - nursery-benches
+  - pupils-uniform-pair
+  - college-group
+  - staff-group
+- type: album
+  anchor: g-sport
+  eyebrow: Journée Sportive 2026
+  title: La compétition sportive inter-maisons
+  body:
+  - Toute la journée sportive inter-maisons 2026 de l’école, telle qu’elle l’a photographiée.
+  tone: tint
+  lightbox: true
+  images:
+  - sports-2026-assembly
+  - sports-2026-ground
+  - sports-day-houses
+  - sports-2026-green-lineup
+  - sports-2026-orange-lineup
+  - sports-2026-blue-lineup
+  - sports-2026-pink-lineup
+  - sports-2026-pink-team
+  - sports-2026-guests
+  - sports-2026-officials
+  - sports-2026-prize-table
+  - sports-2026-cup-presented
+  - sports-2026-cup-held
+  - sports-2026-trophy-raised
+- type: album
+  anchor: g-ceremony
+  eyebrow: Au fil de l’année
+  title: Cérémonies et célébrations
+  body:
+  - Les remises de diplômes, les remises de prix, la célébration de Noël, le concert de chants
+    de Noël et la journée culturelle.
+  tone: paper
+  lightbox: true
+  images:
+  - nursery-graduation
+  - hero-graduation
+  - graduation-group
+  - year-end-prize-nursery
+  - year-end-prize-primary
+  - year-end-prize-college
+  - awards-presentation
+  - year-end-performance
+  - year-end-choir
+  - christmas-soloist
+  - carol-service
+  - cultural-day-group
+  - cultural-day-pupils
+- type: album
+  anchor: g-excursion
+  eyebrow: Au-delà de la classe
+  title: Sorties et visites
+  body:
+  - Stades, terrains de sport, jardins et visites guidées.
+  tone: tint
+  lightbox: true
+  images:
+  - excursion-stadium-group
+  - excursion-ball-court
+  - excursion-sports-court
+  - excursion-poolside
+  - excursion-horse
+  - excursion-shade
+  - excursion-refreshment
+  - excursion-fish-pond
+  - excursion-fountain
+  - excursion-fountain-rest
+  - excursion-sculpture
+  - excursion-sculpture-ride
+  - hero-demonstration
+  - excursion-friends
+  - students-excursion
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Venez la voir en personne
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle
+    de l’école.
+  primary:
+    label: Demander une inscription
+    page: admissions
+  secondary:
+    label: Vie scolaire
+    page: school-life

@@ -1,0 +1,67 @@
+# calendar — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: calendar
+title: Trois trimestres, et les horaires de chaque section
+lead: L’année scolaire se déroule en trois trimestres. Chaque section a ses propres horaires d’ouverture
+  et de fermeture.
+hero:
+  eyebrow: Calendrier et horaires
+blocks:
+- type: index
+  tone: tint
+  eyebrow: L’année scolaire
+  title: Nos trois trimestres
+  items:
+  - index: '01'
+    name: Premier trimestre
+    meta: Septembre – décembre
+  - index: '02'
+    name: Deuxième trimestre
+    meta: Janvier à début avril
+  - index: '03'
+    name: Troisième trimestre
+    meta: Avril à juin
+- type: index
+  tone: paper
+  eyebrow: Horaires d’ouverture et de fermeture
+  title: La journée de classe, par section
+  items:
+  - index: '01'
+    name: Maternelle
+    meta: Maternelle 1 au 3 · Nursery 1 – 3
+    asideLabel: Horaires
+    aside: 7h30 – 14h30
+  - index: '02'
+    name: Primaire
+    meta: CI au CM2 · Primary 1 – 6
+    asideLabel: Horaires
+    aside: 7h30 – 15h30
+  - index: '03'
+    name: Collège
+    meta: 6ème au 3ème · JSS 1 – SS 1
+    asideLabel: Horaires
+    aside: 7h00 – 16h00
+- type: prose
+  measure: wide
+  tone: paper
+  title: Une précision sur les dates
+  body:
+  - Les mois indiqués ci-dessus correspondent à la description que l’école donne de ses trois trimestres.
+    Pour les dates exactes d’ouverture et de fermeture d’une année scolaire donnée, veuillez contacter
+    l’école.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Interroger l’école sur cette année
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle
+    de l’école.
+  primary:
+    label: Contacter l’école
+    page: contact
+  secondary:
+    label: Demander une inscription
+    page: admissions
+  image: hero-nursery-gate

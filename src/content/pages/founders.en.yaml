@@ -1,0 +1,77 @@
+# founders — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: founders
+title: Welcome to Champions Schools
+lead: Dear Parents, Students and Friends of Champions — it gives us great joy to welcome you to Champions
+  Schools.
+hero:
+  eyebrow: Founders’ Message
+blocks:
+- type: prose
+  measure: prose
+  tone: paper
+  eyebrow: A message from the Founders
+  title: The conviction we began with
+  body:
+  - 'When Champions began its journey in 2009, it was founded on a conviction that has remained at
+    the heart of everything we do: every child deserves an education that develops not only the mind,
+    but also the character, confidence and capacity to lead.'
+  - Over the years, that conviction has grown into a thriving educational community.
+  - We have watched our students enter our classrooms with curiosity and leave with greater confidence.
+    We have celebrated academic successes, witnessed our learners excel in competitions such as the
+    English Challenge Championship, recorded strong performances in national examinations, and created
+    opportunities for our students to learn through technology, excursions, practical experiences
+    and engagement with the wider community.
+  - Yet, while these achievements give us reason to be proud, they are not the destination.
+- type: feature
+  side: right
+  image: founders
+  ratio: 4/5
+  focus: 50% 28%
+  eyebrow: The true measure
+  title: The person the child becomes
+  body:
+  - For us, the true measure of education is found in the person the child becomes.
+  - We want our students to be academically sound, but also disciplined. We want them to be confident,
+    but humble. We want them to be technologically capable, but socially responsible. We want them
+    to dream boldly, think critically and have the courage to turn their abilities into meaningful
+    contributions to society.
+  - 'This is why our motto remains: Godliness. Excellence. Leadership. These are more than words
+    on our school emblem. They represent the values we desire to see reflected in the lives of our
+    students.'
+- type: prose
+  measure: wide
+  tone: deep
+  eyebrow: What will not change
+  title: Our commitment to the child
+  body:
+  - As education continues to evolve, so must we. We are committed to embracing new technologies,
+    improving our teaching practices, creating richer learning experiences and continually raising
+    the standard of education we provide.
+  - 'But in every innovation, one thing will remain constant: our commitment to the child.'
+  - To our parents, thank you for entrusting us with what is most precious to you. To our teachers
+    and staff, thank you for bringing knowledge, patience and purpose into our classrooms every day.
+- type: quote
+  eyebrow: To our students
+  quote: Being a Champion is not simply about winning. It is about becoming the very best version
+    of yourself and using what you have learned to make a difference.
+  body: The journey that began in 2009 continues to unfold, and we look forward with confidence to
+    the many generations of Champions yet to come. Welcome to Champions Schools. Welcome to a place
+    where we educate minds, build character and raise leaders.
+  attribution: Rev. & Pastor Mrs. MOMOH — Founders, Champions Schools
+  note: Godliness. Excellence. Leadership.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Come and see the school
+  body: Write or call. Enquiries reach the school’s official email address.
+  primary:
+    label: Request admission
+    page: admissions
+  secondary:
+    label: Our leadership
+    page: leadership
+  image: assembly

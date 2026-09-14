@@ -1,0 +1,104 @@
+locale: fr
+schoolName: Champions Schools Parakou
+motto: Godliness, Excellence, Leadership
+tagline: École bilingue à Parakou, Bénin — depuis 2009
+address: Vers rond point la vie, Sinagourou, Parakou, République du Bénin
+phones:
+  - "+229 0168064334"
+  - "+229 0166555087"
+# The school's PREFERRED PRIMARY CONTACT NUMBER, confirmed 13 September 2026,
+# and registered on WhatsApp. Every contact control on the site uses it: the
+# header's utility bar and drawer, the sticky mobile action bar, and the
+# homepage admissions invitation's Call and WhatsApp buttons. It is one of the
+# two numbers the school supplied — deliberately the second, not phones[0].
+# (The field is named for the header, which is where it started on
+# 12 September 2026; it has since become the primary line.)
+# Everything else that LISTS numbers — the footer, the contact page, the
+# structured data — still publishes BOTH, in the order above. Changing this
+# does not change those, and must not.
+headerPhone: "+229 0166555087"
+email: Championsschoolpkou22@gmail.com
+
+nav:
+  home: Accueil
+  about: À propos
+  founders: Message des fondateurs
+  leadership: Direction
+  academics: Programmes
+  admissions: Admissions
+  calendar: Calendrier et horaires
+  school-life: Vie scolaire
+  gallery: Galerie
+  achievements: Distinctions
+  future-campus: Futur campus
+  contact: Contact
+  privacy: Confidentialité
+
+pageTitles:
+  home: Champions Schools Parakou — École bilingue à Parakou
+  about: À propos de Champions Schools Parakou
+  founders: Message des fondateurs
+  leadership: Direction de l’école
+  academics: Programmes bilingues anglais-français
+  admissions: Admissions et inscriptions
+  calendar: Calendrier scolaire et horaires
+  school-life: La vie scolaire
+  gallery: Galerie photos
+  achievements: Résultats et distinctions
+  future-campus: Le futur campus
+  contact: Nous contacter
+  privacy: Politique de confidentialité
+
+pageDescriptions:
+  home: École bilingue anglais-français à Parakou, au Bénin, depuis 2009. Maternelle, primaire et collège.
+  about: L’histoire, la mission et la vision de Champions Schools Parakou, école bilingue fondée en 2009.
+  founders: Le message des fondateurs de Champions Schools Parakou.
+  leadership: Les responsables de section de Champions Schools Parakou.
+  academics: Notre modèle d’immersion bilingue 50/50, les filières anglaise et française, et les niveaux proposés.
+  admissions: Les pièces à fournir et les moyens de nous contacter pour inscrire votre enfant.
+  calendar: Les trois trimestres et les horaires quotidiens par section.
+  school-life: Clubs, sport, sorties éducatives et vie quotidienne à Champions Schools Parakou.
+  gallery: Photographies de la vie scolaire à Champions Schools Parakou.
+  achievements: 100 % de réussite au CEP et au BEPC, et nos autres distinctions.
+  future-campus: Le futur campus de Champions Schools Parakou, actuellement en construction.
+  contact: Adresse, téléphone et adresse électronique de Champions Schools Parakou.
+  privacy: Comment nous traitons les informations que vous nous transmettez.
+
+ui:
+  skipToContent: Aller au contenu
+  menu: Menu
+  breadcrumb: Fil d’Ariane
+  mainNav: Navigation principale
+  closeMenu: Fermer le menu
+  openMenu: Ouvrir le menu
+  languageLabel: Langue
+  switchToOther: English
+  call: Appeler
+  viewPhoto: "Voir la photographie"
+  galleryClose: Fermer
+  galleryPrev: Précédente
+  galleryNext: Suivante
+  galleryRegion: Visionneuse de photographies
+  gallerySections: Aller à
+  whatsapp: WhatsApp
+  emailUs: Écrire
+  admissionsCta: Demander une inscription
+  discover: Découvrir
+  learnMore: En savoir plus
+  backHome: Retour à l’accueil
+  notFoundTitle: Page introuvable
+  notFoundBody: La page que vous cherchez n’existe pas ou a été déplacée.
+  conceptLabel: Projet du futur campus
+  footerExplore: Explorer
+  footerContact: Nous contacter
+  footerLevels: Nos niveaux
+  levelsSummary: Maternelle · Primaire · Collège
+  requiredField: obligatoire
+  formName: Nom du parent
+  formPhone: Téléphone
+  formEmail: Adresse électronique
+  formLevel: Niveau souhaité
+  formMessage: Votre message
+  formSubmit: Envoyer le message
+  comingSoon: Le contenu de cette page est en cours de préparation.
+  foundationNotice: Cette page fait partie de la structure du site. Son contenu sera ajouté lors d’une phase ultérieure.

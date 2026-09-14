@@ -1,0 +1,78 @@
+# founders — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: founders
+title: Bienvenue à Champions Schools
+lead: Chers parents, chers élèves, chers amis de Champions — c’est avec une grande joie que nous
+  vous accueillons à Champions Schools.
+hero:
+  eyebrow: Message des fondateurs
+blocks:
+- type: prose
+  measure: prose
+  tone: paper
+  eyebrow: Un message des fondateurs
+  title: La conviction de nos débuts
+  body:
+  - 'Lorsque Champions s’est mise en route en 2009, elle reposait sur une conviction restée au cœur
+    de tout ce que nous faisons : chaque enfant mérite une éducation qui développe non seulement
+    l’esprit, mais aussi le caractère, la confiance et la capacité à diriger.'
+  - Au fil des années, cette conviction est devenue une communauté éducative florissante.
+  - Nous avons vu nos élèves entrer dans nos classes avec curiosité et en ressortir avec plus d’assurance.
+    Nous avons célébré des réussites académiques, vu nos apprenants briller dans des compétitions
+    comme l’English Challenge Championship, enregistré de solides résultats aux examens nationaux
+    et créé pour nos élèves des occasions d’apprendre par la technologie, les sorties, les travaux
+    pratiques et l’engagement auprès de la communauté.
+  - Pourtant, si ces réussites nous donnent des raisons d’être fiers, elles ne sont pas la destination.
+- type: feature
+  side: right
+  image: founders
+  ratio: 4/5
+  focus: 50% 28%
+  eyebrow: La vraie mesure
+  title: La personne que l’enfant devient
+  body:
+  - Pour nous, la vraie mesure de l’éducation se trouve dans la personne que l’enfant devient.
+  - Nous voulons que nos élèves soient solides sur le plan académique, mais aussi disciplinés. Qu’ils
+    soient confiants, mais humbles. Qu’ils soient à l’aise avec la technologie, mais socialement
+    responsables. Nous voulons qu’ils rêvent grand, qu’ils pensent de manière critique et qu’ils
+    aient le courage de transformer leurs capacités en contributions utiles à la société.
+  - 'C’est pourquoi notre devise demeure : Godliness. Excellence. Leadership. Ce sont plus que des
+    mots sur notre emblème. Ils représentent les valeurs que nous souhaitons voir se refléter dans
+    la vie de nos élèves.'
+- type: prose
+  measure: wide
+  tone: deep
+  eyebrow: Ce qui ne changera pas
+  title: Notre engagement envers l’enfant
+  body:
+  - À mesure que l’éducation évolue, nous devons évoluer aussi. Nous nous engageons à adopter les
+    nouvelles technologies, à améliorer nos pratiques d’enseignement, à créer des expériences d’apprentissage
+    plus riches et à élever continuellement le niveau de l’éducation que nous offrons.
+  - 'Mais dans chaque innovation, une chose restera constante : notre engagement envers l’enfant.'
+  - À nos parents, merci de nous confier ce que vous avez de plus précieux. À nos enseignants et
+    à notre personnel, merci d’apporter chaque jour savoir, patience et sens du but dans nos classes.
+- type: quote
+  eyebrow: À nos élèves
+  quote: Être un Champion, ce n’est pas simplement gagner. C’est devenir la meilleure version de
+    soi-même et se servir de ce que l’on a appris pour faire la différence.
+  body: Le chemin ouvert en 2009 continue de se dérouler, et nous attendons avec confiance les nombreuses
+    générations de Champions à venir. Bienvenue à Champions Schools. Bienvenue dans un lieu où nous
+    instruisons les esprits, bâtissons le caractère et formons des leaders.
+  attribution: Rev. & Pastor Mrs. MOMOH — Fondateurs, Champions Schools
+  note: Godliness. Excellence. Leadership.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Venez visiter l’école
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle
+    de l’école.
+  primary:
+    label: Demander une inscription
+    page: admissions
+  secondary:
+    label: Notre direction
+    page: leadership
+  image: assembly

@@ -1,0 +1,49 @@
+---
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'ondark' | 'onphoto' | 'route';
+  size?: 'md' | 'sm';
+  class?: string;
+  [key: string]: any;
+}
+const { href, type = 'button', variant = 'primary', size = 'md', class: className = '', ...rest } = Astro.props as Props;
+const cls = `btn btn--${variant} btn--${size} ${className}`.trim();
+const Tag = href ? 'a' : 'button';
+---
+<Tag class={cls} href={href} type={href ? undefined : type} {...rest}><slot /></Tag>
+
+<style>
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 48px; padding: 14px 24px;
+    border: 0; border-radius: var(--radius-md);
+    font-weight: 650; font-size: 1rem; line-height: 1.2;
+    text-decoration: none; cursor: pointer; text-align: center;
+    transition: background var(--dur-fast) var(--ease-standard),
+                border-color var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
+  }
+  /* French labels are longer: size to content, never truncate. */
+  .btn--sm { min-height: 44px; padding: 10px 20px; font-size: var(--fs-small); }
+  .btn--primary { background: var(--blue-600); color: #fff; }
+  .btn--primary:hover { background: var(--blue-700); color: #fff; }
+  .btn--secondary { background: transparent; color: var(--blue-700); border: 1.5px solid var(--blue-600); }
+  .btn--secondary:hover { background: var(--blue-50); color: var(--blue-700); }
+  .btn--ghost { background: transparent; color: var(--ink); padding-inline: 8px; }
+  .btn--ghost:hover { text-decoration: underline; color: var(--ink); }
+  .btn--ondark { background: var(--gold-300); color: var(--blue-900); }
+  .btn--ondark:hover { background: var(--gold-500); color: var(--blue-900); }
+  /* Secondary action sitting on a photograph or a deep field. The border is
+     near-opaque paper so it clears 1.4.11 against any frame behind it. */
+  .btn--onphoto {
+    background: transparent; color: var(--paper);
+    border: 1.5px solid rgba(251, 250, 248, .72);
+  }
+  .btn--onphoto:hover { background: rgba(251, 250, 248, .14); color: var(--paper); border-color: var(--paper); }
+  .btn--route { background: var(--paper); color: var(--blue-700); border: 1.5px solid var(--n-500); }
+  .btn--route:hover { background: var(--blue-50); border-color: var(--blue-600); color: var(--blue-700); }
+  .btn:disabled, .btn[aria-disabled="true"] {
+    background: var(--n-300); color: var(--n-700); border-color: var(--n-300); cursor: not-allowed;
+  }
+</style>

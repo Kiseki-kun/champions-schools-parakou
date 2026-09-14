@@ -1,0 +1,791 @@
+---
+/**
+ * INNER-PAGE BLOCK RENDERER — Phase 6.
+ *
+ * One vocabulary, twelve pages. Every block below is a composition the
+ * homepage already established, so an inner page reads as the same website
+ * rather than as a second design:
+ *
+ *   prose     the quiet register
+ *   feature   photograph + argument as one composition (homepage §3)
+ *   figure    one photograph at size, with its manifest caption
+ *   mosaic    lead frame + supporting frames (homepage §5)
+ *   index     numbered rows, read as progression (homepage §4)
+ *   stats     gold figures on a deep field (homepage §2)
+ *   people    portraits, framed as Meet Our Heads (homepage §6)
+ *   concepts  future-campus, with the labelling the manifest enforces
+ *   quote     one voice (homepage §7) — never Review structured data
+ *   contact   the school's real details, never invented
+ *   cta       the closing invitation (homepage §9)
+ *
+ * Every image still arrives through SchoolImage and the media manifest.
+ */
+import { pathFor, type Locale, type PageKey } from '../../i18n/routes';
+import SchoolImage from '../media/SchoolImage.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import type { SiteData } from '../../i18n/ui';
+
+interface Props { blocks: any[]; locale: Locale; site: SiteData }
+const { blocks, locale, site } = Astro.props;
+
+const href = (page: string) => pathFor(page as PageKey, locale);
+const pad = (n: number) => String(n + 1).padStart(2, '0');
+---
+{blocks.map((b, bi) => {
+  const head = b.title ? `blk-${bi}` : undefined;
+
+  if (b.type === 'prose') return (
+    <section class:list={['blk', 'prose-blk', `tone-${b.tone}`]} aria-labelledby={head}>
+      <div class:list={['container', b.measure === 'wide' ? 'container--wide' : 'container--prose']}>
+        {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+        {b.title && <h2 id={head} class="blk__title" lang={b.titleLang}>{b.title}</h2>}
+        <div class="blk__body">{b.body.map((p: string) => <p>{p}</p>)}</div>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'feature') return (
+    <section class:list={['blk', 'feature', `feature--${b.side}`, !b.ratio && 'feature--fill']}
+             aria-labelledby={head}>
+      <div class="feature__media"
+           style={[b.focus && `--focus:${b.focus}`, b.ratio && `--f-ratio:${b.ratio}`]
+             .filter(Boolean).join(';') || undefined}>
+        <SchoolImage id={b.image} locale={locale}
+                     widths={[700, 1000, 1400]} sizes="(min-width: 1024px) 52vw, 100vw" />
+      </div>
+      <div class="feature__body">
+        <div class="feature__inner">
+          {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+          <h2 id={head} class="blk__title">{b.title}</h2>
+          <div class="blk__body">{b.body.map((p: string) => <p>{p}</p>)}</div>
+          {b.points && (
+            <ol class="points" role="list">
+              {b.points.map((p: any, i: number) => (
+                <li class="point">
+                  <span class="point__num" aria-hidden="true">{pad(i)}</span>
+                  <div>
+                    <h3 class="point__title">{p.title}</h3>
+                    <p class="point__body">{p.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+          {b.cta && <Button href={href(b.cta.page)} variant="secondary">{b.cta.label}</Button>}
+        </div>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'figure') return (
+    <div class:list={['blk', 'figure-blk', b.full && 'figure-blk--full']}
+         style={b.focus ? `--focus:${b.focus}` : undefined}>
+      <div class={b.full ? '' : 'container container--wide'}>
+        <SchoolImage id={b.image} locale={locale} ratio={b.ratio} caption
+                     lightbox={b.lightbox} viewLabel={site.ui.viewPhoto}
+                     widths={[700, 1100, 1600, 2000]}
+                     sizes={b.full ? '100vw' : '(min-width: 1024px) 1360px, 100vw'} />
+      </div>
+    </div>
+  );
+
+  if (b.type === 'mosaic') return (
+    <section class="blk mosaic" aria-labelledby={head}>
+      <div class="mosaic__grid">
+        <div class="mosaic__words">
+          {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+          <h2 id={head} class="blk__title">{b.title}</h2>
+          <div class="blk__body">{b.body.map((p: string) => <p>{p}</p>)}</div>
+          {b.chips && (
+            <>
+              {b.chipsLabel && <p class="mosaic__chips-label">{b.chipsLabel}</p>}
+              <ul class="chips" role="list">{b.chips.map((c: string) => <li class="chip">{c}</li>)}</ul>
+            </>
+          )}
+        </div>
+        <div class="mosaic__lead">
+          <SchoolImage id={b.lead} locale={locale} caption
+                       lightbox={b.lightbox} viewLabel={site.ui.viewPhoto}
+                       widths={[600, 1000, 1400]} sizes="(min-width: 1024px) 56vw, 100vw" />
+        </div>
+        <div class="mosaic__pair">
+          {b.support.map((id: string) => (
+            <SchoolImage id={id} locale={locale} ratio="3/2" caption
+                         lightbox={b.lightbox} viewLabel={site.ui.viewPhoto}
+                         widths={[400, 700, 900]} sizes="(min-width: 1024px) 26vw, 50vw" />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'jump') return (
+    <nav class="blk album-nav" aria-label={b.label}>
+      <div class="container container--wide">
+        <ul class="album-nav__list" role="list">
+          {b.items.map((it: { label: string; anchor: string }) => (
+            <li><a class="album-nav__link" href={`#${it.anchor}`}>{it.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+
+  if (b.type === 'album') return (
+    <section class:list={['blk', 'album', `tone-${b.tone}`]} aria-labelledby={head}
+             id={b.anchor || undefined}>
+      <div class="container container--wide">
+        <div class="album__head">
+          {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+          <h2 id={head} class="blk__title">{b.title}</h2>
+          {b.body && <div class="blk__body">{b.body.map((p: string) => <p>{p}</p>)}</div>}
+        </div>
+        {/* A list, so assistive technology is told how many photographs are
+            here before reading fifty figures one by one. */}
+        <ul class="album__grid" role="list">
+          {b.images.map((id: string) => (
+            <li class="album__cell">
+              {/* Widths follow the CELL, not the page. The cell is a quarter of
+                  a 1360px container at desktop (~313px), a third at tablet
+                  (~230px) and a half at phone (~165px), so 640 covers the
+                  widest cell at 2x and nothing larger is ever requested. No
+                  caption is rendered under the thumbnail — the grid is
+                  photography, and the caption belongs to the open photograph.
+                  Everything here is below the fold and lazy; the viewer's
+                  image is separate and is not fetched until a photograph is
+                  opened. */}
+              <SchoolImage id={id} locale={locale}
+                           lightbox={b.lightbox} viewLabel={site.ui.viewPhoto}
+                           widths={[200, 340, 480, 640]}
+                           sizes="(min-width: 1424px) 320px, (min-width: 1024px) 23vw, (min-width: 640px) 30vw, 45vw" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'index') return (
+    <section class:list={['blk', 'ladder', `tone-${b.tone}`, `ladder--${b.variant}`]} aria-labelledby={head}>
+      <div class="container container--wide">
+        <div class="ladder__head">
+          <div>
+            {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+            <h2 id={head} class="blk__title" lang={b.titleLang}>{b.title}</h2>
+          </div>
+          {b.intro && <p class="ladder__intro">{b.intro}</p>}
+        </div>
+        <ul class="ladder__list" role="list">
+          {b.items.map((it: any) => (
+            <li class="rung">
+              <span class="rung__index" aria-hidden="true">{it.index}</span>
+              <h3 class="rung__name">{it.name}</h3>
+              {it.meta && <p class="rung__meta">{it.meta}</p>}
+              {it.body && <p class="rung__body">{it.body}</p>}
+              {it.aside && (
+                <p class="rung__aside">
+                  {it.asideLabel && <span class="rung__aside-label">{it.asideLabel}</span>}
+                  <span class="rung__aside-value">{it.aside}</span>
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'stats') return (
+    <section class="blk record" aria-labelledby={head}>
+      <div class="container container--wide record__inner">
+        <div>
+          {b.eyebrow && <p class="kicker kicker--gold">{b.eyebrow}</p>}
+          <h2 id={head} class="record__title">{b.title}</h2>
+          {b.note && <p class="record__note">{b.note}</p>}
+        </div>
+        <dl class="record__figures">
+          {b.items.map((it: any) => (
+            <div class="figure-stat">
+              <dd class="figure-stat__value">{it.value}</dd>
+              <dt class="figure-stat__label">{it.label}</dt>
+              <dd class="figure-stat__detail">{it.detail}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'people') return (
+    <section class="blk heads" aria-labelledby={head}>
+      <div class="container container--wide">
+        <div class="heads__head">
+          <div>
+            {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+            <h2 id={head} class="blk__title">{b.title}</h2>
+          </div>
+          {b.intro && <p class="heads__intro">{b.intro}</p>}
+        </div>
+        <ul class="heads__grid" role="list">
+          {b.items.map((h: any) => (
+            <li class="head">
+              <span class="head__index" aria-hidden="true">{h.index}</span>
+              <div class="head__portrait">
+                <SchoolImage id={h.image} locale={locale} ratio="4/5"
+                             widths={[300, 500, 700]}
+                             sizes="(min-width: 1024px) 24vw, (min-width: 420px) 46vw, 88vw" />
+              </div>
+              <h3 class="head__name">{h.name}</h3>
+              <p class="head__role">{h.role}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'concepts') return (
+    <section class="blk future" aria-labelledby={head}>
+      <div class="future__banner">
+        <div class="container container--wide">
+          {b.slogan && <p class="future__slogan">{b.slogan}</p>}
+          <p class="future__kicker">{b.kicker}</p>
+        </div>
+      </div>
+      <div class="container container--wide future__inner">
+        <div class="future__head">
+          <h2 id={head} class="future__title">{b.title}</h2>
+          <div>
+            <div class="blk__body">{b.body.map((p: string) => <p>{p}</p>)}</div>
+            <p class="future__status"><span aria-hidden="true">●</span>{b.status}</p>
+          </div>
+        </div>
+        {/* Three concepts read as a row of three; two or four read as pairs.
+            Four in a three-column grid would strand the last one alone. */}
+        <div class:list={['future__grid', b.images.length === 3 && 'future__grid--three']}>
+          {b.images.map((id: string, i: number) => (
+            <div class:list={['future__shot', i % 2 === 1 && 'future__shot--low']}>
+              <SchoolImage id={id} locale={locale} ratio="4/3" caption
+                           widths={[500, 800, 1100]} sizes="(min-width: 900px) 44vw, 100vw" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'quote') return (
+    <section class="blk voice" aria-labelledby={`q-${bi}`}>
+      <div class="container container--wide voice__inner">
+        <h2 id={`q-${bi}`} class="kicker kicker--gold voice__kicker">{b.eyebrow ?? b.attribution}</h2>
+        <figure class="voice__figure">
+          <blockquote class="voice__block">
+            <p class="voice__quote">{b.quote}</p>
+            {b.body && <p class="voice__body">{b.body}</p>}
+          </blockquote>
+          <figcaption class="voice__by">
+            <span class="voice__name">{b.attribution}</span>
+            {b.note && <span class="voice__note">{b.note}</span>}
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'contact') return (
+    <section class="blk contact-blk" aria-labelledby={head}>
+      <div class="container container--wide contact-blk__inner">
+        <div>
+          {b.eyebrow && <p class="kicker">{b.eyebrow}</p>}
+          <h2 id={head} class="blk__title">{b.title}</h2>
+          <div class="blk__body">{b.body.map((p: string) => <p>{p}</p>)}</div>
+        </div>
+        <dl class="details">
+          <div class="detail">
+            <dt><Icon name="pin" size={18} />{b.addressLabel}</dt>
+            <dd>{site.address}</dd>
+          </div>
+          <div class="detail">
+            <dt><Icon name="phone" size={18} />{b.phoneLabel}</dt>
+            <dd>{site.phones.map((p) => <a href={`tel:${p.replace(/[^\d+]/g, '')}`}>{p}</a>)}</dd>
+          </div>
+          <div class="detail">
+            <dt><Icon name="mail" size={18} />{b.emailLabel}</dt>
+            <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  );
+
+  if (b.type === 'cta') return (
+    <section class:list={['blk', 'invite', b.image && 'invite--photo']} aria-labelledby={head}>
+      <div class="invite__body">
+        <div class="invite__inner">
+          {b.eyebrow && <p class="kicker kicker--gold">{b.eyebrow}</p>}
+          <h2 id={head} class="invite__title">{b.title}</h2>
+          {b.body && <p class="invite__lead">{b.body}</p>}
+          <div class="invite__actions">
+            <Button href={href(b.primary.page)} variant="ondark">{b.primary.label}</Button>
+            {b.secondary && (
+              <Button href={href(b.secondary.page)} variant="onphoto">{b.secondary.label}</Button>
+            )}
+          </div>
+        </div>
+      </div>
+      {b.image && (
+        <div class="invite__media">
+          <SchoolImage id={b.image} locale={locale}
+                       widths={[600, 900, 1300]} sizes="(min-width: 1024px) 68vw, 100vw" />
+        </div>
+      )}
+    </section>
+  );
+
+  return null;
+})}
+
+<style>
+  /* Shared devices — the same kicker, numerals and rules as the homepage. */
+  .blk { }
+  .kicker {
+    display: flex; align-items: center; gap: var(--space-3);
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue-700);
+  }
+  .kicker::before { content: ""; width: 34px; height: 2px; flex: 0 0 34px; background: var(--gold-500); }
+  .kicker--gold { color: var(--gold-300); }
+  .kicker--gold::before { background: var(--gold-300); }
+
+  .blk__title {
+    margin-top: var(--space-4);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-section); line-height: 1.08; letter-spacing: -0.022em;
+    max-width: 20ch; text-wrap: balance;
+  }
+  .blk__body { margin-top: var(--space-5); }
+  /* `measure: wide` widens the BLOCK, not the line. Body copy keeps a readable
+     measure either way — a 1200px line is not a design decision, it is an
+     oversight. The title is allowed to run wider; a heading is scanned, not read. */
+  .prose-blk .container--wide .blk__body p { max-width: 68ch; }
+  .blk__body p + p { margin-top: var(--space-4); }
+  .blk__body p { color: var(--n-700); }
+
+  .tone-paper { background: var(--paper); padding-block: var(--space-9); }
+  .tone-tint  { background: var(--n-100); padding-block: var(--space-9); }
+  .tone-deep  { background: var(--blue-900); color: var(--paper); padding-block: var(--space-9); }
+  .tone-deep .blk__title { color: var(--paper); }
+  .tone-deep .blk__body p { color: var(--blue-200); }
+  .tone-deep .kicker { color: var(--gold-300); }
+  .tone-deep .kicker::before { background: var(--gold-300); }
+
+  /* ---- feature: photograph and argument as one composition ---- */
+  .feature { display: grid; background: var(--paper); }
+  @media (min-width: 1024px) {
+    .feature { grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); align-items: stretch; }
+    .feature--left  .feature__media { grid-column: 1; grid-row: 1; }
+    .feature--left  .feature__body  { grid-column: 2; grid-row: 1; }
+    .feature--right .feature__media { grid-column: 2; grid-row: 1; }
+    .feature--right .feature__body  { grid-column: 1; grid-row: 1; }
+  }
+  .feature__media {
+    position: relative; background: var(--blue-900);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .feature .feature__media :global(img) {
+    width: 100%; height: auto; aspect-ratio: var(--f-ratio, 3 / 2);
+    object-fit: cover; object-position: var(--focus, 50% 42%); border-radius: 0;
+  }
+  /* A landscape photograph fills its column, so the two halves of the
+     composition are the same height. A photograph that declared its own ratio
+     (the Founders' portrait) is SEATED in the deep field at that ratio instead
+     — cropping it to the column shape is what the ratio exists to prevent. */
+  @media (min-width: 1024px) {
+    .feature--fill .feature__media :global(.school-image) { position: absolute; inset: 0; }
+    .feature--fill .feature__media :global(picture) { display: block; height: 100%; }
+    .feature--fill .feature__media :global(img) { height: 100%; aspect-ratio: auto; }
+  }
+  .feature__body { display: flex; align-items: center; }
+  .feature__inner { padding: var(--space-8) var(--gutter); width: 100%; }
+  @media (min-width: 1024px) {
+    .feature__inner { padding: var(--space-9); max-width: 62ch; }
+    .feature--right .feature__inner { margin-left: auto; }
+  }
+  .feature__inner .btn { margin-top: var(--space-6); }
+
+  .points { list-style: none; padding: 0; margin-top: var(--space-6); display: grid; }
+  .point {
+    display: grid; grid-template-columns: 3.25rem 1fr; gap: var(--space-3);
+    padding-block: var(--space-4); border-top: 1px solid var(--n-200);
+  }
+  .point:last-child { border-bottom: 1px solid var(--n-200); }
+  .point__num {
+    font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small);
+    color: var(--gold-700); font-variant-numeric: tabular-nums; padding-top: 3px;
+  }
+  .point__title { font-size: var(--fs-h4); }
+  .point__body { color: var(--n-700); margin-top: var(--space-2); font-size: var(--fs-small); }
+
+  /* ---- figure ---- */
+  .figure-blk { background: var(--paper); padding-block: var(--space-8); }
+  .figure-blk--full { padding-block: 0; }
+  .figure-blk :global(img) { object-position: var(--focus, 50% 45%); }
+  .figure-blk--full :global(img) { border-radius: 0; }
+  /* The PHOTOGRAPH bleeds to both edges; its caption must not. Without this the
+     caption is a line of type starting at x=0 with no gutter at all — the only
+     text on the site that touched the screen edge, at every width from 320 to
+     1920. The same max() the other bleed compositions use, so the caption lands
+     on the site's one left edge rather than on an edge of its own. */
+  .figure-blk--full :global(figcaption) {
+    padding-inline: var(--gutter);
+    margin-bottom: var(--space-6);
+  }
+  @media (min-width: 1024px) {
+    .figure-blk--full :global(figcaption) {
+      padding-left: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter)));
+      padding-right: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter)));
+    }
+  }
+
+  /* ---- mosaic ---- */
+  .mosaic { background: var(--paper); padding-block: var(--space-9); }
+  .mosaic__grid {
+    display: grid; gap: var(--space-6);
+    padding-inline: var(--gutter); max-width: var(--container-wide); margin-inline: auto;
+  }
+  @media (min-width: 1024px) {
+    .mosaic { padding-inline: 0; }
+    .mosaic__grid {
+      max-width: none; margin: 0;
+      padding-left: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter)));
+      padding-right: 0;
+      grid-template-columns: minmax(0, 30fr) minmax(0, 44fr) minmax(0, 26fr);
+      column-gap: var(--space-6); align-items: start;
+    }
+  }
+  .mosaic__chips-label {
+    margin-top: var(--space-5); font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--n-700);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0; margin-top: var(--space-3); }
+  .chip {
+    border: 1px solid var(--n-500); border-radius: var(--radius-pill);
+    padding: 7px 15px; font-size: var(--fs-small); color: var(--n-900);
+  }
+  .mosaic__lead :global(img) { aspect-ratio: 5 / 4; object-fit: cover; width: 100%; height: auto; }
+  .mosaic__pair { display: grid; gap: var(--space-5); }
+  /* The right column's PHOTOGRAPHS run off the viewport edge — that is the
+     composition. Their captions were running off it too, so a line of type
+     ended 3px from the screen on a 1024 and a 1280 screen. Words keep a
+     gutter; pictures do not. */
+  @media (min-width: 1024px) {
+    .mosaic__pair :global(figcaption) { padding-right: var(--gutter); }
+  }
+  @media (min-width: 560px) and (max-width: 1023px) { .mosaic__pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) {
+    .mosaic__pair { margin-top: var(--space-6); }
+    .mosaic__lead :global(img) { border-radius: var(--radius-md); }
+  }
+
+  /* ---- album ---------------------------------------------------------
+     A uniform photograph grid, the structure the reference gallery actually
+     uses: two equal columns on a phone, three on a tablet, four on a desktop.
+     Every cell is the same width and every photograph is square — one
+     aspect-ratio, one object-fit, one gap — so no photograph is given more
+     weight than another and the eye reads the photography rather than the
+     layout. There are deliberately no spans, no alternating ratios and no
+     per-cell rules: adding any would reintroduce the editorial rhythm this
+     replaced. Nothing is written under a thumbnail either; a photograph's
+     caption belongs to the full-screen viewer. */
+  .album { padding-block: var(--space-9); }
+  .album__head { display: grid; gap: var(--space-4); margin-bottom: var(--space-7); max-width: 62ch; }
+  .album__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+  .album__cell { min-width: 0; }
+  /* The cell IS the square. The photograph fills it and is cropped to fit —
+     never letterboxed, never stretched. The viewer then shows the same
+     photograph whole, at its own ratio, so nothing is lost, only deferred. */
+  .album__cell :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  @media (min-width: 640px) {
+    .album__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+  }
+
+  @media (min-width: 1024px) {
+    .album__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-4); }
+  }
+
+  /* ---- section index -------------------------------------------------
+     The one thing worth taking from the reference's filter row: a way to move
+     between groups without scrolling past fifty photographs. Jump links, not
+     filters — the composition above is the point, and hiding two thirds of it
+     to show a category would undo it. */
+  .album-nav { padding-block: var(--space-6) 0; }
+  .album-nav__list {
+    display: flex; flex-wrap: wrap; gap: var(--space-3);
+    padding: 0; margin: 0; list-style: none;
+  }
+  .album-nav__link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 var(--space-5);
+    border: 1px solid var(--n-300); border-radius: 999px;
+    font-size: var(--fs-small); font-weight: 600;
+    color: var(--blue-700); text-decoration: none;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .album-nav__link:hover { background: var(--n-100); border-color: var(--blue-600); }
+  @media (prefers-reduced-motion: reduce) { .album-nav__link { transition: none; } }
+
+  /* ---- index rows ---- */
+  .ladder { padding-block: var(--space-9); }
+  .ladder__head { display: grid; gap: var(--space-5); margin-bottom: var(--space-7); }
+  @media (min-width: 900px) {
+    .ladder__head { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-9); align-items: end; }
+  }
+  .ladder__intro { font-size: var(--fs-body); color: var(--n-700); max-width: 42ch; }
+  .ladder__list { list-style: none; padding: 0; display: grid; }
+  .rung {
+    display: grid; gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-6); border-top: 1px solid var(--n-300); align-items: baseline;
+  }
+  .rung:last-child { border-bottom: 1px solid var(--n-300); }
+  @media (min-width: 860px) {
+    .rung {
+      grid-template-columns: 5.5rem minmax(0, 15rem) minmax(0, 12rem) minmax(0, 1fr) minmax(0, auto);
+      column-gap: var(--space-7); padding-block: var(--space-7);
+    }
+    /* Placed explicitly: a rung with no meta must not drop its body into the
+       meta column, which would leave the wide column empty. */
+    .ladder--rows .rung__index { grid-column: 1; }
+    .ladder--rows .rung__name  { grid-column: 2; }
+    .ladder--rows .rung__meta  { grid-column: 3; }
+    .ladder--rows .rung__body  { grid-column: 4; }
+    .ladder--rows .rung__aside { grid-column: 5; }
+  }
+  /* The 'quotes' variant: the row's name is a sentence, so it gets the full
+     measure and the detail stacks beneath it instead of sitting in columns. */
+  @media (min-width: 860px) {
+    .ladder--quotes .rung { grid-template-columns: 5.5rem minmax(0, 1fr); column-gap: var(--space-7); }
+    .ladder--quotes .rung__index { grid-row: span 3; }
+    .ladder--quotes .rung__name { max-width: 30ch; }
+    .ladder--quotes .rung__body { max-width: 62ch; }
+  }
+  .ladder--quotes .rung__name {
+    font-size: clamp(1.3rem, 1.05rem + 0.9vw, 1.75rem); line-height: 1.15;
+  }
+  .ladder--quotes .rung__body { margin-top: var(--space-2); }
+
+  .rung__index {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2rem, 1.4rem + 1.6vw, 2.75rem); line-height: 1;
+    color: var(--gold-700); font-variant-numeric: tabular-nums;
+  }
+  .rung__name {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.4rem, 1.15rem + 1vw, 1.9rem); line-height: 1.05; letter-spacing: -0.02em;
+  }
+  .rung__meta { font-size: var(--fs-small); font-weight: 650; color: var(--blue-700); }
+  .rung__body { color: var(--n-700); font-size: var(--fs-small); }
+  /* The aside carries short facts (school hours). The row is allowed to wrap
+     so a longer one cannot widen the grid; only the value itself is kept
+     unbroken, so "7:30 – 2:30" never splits across two lines. */
+  .rung__aside { display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+  .rung__aside-label {
+    font-size: var(--fs-micro); font-weight: 650; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--n-700);
+  }
+  .rung__aside-value { font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ---- stats ---- */
+  .record { background: var(--blue-900); color: var(--paper); padding-block: var(--space-9); }
+  .record__inner { display: grid; gap: var(--space-8); }
+  @media (min-width: 1024px) {
+    .record__inner { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: var(--space-10); align-items: start; }
+  }
+  .record__title {
+    margin-top: var(--space-4);
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-section); line-height: 1.06; letter-spacing: -0.025em;
+    color: var(--paper); max-width: 16ch; text-wrap: balance;
+  }
+  .record__note { margin-top: var(--space-5); font-size: var(--fs-micro); color: var(--blue-200); max-width: 34ch; }
+  .record__figures { display: grid; gap: var(--space-7) var(--space-6); margin: 0; }
+  @media (min-width: 560px) { .record__figures { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1280px) { .record__figures { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .figure-stat { border-top: 1px solid rgba(251, 250, 248, .22); padding-top: var(--space-4); }
+  .figure-stat__value {
+    margin: 0; font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-numeral); line-height: 0.95; letter-spacing: -0.035em;
+    color: var(--gold-300); font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .figure-stat__label {
+    margin-top: var(--space-4); font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper);
+  }
+  .figure-stat__detail { margin: var(--space-1) 0 0; font-size: var(--fs-small); color: var(--blue-200); }
+
+  /* ---- people ---- */
+  .heads { background: var(--n-100); padding-block: var(--space-9); }
+  .heads__head { display: grid; gap: var(--space-5); margin-bottom: var(--space-8); }
+  @media (min-width: 900px) {
+    .heads__head { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-9); align-items: end; }
+  }
+  .heads__intro { font-size: var(--fs-body); color: var(--n-700); max-width: 42ch; }
+  .heads__grid { list-style: none; padding: 0; display: grid; gap: var(--space-7) var(--space-6); }
+  @media (min-width: 420px) { .heads__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .heads__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .head { display: flex; flex-direction: column; }
+  @media (min-width: 1024px) { .head:nth-child(even) { margin-top: var(--space-8); } }
+  .head__index {
+    font-family: var(--font-display); font-weight: 600; font-size: var(--fs-small);
+    color: var(--gold-700); font-variant-numeric: tabular-nums;
+    padding-bottom: var(--space-3); border-bottom: 1px solid var(--n-300);
+  }
+  .head__portrait { margin-top: var(--space-5); }
+  .head__portrait :global(img) {
+    width: 100%; height: auto; aspect-ratio: 4 / 5;
+    object-fit: cover; object-position: 50% 18%; border-radius: var(--radius-sm);
+  }
+  .head__name {
+    margin-top: var(--space-5); font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-h4); line-height: 1.16; letter-spacing: -0.015em;
+  }
+  .head__role {
+    margin-top: var(--space-2); font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--n-700);
+  }
+
+  /* ---- concepts ---- */
+  .future { background: var(--paper); }
+  .future__banner { background: var(--blue-900); color: var(--paper); padding-block: var(--space-8); }
+  .future__slogan {
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-300);
+  }
+  .future__kicker {
+    margin-top: var(--space-4); font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(2rem, 1.2rem + 3.2vw, 3.75rem); line-height: 1;
+    letter-spacing: -0.03em; text-transform: uppercase; color: var(--paper);
+  }
+  .future__inner { padding-block: var(--space-9); }
+  .future__head { display: grid; gap: var(--space-5); margin-bottom: var(--space-8); }
+  @media (min-width: 900px) {
+    .future__head { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: var(--space-9); align-items: start; }
+  }
+  .future__title {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-section); line-height: 1.06; letter-spacing: -0.025em;
+    max-width: 16ch; text-wrap: balance;
+  }
+  .future__status {
+    display: inline-flex; align-items: center; gap: 9px; margin-top: var(--space-4);
+    font-size: var(--fs-small); font-weight: 650; color: var(--blue-900);
+    background: var(--blue-100); border-radius: var(--radius-pill); padding: 7px 16px;
+  }
+  .future__status span { color: var(--terra-600); font-size: 0.7em; }
+  .future__grid { display: grid; gap: var(--space-8); align-items: start; }
+  @media (min-width: 900px) {
+    .future__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-7); }
+    .future__grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .future__shot--low { margin-top: var(--space-9); }
+  }
+
+  /* ---- quote ---- */
+  .voice { background: var(--blue-800); color: var(--paper); padding-block: var(--space-9); }
+  .voice__kicker { font-family: var(--font-text); margin-bottom: var(--space-6); }
+  .voice__figure { margin: 0; display: grid; gap: var(--space-6); }
+  @media (min-width: 900px) {
+    .voice__figure {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+      column-gap: var(--space-10); align-items: start;
+    }
+    .voice__block { grid-column: 2; grid-row: 1 / span 2; }
+    .voice__by { grid-column: 1; grid-row: 1; align-self: start; }
+  }
+  .voice__block { margin: 0; }
+  .voice__quote {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.7rem, 1.1rem + 2.1vw, 2.75rem);
+    line-height: 1.1; letter-spacing: -0.025em; color: var(--paper); text-wrap: balance;
+  }
+  .voice__quote::before { content: "\201C"; }
+  .voice__quote::after { content: "\201D"; }
+  .voice__body {
+    margin-top: var(--space-5); padding-top: var(--space-5);
+    border-top: 1px solid rgba(251, 250, 248, .18);
+    color: var(--blue-200); font-size: var(--fs-small); line-height: 1.68; max-width: 54ch;
+  }
+  .voice__by { display: grid; gap: 3px; }
+  .voice__name { font-size: var(--fs-small); font-weight: 650; color: var(--gold-300); }
+  .voice__note { font-size: var(--fs-micro); color: var(--blue-200); }
+
+  /* ---- contact ---- */
+  .contact-blk { background: var(--paper); padding-block: var(--space-9); }
+  .contact-blk__inner { display: grid; gap: var(--space-8); }
+  .contact-blk__inner > * { min-width: 0; }
+  @media (min-width: 900px) {
+    .contact-blk__inner { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: var(--space-9); align-items: start; }
+  }
+  .details { display: grid; gap: var(--space-6); margin: 0; }
+  .detail { border-top: 1px solid var(--n-300); padding-top: var(--space-4); }
+  .detail dt {
+    display: flex; align-items: center; gap: 9px;
+    font-size: var(--fs-micro); font-weight: 650; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--n-700);
+  }
+  /* An email address is one long unbreakable word; at 320px it would otherwise
+     push the whole grid wider than the screen. */
+  .detail dd {
+    margin: var(--space-3) 0 0; display: grid; gap: 4px;
+    font-size: var(--fs-lead); overflow-wrap: anywhere;
+  }
+  /* Telephone and email are things people tap, so they are sized as controls
+     rather than as running text. */
+  .detail dd a {
+    color: var(--blue-700); display: inline-flex; align-items: center;
+    min-height: 44px; justify-self: start;
+  }
+
+  /* ---- cta ---- */
+  .invite { display: grid; background: var(--blue-900); color: var(--paper); }
+  .invite__media { order: -1; }
+  @media (min-width: 1024px) {
+    .invite--photo { grid-template-columns: minmax(0, 54fr) minmax(0, 46fr); align-items: stretch; }
+    .invite--photo .invite__body { grid-column: 1; }
+    .invite--photo .invite__media { grid-column: 2; order: 0; }
+  }
+  .invite__body { display: flex; align-items: center; }
+  .invite__inner { padding: var(--space-9) var(--gutter); margin-left: auto; width: 100%;
+    max-width: calc((var(--container-wide) * 0.56) + var(--gutter)); }
+  @media (min-width: 1024px) {
+    .invite__body { padding-left: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter))); }
+    .invite__inner { padding: var(--space-10) var(--space-9) var(--space-10) 0; }
+    .invite:not(.invite--photo) .invite__inner { max-width: var(--container-wide); margin: 0; }
+  }
+  .invite__title {
+    margin-top: var(--space-5); font-family: var(--font-display); font-weight: 600;
+    font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.9rem);
+    line-height: 1.04; letter-spacing: -0.03em; color: var(--paper); max-width: 15ch;
+  }
+  .invite__lead { margin-top: var(--space-4); font-size: var(--fs-lead); color: var(--blue-200); max-width: 46ch; }
+  .invite__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+  .invite__media { position: relative; }
+  .invite .invite__media :global(img) {
+    width: 100%; height: auto; aspect-ratio: 4 / 3;
+    object-fit: cover; object-position: 50% 34%; border-radius: 0;
+  }
+  @media (min-width: 1024px) {
+    .invite .invite__media :global(.school-image) { position: absolute; inset: 0; }
+    .invite .invite__media :global(picture) { display: block; height: 100%; }
+    .invite .invite__media :global(img) { height: 100%; aspect-ratio: auto; }
+  }
+</style>

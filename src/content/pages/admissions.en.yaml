@@ -1,0 +1,78 @@
+# admissions — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: admissions
+title: Enrol your child
+lead: Champions Schools admits learners into Nursery, Primary and College. Here is what to bring,
+  and how to reach us.
+hero:
+  image: hero-graduation
+  focus: 50% 38%
+  eyebrow: Admissions
+blocks:
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: How to enquire
+  title: Admissions are handled directly by the school
+  body:
+  - To enquire about a place for your child, write to the school’s official email address or call
+    one of the school’s telephone numbers. Both are listed further down this page.
+  - Fees, dates and the steps that follow your enquiry are not published on this website. The school
+    confirms them with you directly when you make contact.
+- type: index
+  tone: tint
+  eyebrow: What to bring
+  title: Admission requirements
+  intro: Four documents are required for admission.
+  items:
+  - index: '01'
+    name: Birth Certificate
+  - index: '02'
+    name: 2 passport photographs
+  - index: '03'
+    name: Transfer Certificate
+  - index: '04'
+    name: Photocopy of last report card
+- type: index
+  tone: paper
+  eyebrow: Classes offered
+  title: The levels your child can join
+  items:
+  - index: '01'
+    name: Nursery
+    meta: Nursery 1 – 3 · Maternelle 1 au 3
+    asideLabel: Hours
+    aside: 7:30 – 2:30
+  - index: '02'
+    name: Primary
+    meta: Primary 1 – 6 · CI au CM2
+    asideLabel: Hours
+    aside: 7:30 – 3:30
+  - index: '03'
+    name: College
+    meta: JSS 1 – SS 1 · 6ème au 3ème
+    asideLabel: Hours
+    aside: 7:00 – 4:00
+- type: contact
+  eyebrow: Reach us
+  title: Speak to the school
+  body:
+  - Enquiries reach the school’s official email address. You are welcome to call during school hours.
+  addressLabel: Address
+  phoneLabel: Telephone
+  emailLabel: Email
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: See the school before you decide
+  body: The academic programme, the school year and photographs of school life.
+  primary:
+    label: The academic programme
+    page: academics
+  secondary:
+    label: Calendar & hours
+    page: calendar
+  image: hero-classroom-focus

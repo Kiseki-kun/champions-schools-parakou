@@ -1,0 +1,50 @@
+# future-campus — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: future-campus
+title: The campus today, and the campus being built
+lead: A computer room, classrooms across three sections and boarding facilities today — and a new
+  campus now under construction.
+hero:
+  eyebrow: Campus & facilities
+blocks:
+- type: feature
+  side: left
+  image: computer-lab
+  focus: 50% 45%
+  eyebrow: Today
+  title: Technology and computer-based learning
+  body:
+  - The school’s computer room is where technology and computer-based learning happen. Introducing
+    learners to technology and digital tools that expand how they learn, create, communicate and
+    solve problems is one of the six commitments in our mission.
+  - Alongside the classrooms of the Nursery, Primary and College sections, the school has boarding
+    facilities and a learning environment designed to support both academic and personal development.
+- type: concepts
+  slogan: Building Champions. Shaping Futures.
+  kicker: The future is here
+  title: A new campus, under construction
+  body:
+  - The school is building a new campus in Parakou. The images below are conceptual representations
+    of that project. They are not photographs of the buildings as they stand today.
+  - Each one is labelled as a concept wherever it appears on this site.
+  status: Project currently under construction
+  images:
+  - campus-playground
+  - campus-classroom
+  - campus-library
+  - campus-nursery-room
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Come and see the school
+  body: Write or call to arrange a visit. Enquiries reach the school’s official email address.
+  primary:
+    label: Contact the school
+    page: contact
+  secondary:
+    label: Request admission
+    page: admissions
+  image: excursion-fountain

@@ -1,0 +1,258 @@
+{
+  "logo": {
+    "source": "logo/school logo.jpeg",
+    "md5": "4c37e1c69627868ff1ba1cc980d86f00"
+  },
+  "assembly": {
+    "source": "students/Morning-assembly.jpeg",
+    "md5": "9f38314bafc2c24c99bc396b7cfb7871"
+  },
+  "students-excursion": {
+    "source": "students/students-excursion.jpg",
+    "md5": "7798a9a7987d5689e427ce005524d095"
+  },
+  "staff-group": {
+    "source": "Teachers/staffs.jpeg",
+    "md5": "abc02f3b769a541a80d142ef8a9659ce"
+  },
+  "founders": {
+    "source": "Teachers/Founders.jpeg",
+    "md5": "df6aeb02fb7fabc59e5759cecc5b022c"
+  },
+  "head-dg": {
+    "source": "Teachers/M. Houtunde Houngbedji Sylvain. Directeur Général.jpeg",
+    "md5": "640ad77518c90e81458955d2934786ed"
+  },
+  "head-nursery": {
+    "source": "Teachers/Mrs Afolabi Demilade. Headmistress - Nursery.jpeg",
+    "md5": "1d23f09022fe4a8ad61ecc78b2797ecb"
+  },
+  "head-primary": {
+    "source": "Teachers/Mr. Obaje Joseph. Headmaster - Primary.jpeg",
+    "md5": "602386a202eb7b7796ea7ee850f371f0"
+  },
+  "head-college": {
+    "source": "Teachers/Mme. Idrissou Djoueratou. Censeur du Collège.jpeg",
+    "md5": "b5e559623a313fc089e6587559651ae8"
+  },
+  "computer-lab": {
+    "source": "facilities/computer lab.jpeg",
+    "md5": "5d0c41417f49920aa63db6d769e7e9e1"
+  },
+  "campus-classroom": {
+    "source": "campus/Campus  (3).jpeg",
+    "md5": "0a50e4e4daac98cc9026e01f27657eb9"
+  },
+  "hero-bilingual-lesson": {
+    "source": "Hero/CLASR.jpg",
+    "md5": "b5ab4a79fd6e914ca7a00846ea6032a5"
+  },
+  "hero-classroom-focus": {
+    "source": "Hero/CLASR2.jpg",
+    "md5": "c3075051c8abadaceed7e6fd791ba87a"
+  },
+  "hero-nursery-gate": {
+    "source": "Hero/NURSP2.jpg",
+    "md5": "3f70e5e37dc315ec346dd205a2e10aa2"
+  },
+  "hero-demonstration": {
+    "source": "Hero/DSC_3320.jpg",
+    "md5": "9758781511869dd95afd114fcdeb8171"
+  },
+  "hero-graduation": {
+    "source": "Hero/WhatsApp Image 2026-09-10 at 5.38.54 PM (1).jpeg",
+    "md5": "04a31877d9c1030818ac8354ccee5a53"
+  },
+  "sports-day-houses": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (1).jpeg",
+    "md5": "2f8fb4703c460ef8ea16107f98f782e8"
+  },
+  "excursion-friends": {
+    "source": "Hero/DSC_3257.jpg",
+    "md5": "4549a8d32d4a7fd882bdca8b9914bb2a"
+  },
+  "excursion-fountain": {
+    "source": "Hero/DSC_3422.jpg",
+    "md5": "3b5ff3a1e5b1e219faddc6534d7f24ed"
+  },
+  "campus-playground": {
+    "source": "facilities/playground.jpeg",
+    "md5": "d86c8619af5acda1c621ea1a0f4f431a"
+  },
+  "footer-emblem": {
+    "source": "footer logo/photo_2026-09-11_12-11-29.jpg",
+    "md5": "a7cd4a6de941fd3cc1e8618f0c098593"
+  },
+  "practical-tie-dye": {
+    "source": "students/tie-dye-practical.jpeg",
+    "md5": "ae16334df49742366db55b1f78a0dd38"
+  },
+  "excursion-sculpture": {
+    "source": "Events/excursions  (4).JPG",
+    "md5": "c61e5b0f7c412fc1c71078b5a2afed29"
+  },
+  "excursion-sculpture-ride": {
+    "source": "Events/excursions  (6).JPG",
+    "md5": "fb7b5d67745699e82a5d525446fdac96"
+  },
+  "college-group": {
+    "source": "students/college-students (1).jpeg",
+    "md5": "38da6049328506a98669d3034cd66099"
+  },
+  "awards-presentation": {
+    "source": "students/Students (4).jpeg",
+    "md5": "9b008ba62e61f853a8377380da7426c7"
+  },
+  "graduation-group": {
+    "source": "Events/graduation.jpeg",
+    "md5": "de295475ee59f8821de40ae2793bfacf"
+  },
+  "campus-library": {
+    "source": "facilities/library.jpeg",
+    "md5": "7ebcc1255eeca17d4f6258609986f771"
+  },
+  "campus-nursery-room": {
+    "source": "campus/Campus  (4).jpeg",
+    "md5": "88eb1717f5db517bbb1e6a13130f0b38"
+  },
+  "sports-2026-green-lineup": {
+    "source": "Events/Inter-house sports  (1).jpeg",
+    "md5": "fdc414d40d0751f3b97c7aebd4bee10b"
+  },
+  "sports-2026-trophy-raised": {
+    "source": "Events/Inter-house sports  (2).jpeg",
+    "md5": "710f6b5adf55aa98f747d06d62fe3780"
+  },
+  "sports-2026-blue-lineup": {
+    "source": "Events/Inter-house sports  (3).jpeg",
+    "md5": "5d45694d39b78e94de37dc0036f55559"
+  },
+  "sports-2026-orange-lineup": {
+    "source": "Events/Inter-house sports  (4).jpeg",
+    "md5": "673b52f997b2d8f73754bc3c295ac8f2"
+  },
+  "sports-2026-pink-lineup": {
+    "source": "Events/Inter-house sports  (5).jpeg",
+    "md5": "efea0705da01fb339145dbec84d5f10a"
+  },
+  "sports-2026-pink-team": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (2).jpeg",
+    "md5": "ea9c6cd92422ed12ded07e18acc57597"
+  },
+  "sports-2026-prize-table": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (3).jpeg",
+    "md5": "716212d232ac73e16ad42c3b7f58258f"
+  },
+  "sports-2026-officials": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (4).jpeg",
+    "md5": "051b52746931709e5834ffedde9ca529"
+  },
+  "sports-2026-assembly": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM.jpeg",
+    "md5": "93230cb325e8680e64d14d35c346120c"
+  },
+  "sports-2026-ground": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM (1).jpeg",
+    "md5": "63e1c6445ade02b9912123155dbe74ee"
+  },
+  "sports-2026-guests": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM (2).jpeg",
+    "md5": "123b88cdddb97a1920c4adabcf0acc12"
+  },
+  "sports-2026-cup-presented": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM (3).jpeg",
+    "md5": "b18bd39d89eae7e0fc91ce030a447120"
+  },
+  "sports-2026-cup-held": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.57 PM.jpeg",
+    "md5": "55bb59fb6ca470187ed4ad1c9001ed1c"
+  },
+  "year-end-prize-college": {
+    "source": "Events/end of the year party  (1).JPG",
+    "md5": "eb794561d3e473ff04dd71b1438a8966"
+  },
+  "year-end-performance": {
+    "source": "Events/end of the year party  (2).JPG",
+    "md5": "8d65614993c41b9560edf34867319ca8"
+  },
+  "year-end-choir": {
+    "source": "Events/end of the year party  (3).JPG",
+    "md5": "949db7f6454333323dac83fe50902f3b"
+  },
+  "year-end-prize-nursery": {
+    "source": "Events/end of the year party  (4).JPG",
+    "md5": "cd07bd2ad3c94766e760966d5a2829bb"
+  },
+  "year-end-prize-primary": {
+    "source": "Events/end of the year party  (5).JPG",
+    "md5": "cd7d68d26019140faf38a0b2ac94a5f2"
+  },
+  "cultural-day-group": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.54 PM.jpeg",
+    "md5": "99023328f6bd8a6b234a05a2d7bde93c"
+  },
+  "cultural-day-pupils": {
+    "source": "Events/cultural day.jpeg",
+    "md5": "13b51633e9b14c44e194c964e2f9035b"
+  },
+  "carol-service": {
+    "source": "Events/carol.jpeg",
+    "md5": "d2e315874ed7db67bf3fecbc0a81ce8b"
+  },
+  "nursery-classroom": {
+    "source": "Events/NURS.jpg",
+    "md5": "98a34f687ae26780d33a2f2988473f1d"
+  },
+  "nursery-graduation": {
+    "source": "Events/WhatsApp Image 2026-09-10 at 5.38.54 PM (2).jpeg",
+    "md5": "4f5ea553dce70f0ae3536e73ca1ca0bb"
+  },
+  "excursion-stadium-group": {
+    "source": "Events/excursions  (2).jpg",
+    "md5": "2a89539707ec9a4319e4e2e68dbcd46c"
+  },
+  "excursion-ball-court": {
+    "source": "Events/excursions  (1).jpg",
+    "md5": "812aeba279e094251efe43b134ce6779"
+  },
+  "excursion-sports-court": {
+    "source": "Events/excursions  (3).jpg",
+    "md5": "2e3ba85eb9b8044d9e89388a119d8f80"
+  },
+  "excursion-horse": {
+    "source": "Events/excursions  (5).jpg",
+    "md5": "26c1550a43d340401a8feca74f551a29"
+  },
+  "excursion-poolside": {
+    "source": "Events/excursions  (7).jpg",
+    "md5": "3e1ea629f52969269ccf9a2f1df49a5f"
+  },
+  "excursion-shade": {
+    "source": "Events/DSC_3240.jpg",
+    "md5": "7df026617cb413d6a897bce65e81b969"
+  },
+  "excursion-refreshment": {
+    "source": "Events/DSC_3300.jpg",
+    "md5": "9400952c8f67150a0e1f85e0ea9a5d66"
+  },
+  "excursion-fish-pond": {
+    "source": "Events/DSC_3324.jpg",
+    "md5": "ee19223c508e7a6b701841a6f7d291ca"
+  },
+  "excursion-fountain-rest": {
+    "source": "Events/DSC_3418.jpg",
+    "md5": "8381086c3f08decdbd0408b27d95532c"
+  },
+  "pupils-uniform-pair": {
+    "source": "Events/students.JPG",
+    "md5": "3313ae71233784fa84fb8a2e5316fcc1"
+  },
+  "nursery-benches": {
+    "source": "Events/extracurricular activities.JPG",
+    "md5": "ead171c74fbe8df11a2580cb91ac94ac"
+  },
+  "christmas-soloist": {
+    "source": "Events/IMG130.jpg",
+    "md5": "ece551576506c3eaae2fdda937244491"
+  }
+}

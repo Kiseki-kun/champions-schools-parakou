@@ -1,0 +1,134 @@
+# about — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: about
+title: Former des champions. Façonner leur avenir.
+lead: 'Champions Schools a été fondée en 2009 à Parakou, en République du Bénin, avec une conviction
+  simple mais profonde : l’éducation doit former l’enfant tout entier.'
+hero:
+  image: assembly
+  focus: 50% 40%
+  social: hero-nursery-gate
+  eyebrow: À propos de l’école
+blocks:
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: Notre identité
+  title: Une institution façonnée par l’expérience, renforcée par ses résultats
+  body:
+  - Née de l’expérience des fondateurs dans l’éducation et dans leur vocation missionnaire chrétienne,
+    l’école a démarré avec l’ambition d’offrir un environnement où les enfants reçoivent une base
+    académique solide tout en développant leur caractère, leur confiance, leur discipline et le sens
+    du but.
+  - 'Depuis ses débuts, Champions Schools se distingue par son approche bilingue de l’éducation
+    : elle donne aux élèves les moyens de maîtriser l’anglais et le français et les prépare à évoluer
+    avec assurance dans des environnements académiques nationaux et internationaux.'
+  - Au fil des années, cette vision est devenue une communauté éducative vivante qui accueille des
+    élèves de la maternelle, du primaire et du collège, avec un internat et un cadre d’apprentissage
+    conçu pour soutenir le développement académique et personnel.
+  - Nous ne préparons pas seulement les élèves aux examens. Nous les préparons à la vie.
+- type: feature
+  side: left
+  image: excursion-friends
+  focus: 50% 40%
+  eyebrow: Notre histoire
+  title: D’une vision à une communauté éducative grandissante
+  body:
+  - En 2009, Champions Schools ouvrait ses portes à Parakou. L’idée est née du désir d’unir l’expérience
+    éducative des fondateurs et leur vocation missionnaire chrétienne, pour créer une école où l’apprentissage,
+    le caractère et le sens de la vie se développent ensemble.
+  - L’une de nos premières décisions distinctives a été d’adopter l’éducation bilingue, donnant aux
+    élèves accès aux systèmes d’apprentissage anglais et français. Nos élèves peuvent ainsi communiquer
+    par-delà les frontières linguistiques et culturelles, tout en ouvrant la voie aux examens nationaux
+    comme internationaux.
+  - Nous avons aussi reconnu très tôt que l’éducation doit dépasser l’instruction académique. Les
+    valeurs chrétiennes et la formation du caractère font partie intégrante de la vie scolaire et
+    encouragent les élèves à développer l’intégrité, le sens des responsabilités, la compassion et
+    le respect d’autrui.
+  cta:
+    label: Message des fondateurs
+    page: founders
+- type: index
+  tone: tint
+  eyebrow: Notre mission
+  title: Éduquer, équiper, donner les moyens d’agir
+  intro: 'Nous offrons une éducation de qualité, globale et fondée sur des valeurs, qui donne à chaque
+    élève les connaissances, les compétences, le caractère et la confiance nécessaires pour s’épanouir
+    dans un monde en mouvement. Nous nous engageons à :'
+  items:
+  - index: '01'
+    name: Excellence académique
+    body: Dispenser un enseignement exigeant et pertinent qui permet aux élèves d’obtenir de solides
+      résultats et de développer le goût d’apprendre tout au long de leur vie.
+  - index: '02'
+    name: Compétence bilingue
+    body: Former des locuteurs sûrs d’eux en anglais et en français, capables de communiquer efficacement
+      et de s’engager dans un monde toujours plus connecté.
+  - index: '03'
+    name: Caractère et valeurs
+    body: Cultiver l’intégrité, la discipline, le sens des responsabilités, la compassion et le respect,
+      fondements d’une citoyenneté et d’un leadership responsables.
+  - index: '04'
+    name: Technologie et innovation
+    body: Initier les élèves aux technologies et aux outils numériques qui élargissent leur façon
+      d’apprendre, de créer, de communiquer et de résoudre des problèmes.
+  - index: '05'
+    name: Apprentissage par l’expérience
+    body: Emmener l’éducation au-delà des manuels, par des sorties, des compétitions, des travaux
+      pratiques, des projets et des expériences concrètes.
+  - index: '06'
+    name: Leadership et sens du but
+    body: Créer des occasions pour que les élèves découvrent leurs capacités, prennent des responsabilités
+      et gagnent la confiance nécessaire pour influencer positivement leur communauté.
+- type: feature
+  side: right
+  image: hero-bilingual-lesson
+  focus: 50% 36%
+  eyebrow: Notre approche
+  title: Deux langues, dès le départ
+  body:
+  - Notre programme académique propose un cursus d’immersion bilingue entièrement intégré, en anglais
+    et en français. Nous répartissons le temps d’enseignement de façon à assurer l’aisance et la
+    maîtrise académique dans les deux langues.
+  - Les élèves sont encouragés à explorer, créer, concourir, collaborer et découvrir le monde qui
+    les entoure. Des sorties éducatives à l’apprentissage par la technologie, des compétitions académiques
+    aux activités parascolaires, nous croyons qu’une éducation qui a du sens se joue dans la salle
+    de classe et au-delà.
+  cta:
+    label: Voir le programme
+    page: academics
+- type: prose
+  tone: deep
+  measure: wide
+  eyebrow: Notre vision
+  title: Élever une génération de champions
+  body:
+  - Notre vision est de devenir un centre de référence en matière d’excellence académique, de formation
+    du caractère et d’éducation innovante, en élevant une génération de jeunes gens confiants, compétents
+    et bienveillants, capables d’avoir un impact réel dans leur communauté et dans le monde.
+  - Nous imaginons un diplômé de Champions instruit, doté d’une base académique solide. Bilingue,
+    capable de communiquer avec assurance d’une langue et d’une culture à l’autre. À l’aise avec
+    la technologie, préparé aux exigences du monde moderne. Intègre, guidé par la discipline et des
+    valeurs sûres.
+  - Créatif, curieux et prêt à explorer des idées nouvelles. Confiant, capable d’exprimer ses idées,
+    d’affronter les difficultés et de saisir les occasions. Un leader, préparé non seulement à réussir
+    personnellement, mais à entraîner les autres.
+  - Nous imaginons une communauté où l’éducation construit le caractère, où la curiosité nourrit
+    l’apprentissage, où l’excellence devient une habitude et où chaque enfant a les moyens de devenir
+    un champion à sa manière.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Venez visiter l’école
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle
+    de l’école.
+  primary:
+    label: Demander une inscription
+    page: admissions
+  secondary:
+    label: Notre direction
+    page: leadership
+  image: graduation-group

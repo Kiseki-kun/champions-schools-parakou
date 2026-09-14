@@ -1,0 +1,108 @@
+---
+import { FOOTER_NAV, pathFor, type Locale, type PageKey } from '../../i18n/routes';
+import { navLabel, telHref, type SiteData } from '../../i18n/ui';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import Icon from '../ui/Icon.astro';
+import SchoolImage from '../media/SchoolImage.astro';
+interface Props { site: SiteData; locale: Locale; current: PageKey }
+const { site, locale, current } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container container--wide footer__grid">
+    <div class="footer__col footer__col--brand">
+      {/* The school's supplied emblem, used exactly as delivered. It arrives
+          on its own light ground, so it is seated on a pale plate rather than
+          knocked out — the artwork itself is never altered. Decorative: the
+          school's name is printed as text directly beneath it. */}
+      <div class="footer__emblem">
+        <SchoolImage id="footer-emblem" locale={locale} widths={[180, 320]} sizes="150px" />
+      </div>
+      <p class="footer__name">{site.schoolName}</p>
+      <hr class="rule-gold footer__rule" />
+      <p class="footer__motto">{site.motto}</p>
+      <p class="footer__tagline">{site.tagline}</p>
+    </div>
+
+    <nav class="footer__col" aria-label={site.ui.footerExplore}>
+      <h2 class="footer__head">{site.ui.footerExplore}</h2>
+      <ul role="list" class="footer__list">
+        {FOOTER_NAV.map((key) => (
+          <li>
+            <a href={pathFor(key, locale)}
+               aria-current={current === key ? 'page' : undefined}>{navLabel(site, key)}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="footer__col">
+      <h2 class="footer__head">{site.ui.footerContact}</h2>
+      <ul role="list" class="footer__list">
+        <li class="footer__with-icon"><Icon name="pin" size={18} /><span>{site.address}</span></li>
+        {site.phones.map((p) => (
+          <li class="footer__with-icon"><Icon name="phone" size={18} /><a href={telHref(p)}>{p}</a></li>
+        ))}
+        <li class="footer__with-icon"><Icon name="mail" size={18} /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h2 class="footer__head">{site.ui.footerLevels}</h2>
+      <p class="footer__levels">{site.ui.levelsSummary}</p>
+    </div>
+  </div>
+
+  <div class="container container--wide footer__bottom">
+    {/* Repeats the header's switcher; the landmark lives there. */}
+    <LanguageSwitcher pageKey={current} locale={locale} label={site.ui.languageLabel} tone="dark" landmark={false} />
+    {/* Privacy is reached only from here, so this is where it is marked. */}
+    <a href={pathFor('privacy', locale)}
+       aria-current={current === 'privacy' ? 'page' : undefined}>{navLabel(site, 'privacy')}</a>
+    <span class="footer__copy">© {year} {site.schoolName}</span>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--blue-900); color: var(--blue-200); padding-block: var(--space-9) var(--space-6); margin-top: auto; }
+  .footer__grid { display: grid; gap: var(--space-7); grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .footer__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .footer__grid { grid-template-columns: 1.4fr 1fr 1.3fr 1fr; } }
+  .footer__emblem {
+    width: 132px; margin-bottom: var(--space-5);
+    background: #F7F7F5;
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+  }
+  .footer__emblem :global(img) { width: 100%; height: auto; border-radius: var(--radius-sm); }
+  @media (max-width: 560px) { .footer__emblem { width: 112px; } }
+
+  .footer__name { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: var(--paper); }
+  .footer__rule { margin-block: var(--space-3); }
+  .footer__motto { color: var(--gold-300); font-size: var(--fs-small); font-weight: 600; letter-spacing: .04em; }
+  .footer__tagline { font-size: var(--fs-small); margin-top: var(--space-2); }
+  .footer__head { font-size: var(--fs-micro); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--paper); margin-bottom: var(--space-4); font-family: var(--font-text); }
+  .footer__list { display: grid; gap: 2px; font-size: var(--fs-small); }
+  /* The icon sits with the FIRST line of its row, not the middle of it — the
+     address runs to two lines at phone widths. The offset centres it on that
+     line inside the row's 30px target box. */
+  .footer__with-icon { display: flex; gap: 9px; align-items: flex-start; }
+  .footer__with-icon :global(.icon) { margin-top: 6px; }
+  /* Footer links were 17px tall — the smallest targets on the site, and on a
+     phone the ones a parent reaches for to call or write. The row rhythm is
+     kept by moving the list's 12px gap into the links themselves, so each one
+     is a 30px target that meets its neighbour instead of a thin line with dead
+     space around it. */
+  .footer a {
+    display: inline-flex; align-items: center; min-height: 30px;
+    color: var(--blue-200); text-decoration: none;
+  }
+  .footer a:hover { color: var(--gold-300); text-decoration: underline; }
+  .footer__levels { font-size: var(--fs-small); }
+  .footer__bottom {
+    display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-5);
+    margin-top: var(--space-8); padding-top: var(--space-5);
+    border-top: 1px solid rgba(255,255,255,.14); font-size: var(--fs-small);
+  }
+  .footer__copy { margin-left: auto; }
+</style>

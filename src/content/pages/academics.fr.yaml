@@ -1,0 +1,145 @@
+# academics — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: academics
+title: Grandir ensemble
+lead: Bienvenue dans un monde sans frontières. Notre programme académique propose un cursus d’immersion
+  bilingue entièrement intégré, en anglais et en français.
+hero:
+  image: hero-classroom-focus
+  focus: 50% 46%
+  eyebrow: Programme académique
+blocks:
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: Notre programme
+  title: Notre programme académique bilingue
+  body:
+  - Nous préparons les jeunes apprenants à penser, communiquer et s’épanouir dans deux langues, tout
+    en cultivant une véritable ouverture aux cultures du monde.
+  - 'Champions Schools se distingue par son approche bilingue depuis ses débuts : elle donne aux
+    élèves accès aux systèmes d’apprentissage anglais et français. Nos élèves peuvent ainsi communiquer
+    par-delà les frontières linguistiques et culturelles, tout en ouvrant la voie aux examens nationaux
+    comme internationaux.'
+- type: feature
+  side: left
+  image: hero-bilingual-lesson
+  focus: 50% 36%
+  eyebrow: Notre modèle d’immersion
+  title: Nous répartissons le temps d’enseignement pour assurer l’aisance et la maîtrise académique
+    dans les deux langues
+  body:
+  - Ici, les deux langues ne sont pas deux matières. Ce sont les deux langues dans lesquelles la
+    journée de classe se déroule, en alternance sur l’ensemble du curriculum fondamental.
+  points:
+  - title: L’approche 50/50
+    body: 'Les matières fondamentales sont réparties à parts égales entre les deux langues : votre
+      enfant étudiera les mathématiques en français un jour et les sciences en anglais le lendemain,
+      ce qui développe une véritable souplesse cognitive.'
+  - title: Des enseignants natifs
+    body: Toutes les classes sont co-animées ou dirigées par des locuteurs natifs de l’anglais et
+      du français, ce qui apporte une prononciation authentique et un contexte culturel réel.
+  - title: La confiance du translanguaging
+    body: Les élèves apprennent à passer d’une langue à l’autre sans effort, développant ainsi la
+      résolution de problèmes et l’esprit critique.
+- type: index
+  tone: tint
+  eyebrow: Nos niveaux
+  title: De la maternelle au collège
+  intro: Champions Schools accueille les élèves de la maternelle au collège, avec un internat.
+  items:
+  - index: '01'
+    name: Maternelle
+    meta: Maternelle 1 au 3 · Nursery 1 – 3
+    body: Les trois années de maternelle, et les journées les plus courtes de l’école.
+    asideLabel: Horaires
+    aside: 7h30 – 14h30
+  - index: '02'
+    name: Primaire
+    meta: CI au CM2 · Primary 1 – 6
+    body: Six années au cours desquelles se déploie le programme d’immersion bilingue, matière par
+      matière.
+    asideLabel: Horaires
+    aside: 7h30 – 15h30
+  - index: '03'
+    name: Collège
+    meta: 6ème au 3ème · JSS 1 – SS 1
+    body: Les années de collège, jusqu’au BEPC, et les journées les plus longues de l’école.
+    asideLabel: Horaires
+    aside: 7h00 – 16h00
+- type: index
+  tone: paper
+  eyebrow: Le curriculum fondamental
+  title: Les matières fondamentales
+  intro: Les matières fondamentales, enseignées selon deux parcours. Le parcours français est conforme
+    aux programmes officiels.
+  items:
+  - index: '01'
+    name: Literacy & Phonics
+    meta: Parcours anglais
+    body: Former des lecteurs à l’aise et des rédacteurs expressifs, par des programmes complets
+      de phonétique, la création de récits et la prise de parole en public.
+  - index: '02'
+    name: STEM & Inquiry Science
+    meta: Parcours anglais
+    body: Encourager l’exploration concrète, les défis de conception technique et le raisonnement
+      scientifique.
+  - index: '03'
+    name: Maîtrise de la langue
+    meta: Parcours français
+    body: Développer une grande justesse grammaticale, enrichir le vocabulaire et structurer l’écrit
+      en français.
+  - index: '04'
+    name: Mathématiques & logique
+    meta: Parcours français
+    body: Enseigner le calcul, la géométrie et le raisonnement logique par les méthodes éprouvées
+      du curriculum français.
+  - index: '05'
+    name: Histoire & géographie
+    meta: Parcours français
+    body: Explorer le patrimoine culturel, la conscience civique et la géographie du monde.
+- type: feature
+  side: right
+  image: practical-tie-dye
+  focus: 50% 45%
+  eyebrow: Matières d’éveil et enrichissement
+  title: Une éducation complète dépasse la salle de classe traditionnelle
+  body:
+  - Nos matières spécialisées sont enseignées indifféremment dans les deux langues.
+  points:
+  - title: Les arts visuels · The Arts
+    body: Développer l’expression de soi par la peinture, la sculpture et l’étude de l’histoire de
+      l’art mondial.
+  - title: Musique · Music & Performance
+    body: Affiner le sens auditif et la mémoire par le chant choral bilingue et les exercices de
+      rythme.
+  - title: Éducation physique et sportive
+    body: Favoriser la coordination, le travail en équipe et de saines habitudes de vie par le jeu
+      actif et le sport.
+- type: prose
+  measure: wide
+  tone: deep
+  eyebrow: Développement global de l’enfant
+  title: Épanouissement global
+  body:
+  - 'L’apprentissage des langues est profondément lié à la croissance affective. Notre programme
+    intégré cultive l’empathie culturelle : célébrer la diversité des perspectives, les traditions
+    internationales et la citoyenneté mondiale.'
+  - 'Et l’apprentissage socio-affectif : la pleine conscience, la régulation des émotions et la
+    résolution constructive des conflits entre pairs.'
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Inscrire votre enfant
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle
+    de l’école.
+  primary:
+    label: Demander une inscription
+    page: admissions
+  secondary:
+    label: Calendrier et horaires
+    page: calendar
+  image: computer-lab

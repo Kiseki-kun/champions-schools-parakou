@@ -1,0 +1,134 @@
+# gallery — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+#
+# REDESIGNED 13 September 2026 (final). Every photograph in 02-School-Assets/Events
+# is published exactly once, and every one of them opens in the full-screen viewer.
+# The page is four uniform photograph grids — two columns on a phone, three on a
+# tablet, four on a desktop, every cell square and equal — and nothing else. The
+# earlier full-bleed figures and mosaics were removed so that no photograph is
+# given more weight than another; their photographs moved into the grids below,
+# so the page still carries all 52 and still repeats none. See PageBlocks.astro.
+
+locale: en
+page: gallery
+title: Photographs of school life
+lead: The conceptual images of the future campus are kept on their own page, where they are
+  labelled as concepts.
+hero:
+  image: assembly
+  focus: 50% 40%
+  social: students-excursion
+  eyebrow: Gallery
+blocks:
+- type: jump
+  label: Jump to
+  items:
+  - label: Around the school
+    anchor: g-class
+  - label: Journée Sportive 2026
+    anchor: g-sport
+  - label: Ceremonies
+    anchor: g-ceremony
+  - label: Excursions
+    anchor: g-excursion
+- type: album
+  anchor: g-class
+  eyebrow: The school day
+  title: Around the school
+  body:
+  - Lessons in both languages, the computer room, a practical class, the nursery, the uniform,
+    and the people who make up the school.
+  tone: paper
+  lightbox: true
+  images:
+  - hero-bilingual-lesson
+  - hero-classroom-focus
+  - computer-lab
+  - practical-tie-dye
+  - hero-nursery-gate
+  - nursery-classroom
+  - nursery-benches
+  - pupils-uniform-pair
+  - college-group
+  - staff-group
+- type: album
+  anchor: g-sport
+  eyebrow: Journée Sportive 2026
+  title: The inter-house sports competition
+  body:
+  - The whole of the school’s 2026 inter-house sports day, as the school photographed it.
+  tone: tint
+  lightbox: true
+  images:
+  - sports-2026-assembly
+  - sports-2026-ground
+  - sports-day-houses
+  - sports-2026-green-lineup
+  - sports-2026-orange-lineup
+  - sports-2026-blue-lineup
+  - sports-2026-pink-lineup
+  - sports-2026-pink-team
+  - sports-2026-guests
+  - sports-2026-officials
+  - sports-2026-prize-table
+  - sports-2026-cup-presented
+  - sports-2026-cup-held
+  - sports-2026-trophy-raised
+- type: album
+  anchor: g-ceremony
+  eyebrow: Through the year
+  title: Ceremonies and celebrations
+  body:
+  - Graduations, prize-givings, the Christmas celebration, the carol service and cultural day.
+  tone: paper
+  lightbox: true
+  images:
+  - nursery-graduation
+  - hero-graduation
+  - graduation-group
+  - year-end-prize-nursery
+  - year-end-prize-primary
+  - year-end-prize-college
+  - awards-presentation
+  - year-end-performance
+  - year-end-choir
+  - christmas-soloist
+  - carol-service
+  - cultural-day-group
+  - cultural-day-pupils
+- type: album
+  anchor: g-excursion
+  eyebrow: Beyond the classroom
+  title: Excursions and visits
+  body:
+  - Stadiums, sports courts, gardens and guided visits.
+  tone: tint
+  lightbox: true
+  images:
+  - excursion-stadium-group
+  - excursion-ball-court
+  - excursion-sports-court
+  - excursion-poolside
+  - excursion-horse
+  - excursion-shade
+  - excursion-refreshment
+  - excursion-fish-pond
+  - excursion-fountain
+  - excursion-fountain-rest
+  - excursion-sculpture
+  - excursion-sculpture-ride
+  - hero-demonstration
+  - excursion-friends
+  - students-excursion
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Come and see it in person
+  body: Write or call. Enquiries reach the school’s official email address.
+  primary:
+    label: Request admission
+    page: admissions
+  secondary:
+    label: School life
+    page: school-life

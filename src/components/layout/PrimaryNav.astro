@@ -1,0 +1,85 @@
+---
+import { PRIMARY_NAV, pathFor, type Locale, type PageKey } from '../../i18n/routes';
+import { navLabel, type SiteData } from '../../i18n/ui';
+import Icon from '../ui/Icon.astro';
+/** `current` is null on a page that is not a route (404): nothing is marked. */
+interface Props { site: SiteData; locale: Locale; current: PageKey | null }
+const { site, locale, current } = Astro.props;
+const isActive = (key: PageKey, children?: PageKey[]) =>
+  current !== null && (current === key || (children?.includes(current) ?? false));
+---
+<nav class="pnav" aria-label={site.ui.mainNav}>
+  <ul role="list">
+    {PRIMARY_NAV.map(({ key, children }) => (
+      <li class="pnav__item">
+        {children ? (
+          <div class="pnav__group">
+            <a href={pathFor(key, locale)}
+               class:list={['pnav__link', isActive(key, children) && 'is-active']}
+               aria-current={current === key ? 'page' : undefined}>{navLabel(site, key)}</a>
+            {/* aria-expanded alone tells a screen-reader user that something
+                opened, but not what. aria-controls names the list, so the
+                relationship is announced and the menu can be reached. */}
+            <button type="button" class="pnav__toggle" aria-expanded="false"
+                    aria-controls={`pnav-${key}`}
+                    aria-label={`${navLabel(site, key)} — ${site.ui.menu}`}>
+              <Icon name="chevron" size={18} />
+            </button>
+            <ul class="pnav__submenu" role="list" id={`pnav-${key}`} hidden>
+              {children.map((c) => (
+                <li>
+                  <a href={pathFor(c, locale)}
+                     aria-current={current === c ? 'page' : undefined}>{navLabel(site, c)}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <a href={pathFor(key, locale)}
+             class:list={['pnav__link', isActive(key) && 'is-active']}
+             aria-current={current === key ? 'page' : undefined}>{navLabel(site, key)}</a>
+        )}
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .pnav > ul { display: flex; align-items: center; gap: clamp(10px, 1.6vw, 28px); }
+  .pnav__item { position: relative; }
+  .pnav__group { display: flex; align-items: center; gap: 2px; }
+  .pnav__link {
+    position: relative; display: inline-block; padding: 8px 0;
+    color: var(--ink); text-decoration: none;
+    font-size: var(--fs-small); font-weight: 550; white-space: nowrap;
+  }
+  /* The paper header had no hover affordance at all — only the overlay header
+     on the homepage did. A primary navigation has to answer the pointer. */
+  .pnav__link:hover { color: var(--blue-700); }
+  .pnav__link.is-active { color: var(--blue-700); font-weight: 650; }
+  /* Active state carries colour, weight AND a rule — never colour alone. */
+  .pnav__link.is-active::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 3px; background: var(--gold-300);
+  }
+  .pnav__toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 44px; background: none; border: 0;
+    color: var(--n-700); cursor: pointer;
+  }
+  .pnav__toggle[aria-expanded="true"] :global(.icon) { transform: rotate(180deg); }
+  .pnav__toggle :global(.icon) { transition: transform var(--dur-fast) var(--ease-standard); }
+  .pnav__submenu {
+    position: absolute; top: calc(100% + 10px); left: -12px; z-index: 60;
+    min-width: 230px; padding: var(--space-2);
+    background: var(--paper); border: 1px solid var(--n-200);
+    border-radius: var(--radius-md); box-shadow: var(--shadow-2);
+  }
+  .pnav__submenu a {
+    display: block; padding: 11px 12px; min-height: 44px;
+    color: var(--ink); text-decoration: none; font-size: var(--fs-small);
+    border-radius: var(--radius-sm);
+  }
+  .pnav__submenu a:hover { background: var(--blue-50); color: var(--blue-700); }
+  .pnav__submenu a[aria-current="page"] { color: var(--blue-700); font-weight: 650; }
+</style>

@@ -1,0 +1,116 @@
+# achievements — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: achievements
+title: Les résultats parlent d’eux-mêmes.
+lead: Un palmarès académique qui grandit, et ce que les parents en disent.
+hero:
+  image: awards-presentation
+  focus: 50% 40%
+  eyebrow: Distinctions
+blocks:
+- type: stats
+  eyebrow: Notre palmarès
+  title: Résultats et distinctions
+  items:
+  - value: 100 %
+    label: Réussite au CEP
+    detail: 2023 · 2025 · 2026
+  - value: 100 %
+    label: Réussite au BEPC
+    detail: '2026'
+  - value: '2024'
+    label: English Challenge
+    detail: Vainqueur du championnat
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: Ce qu’il y a derrière les chiffres
+  title: Une institution façonnée par l’expérience, renforcée par ses résultats
+  body:
+  - Champions Schools a bâti un palmarès académique qui ne cesse de grandir, avec de solides résultats
+    aux examens du CEP et du BEPC, tandis que nos élèves se sont distingués dans des compétitions
+    comme l’English Challenge Championship.
+  - Nous saisissons également les occasions de contribuer à la vie de la communauté, notamment par
+    notre participation aux programmes de sensibilisation au cancer de la Pink Foundation.
+- type: feature
+  side: left
+  image: graduation-group
+  focus: 50% 40%
+  eyebrow: De Champions au niveau suivant
+  title: Les résultats les accompagnent.
+  body:
+  - Nos élèves emportent avec eux leur expérience de Champions, où que leur parcours scolaire les
+    mène.
+  - Qu’il s’agisse de passer à un autre curriculum, de partir dans un nouveau pays, de se présenter
+    à des examens d’entrée sélectifs ou simplement de communiquer avec plus d’assurance, nous sommes
+    fiers de voir nos élèves réussir au-delà des murs de notre école.
+  - Car la meilleure preuve d’une base solide, c’est ce qui arrive quand l’élève construit dessus.
+- type: index
+  tone: tint
+  variant: quotes
+  eyebrow: Ce que disent les parents
+  title: Six parents, dans leurs propres mots
+  intro: Témoignages recueillis en anglais et traduits.
+  items:
+  - index: '01'
+    name: « Mon enfant n’a pas seulement appris le français. Elle l’a maîtrisé. »
+    body: Ce qui m’a le plus impressionnée, c’est de voir à quel point mon enfant a fini par réussir
+      dans le programme français. Ce qui rend la chose plus remarquable encore, c’est qu’elle apprenait
+      l’anglais et le français depuis le début. À son départ de Champions, ses résultats dans le
+      programme français étaient excellents, même comparés à ceux d’élèves qui n’avaient suivi qu’un
+      cursus francophone. Cela m’a montré que le système bilingue fonctionne vraiment.
+    meta: Mama Hikmah — parent d’une ancienne élève de Champions Schools
+  - index: '02'
+    name: « La transition vers le Nigeria a été bien plus facile que prévu. »
+    body: Lorsque notre enfant a poursuivi sa scolarité au Nigeria, nous craignions au départ ses
+      résultats aux examens d’entrée. Ces inquiétudes ont vite disparu. Elle a très bien réussi,
+      obtenant jusqu’à 100 % à certaines épreuves. Il était rassurant de constater que l’éducation
+      reçue à Champions l’avait préparée à rivaliser avec assurance dans un autre environnement académique.
+    meta: Mama Purity — parent d’une ancienne élève de Champions Schools
+  - index: '03'
+    name: « J’ai vu mon enfant prendre confiance en anglais. »
+    body: Quand mon enfant est arrivé à Champions, l’anglais n’était pas la langue dans laquelle
+      il s’exprimait le plus à l’aise. Mais avec les échanges quotidiens entre élèves, les activités
+      en classe et une exposition constante à l’anglais, nous avons vu une transformation remarquable.
+      Il a gagné en assurance et s’est mis à parler anglais naturellement. C’est l’un des changements
+      que nous avons le plus appréciés durant son passage à l’école.
+    meta: Papa Samad — parent d’un élève de Champions Schools
+  - index: '04'
+    name: « Deux cursus, une éducation complète. »
+    body: Au début, je me demandais si suivre à la fois les programmes anglais et français ne serait
+      pas trop exigeant pour mon enfant. Mais Champions nous a montré que cela pouvait devenir un
+      atout. Les enfants apprennent très tôt à passer d’une langue et d’un système académique à l’autre.
+      Les voir manier les deux avec autant d’aisance a été l’un des aspects les plus gratifiants
+      de cette expérience.
+    meta: Papa Gift — parent d’un élève de Champions Schools
+  - index: '05'
+    name: « Champions a préparé mon enfant au-delà de la salle de classe. »
+    body: Ce que j’apprécie à Champions, c’est que l’objectif n’est pas seulement de boucler le programme.
+      Mon enfant a développé sa confiance, sa capacité à communiquer et à s’adapter. Quand est venu
+      le moment de poursuivre ses études ailleurs, elle a pu entrer dans un nouvel environnement
+      académique et y réussir remarquablement. Cela nous a donné une grande confiance dans les bases
+      qu’elle a reçues.
+    meta: Mama Chibuike — parent d’une ancienne élève de Champions Schools
+  - index: '06'
+    name: « La transformation en anglais a été remarquable. »
+    body: Le changement dans les capacités en anglais de mon enfant, nous l’avons vu très nettement.
+      Par les échanges en classe et la communication constante avec les autres élèves, l’anglais
+      est peu à peu entré dans la vie de tous les jours. La confiance a suivi. Aujourd’hui, mon enfant
+      exprime ses idées et communique en anglais bien plus librement qu’à son arrivée.
+    meta: Mama Aisha — parent d’un élève de Champions Schools
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Inscrire votre enfant
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle
+    de l’école.
+  primary:
+    label: Demander une inscription
+    page: admissions
+  secondary:
+    label: Le programme académique
+    page: academics
+  image: students-excursion

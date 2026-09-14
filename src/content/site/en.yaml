@@ -1,0 +1,104 @@
+locale: en
+schoolName: Champions Schools Parakou
+motto: Godliness, Excellence, Leadership
+tagline: A bilingual school in Parakou, Benin — since 2009
+address: Vers rond point la vie, Sinagourou, Parakou, Benin Republic
+phones:
+  - "+229 0168064334"
+  - "+229 0166555087"
+# The school's PREFERRED PRIMARY CONTACT NUMBER, confirmed 13 September 2026,
+# and registered on WhatsApp. Every contact control on the site uses it: the
+# header's utility bar and drawer, the sticky mobile action bar, and the
+# homepage admissions invitation's Call and WhatsApp buttons. It is one of the
+# two numbers the school supplied — deliberately the second, not phones[0].
+# (The field is named for the header, which is where it started on
+# 12 September 2026; it has since become the primary line.)
+# Everything else that LISTS numbers — the footer, the contact page, the
+# structured data — still publishes BOTH, in the order above. Changing this
+# does not change those, and must not.
+headerPhone: "+229 0166555087"
+email: Championsschoolpkou22@gmail.com
+
+nav:
+  home: Home
+  about: About
+  founders: Founders’ Message
+  leadership: Leadership
+  academics: Academics
+  admissions: Admissions
+  calendar: Calendar & Hours
+  school-life: School Life
+  gallery: Gallery
+  achievements: Achievements
+  future-campus: Future Campus
+  contact: Contact
+  privacy: Privacy
+
+pageTitles:
+  home: Champions Schools Parakou — A Bilingual School in Parakou
+  about: About Champions Schools Parakou
+  founders: Founders’ Message
+  leadership: School Leadership
+  academics: Bilingual English-French Academic Programme
+  admissions: Admissions
+  calendar: School Calendar & Hours
+  school-life: School Life
+  gallery: Photo Gallery
+  achievements: Results & Achievements
+  future-campus: The Future Campus
+  contact: Contact Us
+  privacy: Privacy Notice
+
+pageDescriptions:
+  home: A bilingual English-French school in Parakou, Benin, since 2009. Nursery, Primary and College.
+  about: The story, mission and vision of Champions Schools Parakou, a bilingual school founded in 2009.
+  founders: A message from the founders of Champions Schools Parakou.
+  leadership: The Head of Sections at Champions Schools Parakou.
+  academics: Our 50/50 bilingual immersion model, the English and French tracks, and the levels we offer.
+  admissions: What to bring and how to reach us to enrol your child.
+  calendar: Our three terms and the daily hours for each section.
+  school-life: Clubs, sport, educational excursions and daily life at Champions Schools Parakou.
+  gallery: Photographs of school life at Champions Schools Parakou.
+  achievements: 100% pass rates at CEP and BEPC, and our other achievements.
+  future-campus: The future campus of Champions Schools Parakou, currently under construction.
+  contact: Address, telephone and email for Champions Schools Parakou.
+  privacy: How we handle the information you send us.
+
+ui:
+  skipToContent: Skip to content
+  menu: Menu
+  breadcrumb: Breadcrumb
+  mainNav: Main navigation
+  closeMenu: Close menu
+  openMenu: Open menu
+  languageLabel: Language
+  switchToOther: Français
+  call: Call
+  viewPhoto: "View photograph"
+  galleryClose: Close
+  galleryPrev: Previous
+  galleryNext: Next
+  galleryRegion: Photograph viewer
+  gallerySections: Jump to
+  whatsapp: WhatsApp
+  emailUs: Email
+  admissionsCta: Enquire about admission
+  discover: Discover
+  learnMore: Learn more
+  backHome: Back to home
+  notFoundTitle: Page not found
+  notFoundBody: The page you are looking for does not exist or has moved.
+  conceptLabel: Future Campus Concept
+  footerExplore: Explore
+  footerContact: Contact
+  footerLevels: Our levels
+  levelsSummary: Nursery · Primary · College
+  requiredField: required
+  formName: Parent’s name
+  formPhone: Telephone
+  formEmail: Email address
+  formLevel: Level of interest
+  formMessage: Your message
+  formSubmit: Send message
+  comingSoon: Content for this page is being prepared.
+  foundationNotice: This page is part of the site structure. Its content is added in a later phase.

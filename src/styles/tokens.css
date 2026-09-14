@@ -1,0 +1,256 @@
+/* ============================================================
+   DESIGN TOKENS — Champions Schools Parakou
+   Transcribed from 03-DESIGN-SYSTEM.md. Colours sampled from
+   the school emblem; every pairing contrast-verified.
+   ============================================================ */
+
+:root {
+  /* ---- Bleu Champion (primary) ---- */
+  --blue-50:  #F2F5FA;
+  --blue-100: #E3EAF5;
+  --blue-200: #C3D3EB;
+  --blue-300: #94B0DC;
+  --blue-400: #5B84C6;
+  --blue-500: #2F5FAE;
+  --blue-600: #1F4C9C;   /* the emblem blue — 7.83 on paper */
+  --blue-700: #193E7E;   /* 9.91 */
+  --blue-800: #142F5F;   /* 12.57 */
+  --blue-900: #0E2141;   /* 15.34 */
+
+  /* ---- Or (gold accent). DECORATIVE on light: 1.34 on paper. ---- */
+  --gold-100: #FEF7E0;
+  --gold-200: #FDEFC0;
+  --gold-300: #FBD75D;   /* text-safe ONLY on blue-800/900 */
+  --gold-500: #E0B01A;
+  /* The only gold usable as text on a light ground. Darkened one step in the
+     Phase 9 polish pass: at #8A6B08 it measured 4.81 on paper but 4.41 on the
+     --n-100 tint, and the index numerals that carry it sit on that tint on the
+     leadership sections. This value clears 4.5 on BOTH grounds (5.26 on paper,
+     4.82 on the tint), so one gold still serves the whole system. */
+  --gold-700: #836507;   /* 5.26 on paper · 4.82 on --n-100 */
+
+  /* ---- Terre (warm accent). DECORATIVE on light: 1.74 on paper. ---- */
+  --terra-100: #FDF0E5;
+  --terra-200: #F9D9BC;
+  --terra-300: #F9B177;
+  --terra-600: #C25E12;  /* large text only — 4.11 */
+  --terra-800: #7A3C0A;  /* 8.12 */
+
+  /* ---- Warm neutrals ---- */
+  --paper: #FBFAF8;
+  --n-100: #F2F0EC;
+  --n-200: #E3E0D9;
+  --n-300: #CBC7BE;      /* 1.62 — decorative dividers ONLY, never a control border */
+  --n-500: #8A8375;      /* 3.61 — minimum for input and control borders */
+  --n-700: #5E5950;      /* 6.66 — secondary text */
+  --n-900: #2B2925;
+  --ink:   #141A22;      /* 16.77 — body text */
+
+  /* ---- Feedback ---- */
+  --success: #1E6B45;
+  --error:   #B3261E;
+  --warning: #8A6B08;
+
+  /* ---- Type ---- */
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-text: "Public Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --fs-display: clamp(2.75rem, 1.6rem + 4.6vw, 4.5rem);
+  /* Homepage art direction (redesign pass). Display type over photography
+     needs more range than the in-page scale; statement type sits between a
+     heading and the hero. */
+  --fs-hero:      clamp(2.5rem, 1.35rem + 4.4vw, 4.75rem);
+  --fs-statement: clamp(1.85rem, 1.15rem + 2.7vw, 3.25rem);
+  /* A step below the statement scale. Informational sections (progression,
+     school life, leadership) use it so the page does not shout throughout. */
+  --fs-section:   clamp(1.55rem, 1.05rem + 1.9vw, 2.4rem);
+  --fs-numeral:   clamp(2.75rem, 1.9rem + 3.1vw, 4.5rem);
+  --fs-h1:      clamp(2.1rem, 1.2rem + 3.6vw, 3.1rem);
+  --fs-h2:      clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  --fs-h3:      clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+  --fs-h4:      clamp(1.1rem, 1.05rem + 0.25vw, 1.25rem);
+  --fs-lead:    clamp(1.15rem, 1.08rem + 0.3vw, 1.35rem);
+  --fs-body:    1.0625rem;   /* 17px */
+  --fs-small:   0.9375rem;
+  --fs-micro:   0.8125rem;
+
+  --lh-display: 1.05;
+  --lh-heading: 1.15;
+  --lh-body: 1.6;
+  --lh-lead: 1.45;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: 4px;   --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 24px;  --space-6: 32px;  --space-7: 40px;  --space-8: 48px;
+  --space-9: 64px;  --space-10: 80px; --space-11: 112px; --space-12: 160px;
+
+  --section-y: clamp(var(--space-8), 6vw, var(--space-11));
+
+  /* ---- Containers ---- */
+  --container-prose: 68ch;
+  --container-default: 1140px;
+  --container-wide: 1360px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  /* ---- Radii ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* ---- Shadows (warm-tinted from --ink, never pure black) ---- */
+  --shadow-1: 0 1px 2px rgba(20,26,34,.06), 0 2px 6px rgba(20,26,34,.05);
+  --shadow-2: 0 4px 10px rgba(20,26,34,.08), 0 12px 24px rgba(20,26,34,.07);
+  --shadow-3: 0 12px 32px rgba(20,26,34,.12), 0 32px 64px rgba(20,26,34,.10);
+
+  /* ---- Motion ---- */
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 260ms;
+  --ease-standard: cubic-bezier(.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(.4, 0, 1, 1);
+
+  /* ---- Layout ---- */
+  --header-height: 84px;
+  --actionbar-height: 64px;
+  /* The MEASURED height of the sticky header, which the utility bar changes at
+     the same breakpoint the desktop navigation appears (77px / 121px). Anything
+     a jump link lands on has to clear it, or the visitor arrives looking at the
+     underside of the header. Kept separate from --header-height, which the
+     homepage hero sentinel is calibrated to. */
+  --sticky-header: 77px;
+
+  /* Photographic scrims. Presentation layer only: a directional darkening that
+     makes overlaid text legible. Never a filter, a grade or a blur — the
+     photograph itself is not altered.
+
+     These stops are SOLVED, not styled. tests/hero-contrast.mjs screenshots
+     each text band twice — words hidden, words shown — to build a glyph mask,
+     reads the raw photograph at exactly the pixels the letters cover, and
+     computes the navy alpha at which the real foreground colour clears its real
+     WCAG bar. Against the five approved frames that requirement came back:
+
+       eyebrow  (13px semibold gold-300, small text → 4.5:1)   0.675 – 0.715
+       headline (fs-hero, 40px minimum, large text → 3:1)      0.425 – 0.485
+       lead     (fs-lead paper at 92%, small text → 4.5:1)     0.640 – 0.655
+       actions / caption / count (small text → 4.5:1)          0.575 – 0.635
+
+     The photographs are blown to near-white behind the words on every frame, so
+     the scrim carries the whole ratio: there is no tuning that keeps the frame
+     open WHERE THE TEXT IS. The gold eyebrow sets the ceiling — gold-300 has
+     less headroom against a lightened ground than paper does.
+
+     Hence two gradients, because the words move. Below 1024 the block runs from
+     12% to 93% of the frame: there is nothing above the text to protect, so the
+     veil is even. From 1024 the block starts at 38%, so the top third stays
+     open and the ramp deepens into it. Each stop clears its measured
+     requirement by ~0.03–0.05, which is the margin that absorbs a future frame
+     brighter than these five.
+
+     ── THE SCRIM COLOUR ────────────────────────────────────────────────────
+     The alphas below are the Phase 9 solution and are unchanged. What changed
+     is the COLOUR they are painted in.
+
+     This was blue-900 (#0E2141), and at these alphas a navy veil does not
+     darken a photograph, it repaints it. Measured across all five frames: the
+     supplied pictures are strongly warm, B−R between −23 and −45, and on screen
+     they were coming out at B−R +30 to +36. A swing of 60 to 78 points, which
+     is why they read as cold and murky rather than dark.
+
+     #221E17 is a warm near-black chosen so the DARKENING IS IDENTICAL and only
+     the hue differs. It is not a lighter scrim: composited over the worst-case
+     grounds actually measured behind the hero glyphs, at every alpha used here,
+     its luminance never exceeds the navy it replaces (worst case −0.13%), so
+     every contrast ratio is preserved or marginally improved. Skin tones and
+     the warmth of the original photography survive it.
+
+     Navy still closes the gradient. Below the hero sits a solid blue-900 band,
+     and the foot of the scrim has to land on it or there is a visible seam — so
+     the hue ramps back to #0E2141 across the last stretch, where the alpha is
+     already 0.86 and above and the photograph is at most 14% of what you see.
+     The navy identity lives in that band, the header, the footer and the gold,
+     not in a tint laid over the school's photographs. */
+  /* RE-SOLVED 12 September 2026, after the hero headline became a five-message
+     block that reserves the height of its longest message. The text column is
+     bottom-anchored, so a taller block lifts the eyebrow: below 1024 it moved
+     from roughly 20% of the hero to 8.5-15.2%, into the lighter top of this
+     gradient, and the 13px gold eyebrow fell to 4.01:1 on frames 4 and 5.
+     Only the 0-20% band changed, and only by the amount the glyph-mask
+     measurement asked for; everything from 45% down is Phase 9's, untouched.
+     0.79 was tried first and measured 4.54:1 — above the bar, but four
+     hundredths above it, which is not a margin. 0.82 measures 4.83:1. */
+  --scrim-hero: linear-gradient(
+    to bottom,
+    rgba(34, 30, 23, 0.82) 0%,
+    rgba(34, 30, 23, 0.82) 12%,
+    rgba(34, 30, 23, 0.78) 20%,
+    rgba(34, 30, 23, 0.74) 45%,
+    rgba(34, 30, 23, 0.86) 75%,
+    rgba(14, 33, 65, 0.96) 100%
+  );
+  /* The ground for the overlay header on the homepage, laid over the hero
+     scrim. Below 1024 the hero scrim alone already carries the header's text —
+     measured requirement for this layer there is 0.00 — so this stays light and
+     the top of the phone frame is not darkened twice. Same warm near-black:
+     this one fades to nothing rather than into a navy band, so it never needs
+     to return to navy at all. */
+  --scrim-top: linear-gradient(
+    to bottom,
+    rgba(34, 30, 23, 0.72) 0%,
+    rgba(34, 30, 23, 0.34) 55%,
+    rgba(34, 30, 23, 0) 100%
+  );
+}
+
+/* From this breakpoint the utility bar joins the sticky header, taking it from
+   77px to 121px. Measured, not estimated — see tests/functional-check.mjs §7. */
+@media (min-width: 1100px) {
+  :root { --sticky-header: 121px; }
+}
+
+/* From this width the hero text sits in the lower two thirds of the frame —
+   the eyebrow lands at 38% on a 1024 screen and 48% on a wide one — so the top
+   third is the only part of the photograph that can be left open, and it is.
+   The 18%→36% ramp is what carries the frame from open to legible; it is spread
+   over four stops rather than two so it reads as a deepening vignette and not
+   as a band edge drawn across the picture. */
+@media (min-width: 1024px) {
+  :root {
+    /* RE-SOLVED 12 September 2026, same cause as the base gradient. From 1024
+       the eyebrow moved from ~41% of the hero to 30.1-32.7% — off the shoulder
+       of the old ramp and into the 0.56 stop, where it measured 3.83:1. The
+       0-18% dip is Phase 9's and is deliberate: it is where the photograph
+       breathes behind the header. Only the ramp between it and 36% moved. */
+    --scrim-hero: linear-gradient(
+      to bottom,
+      rgba(34, 30, 23, 0.60) 0%,
+      rgba(34, 30, 23, 0.36) 18%,
+      rgba(34, 30, 23, 0.70) 26%,
+      rgba(34, 30, 23, 0.82) 33%,
+      rgba(34, 30, 23, 0.80) 40%,
+      rgba(34, 30, 23, 0.77) 58%,
+      rgba(34, 30, 23, 0.87) 80%,
+      rgba(14, 33, 65, 0.96) 100%
+    );
+
+    /* From 1024 the desktop header lands on the open top third of the frame,
+       and the same glyph-mask measurement that solved the hero solved this:
+       over the brightest frames the header layer has to add 0.50 behind the
+       11px gold motto, 0.34 behind the navigation and 0.30 behind the school
+       name — against a gradient that had faded to 0.12 by the motto's line.
+       The motto was reading at 3.06:1.
+
+       So it holds ~0.58 through the whole bar and then fades out over the
+       110px of frame below it (see Header.astro), which is what keeps this from
+       becoming a band drawn across the photograph. Only from 1024: below that
+       the hero scrim already does the work on its own. */
+    --scrim-top: linear-gradient(
+      to bottom,
+      rgba(34, 30, 23, 0.72) 0%,
+      rgba(34, 30, 23, 0.64) 20%,
+      rgba(34, 30, 23, 0.58) 50%,
+      rgba(34, 30, 23, 0.30) 72%,
+      rgba(34, 30, 23, 0) 100%
+    );
+  }
+}

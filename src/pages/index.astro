@@ -1,0 +1,28 @@
+---
+/**
+ * Root. `/` redirects to the default locale.
+ * public/_redirects handles it at the host level; this page is the HTML
+ * fallback for hosts that ignore rule files, so the site behaves correctly
+ * either way.
+ */
+import { DEFAULT_LOCALE, pathFor } from '../i18n/routes';
+const target = pathFor('home', DEFAULT_LOCALE);
+const canonical = new URL(target, Astro.site!).href;
+---
+<!doctype html>
+<html lang={DEFAULT_LOCALE}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Champions Schools Parakou</title>
+  <meta http-equiv="refresh" content={`0; url=${target}`} />
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" href="/icon-32.png" type="image/png" sizes="32x32" />
+  <meta name="robots" content="noindex, follow" />
+</head>
+<body>
+  <p><a href={target}>Champions Schools Parakou — Français</a></p>
+  <p><a href="/en/">Champions Schools Parakou — English</a></p>
+  <script is:inline define:vars={{ target }}>window.location.replace(target);</script>
+</body>
+</html>

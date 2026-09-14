@@ -1,0 +1,70 @@
+# Security response headers.
+#
+# This file is the PROJECT-CONTROLLED half of the site's header posture. It is
+# the `_headers` convention that Netlify and Cloudflare Pages read from the
+# build output — the same family of host this project already targets with
+# `public/_redirects`. A host that does not read this file ignores it
+# harmlessly; the equivalent rules then have to be set in that host's own
+# configuration, and 13-SECURITY.md §12 lists them for that case.
+#
+# Every directive below was verified against the built site, not assumed: each
+# page was loaded with these exact headers applied and checked for CSP
+# violations and console errors. See 13-SECURITY.md §12.
+
+/*
+  # The site loads NOTHING from a third party — no analytics, no tag manager,
+  # no font CDN, no embed, no external script, stylesheet, image or iframe.
+  # 'self' is therefore not a guess; it is the measured truth, which is what
+  # makes a restrictive default worth setting.
+  #
+  # 'unsafe-inline' on script-src: the hero sequence, the sticky-header
+  # sentinel, the mobile drawer and the JSON-LD are inline in the HTML, and a
+  # static site cannot issue a per-request nonce. Hashes would be the stricter
+  # option and would need a build step that rewrites this file on every build;
+  # that machinery is not justified here, because the site has no user input,
+  # no query-driven rendering and no dynamic HTML for an attacker to reach.
+  # What this policy still buys is real: no injected external script, no
+  # framing, no plugin content, no form exfiltration, no <base> rewrite.
+  #
+  # 'unsafe-inline' on style-src: the five hero frames carry their focal point
+  # as an inline custom property (style="--frame-focus: 50% 36%").
+  #
+  # form-action 'none': the site has no <form> anywhere, by a deliberate
+  # decision recorded in Phases 7 and 8 — enquiries go to the school's own
+  # email and telephone. If a form is ever added this MUST become 'self', or
+  # the form will silently fail to submit.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'; manifest-src 'self'
+
+  # Never let a browser second-guess a declared Content-Type.
+  X-Content-Type-Options: nosniff
+
+  # Belt and braces with frame-ancestors, for anything that predates CSP 2.
+  X-Frame-Options: DENY
+
+  # Send the full URL within the site, only the origin to another site, and
+  # nothing at all over an insecure hop.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # A school brochure site needs none of these. Denying them costs nothing and
+  # means an injected script cannot reach for them either.
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), xr-spatial-tracking=()
+
+  # Cross-origin isolation basics. The site serves no resource intended for
+  # another origin to embed.
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+  # HSTS. Two years, subdomains included, preload-eligible.
+  #
+  # NOT YET ACTIVE AND MUST NOT BE, until the real domain is deployed and
+  # serving valid HTTPS: a browser that sees this header remembers it, and on a
+  # domain whose certificate is not yet right that is a self-inflicted outage
+  # nobody can clear from the client side. Uncomment it at deployment, after
+  # confirming HTTPS works on the apex and on every subdomain that will exist.
+  # Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Hashed build assets are immutable by construction — the hash changes when the
+# content does — so they can be cached hard. Content, not security, but it
+# belongs beside the rules above rather than in a second file.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

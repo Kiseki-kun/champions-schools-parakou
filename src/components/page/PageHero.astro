@@ -1,0 +1,121 @@
+---
+/**
+ * INNER-PAGE OPENING — Phase 6.
+ *
+ * Deliberately NOT the homepage hero. The homepage opens on a full viewport of
+ * photography because it has one job: first impression. An inner page opens on
+ * a compact deep band — breadcrumb, title, lead — with the photograph running
+ * off the outer edge beside it. Same vocabulary (deep field, gold rule,
+ * Fraunces title, photograph to the edge), a quieter register, and it puts the
+ * page's own content within reach rather than a screen below the fold.
+ *
+ * Pages with no strong photograph of their own use the type-only variant.
+ */
+import { pathFor, type Locale, type PageKey } from '../../i18n/routes';
+import { navLabel, type SiteData } from '../../i18n/ui';
+import SchoolImage from '../media/SchoolImage.astro';
+
+interface Props {
+  locale: Locale;
+  site: SiteData;
+  pageKey: PageKey;
+  parentKey?: PageKey;
+  title: string;
+  lead: string;
+  eyebrow?: string;
+  image?: string;
+  focus?: string;
+}
+const { locale, site, pageKey, parentKey, title, lead, eyebrow, image, focus } = Astro.props;
+---
+<section class:list={['phero', image && 'phero--photo']} aria-labelledby="page-title">
+  <div class="phero__body">
+    <div class="phero__inner">
+      <nav class="crumbs" aria-label={site.ui.breadcrumb}>
+        <ol role="list">
+          <li><a href={pathFor('home', locale)}>{navLabel(site, 'home')}</a></li>
+          {parentKey && <li><a href={pathFor(parentKey, locale)}>{navLabel(site, parentKey)}</a></li>}
+          <li aria-current="page">{navLabel(site, pageKey)}</li>
+        </ol>
+      </nav>
+
+      {eyebrow && <p class="phero__eyebrow"><span class="phero__tick" aria-hidden="true"></span>{eyebrow}</p>}
+      <h1 id="page-title" class="phero__title">{title}</h1>
+      <p class="phero__lead">{lead}</p>
+    </div>
+  </div>
+
+  {image && (
+    <div class="phero__media" style={focus ? `--focus:${focus}` : undefined}>
+      <SchoolImage id={image} locale={locale} priority loading="eager"
+                   widths={[600, 900, 1300, 1700]} sizes="(min-width: 1024px) 48vw, 100vw" />
+    </div>
+  )}
+</section>
+
+<style>
+  .phero { background: var(--blue-900); color: var(--paper); display: grid; }
+  @media (min-width: 1024px) {
+    .phero--photo { grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); align-items: stretch; }
+  }
+
+  .phero__body { display: flex; align-items: center; }
+  .phero__inner {
+    padding: var(--space-8) var(--gutter) var(--space-9);
+    width: 100%; margin-left: auto;
+    max-width: calc((var(--container-wide) * 0.57) + var(--gutter));
+  }
+  /* The bleed compositions (this band, the feature split, the mosaic, the
+     closing invitation) put their photograph on the outer edge, so their text
+     column is padded by hand rather than by .container. The + var(--gutter)
+     is what makes that hand-padding land on exactly the same x as a
+     .container--wide block — without it the whole site had two left edges on
+     any screen wider than 1360px. */
+  @media (min-width: 1024px) {
+    .phero__body { padding-left: max(var(--gutter), calc((100vw - var(--container-wide)) / 2 + var(--gutter))); }
+    .phero__inner { padding: var(--space-10) var(--space-9) var(--space-10) 0; }
+    .phero:not(.phero--photo) .phero__inner { max-width: var(--container-wide); margin: 0; }
+  }
+
+  .crumbs { font-size: var(--fs-micro); margin-bottom: var(--space-6); }
+  .crumbs ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
+  .crumbs li + li::before { content: "/"; margin-right: 8px; color: var(--blue-300); }
+  .crumbs a { color: var(--blue-200); text-decoration: none; }
+  .crumbs a:hover { color: var(--gold-300); }
+  .crumbs [aria-current="page"] { color: var(--paper); font-weight: 650; }
+
+  .phero__eyebrow {
+    display: flex; align-items: center; gap: var(--space-3);
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-300);
+  }
+  .phero__tick { display: block; width: 34px; height: 2px; flex: 0 0 34px; background: var(--gold-300); }
+
+  .phero__title {
+    margin-top: var(--space-5);
+    font-family: var(--font-display); font-weight: 600;
+    /* A step below the homepage hero: an inner page is not a poster. */
+    font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem);
+    line-height: 1.03; letter-spacing: -0.03em; color: var(--paper);
+    max-width: 17ch; text-wrap: balance;
+  }
+  .phero__lead {
+    margin-top: var(--space-5); max-width: 48ch;
+    font-size: var(--fs-lead); line-height: 1.5; color: var(--blue-200);
+  }
+
+  .phero__media { position: relative; }
+  .phero .phero__media :global(img) {
+    width: 100%; height: auto; aspect-ratio: 16 / 10;
+    object-fit: cover; object-position: var(--focus, 50% 42%); border-radius: 0;
+  }
+  @media (min-width: 1024px) {
+    .phero .phero__media :global(.school-image) { position: absolute; inset: 0; }
+    .phero .phero__media :global(picture) { display: block; height: 100%; }
+    .phero .phero__media :global(img) { height: 100%; aspect-ratio: auto; }
+  }
+
+  /* No gold focus override: the site-wide two-tone ring carries its own
+     paper band, which is what makes it visible on this photograph. A gold
+     ring vanished entirely on the gold call-to-action. */
+</style>

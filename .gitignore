@@ -1,0 +1,39 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Secrets. Nothing in this project reads an environment variable today and no
+# .env file exists — these entries are here so that the day one is created for
+# deployment, it cannot be committed by accident.
+.env
+.env.*
+!.env.example
+
+# Credential material, in the shapes it usually arrives in.
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa
+id_rsa.*
+*-credentials.json
+*service-account*.json
+
+# Local and editor noise that has leaked into repositories before.
+.vscode/
+.idea/
+*.swp
+*~
+*.bak
+
+# Working residue. `_to_delete/` is where files are moved when they are finished
+# with but cannot be removed from here directly; it held a superseded web master
+# and, more importantly, the EXCLUDED campus-entrance photograph, which a
+# `git add .` would have committed to history permanently. Git history cannot be
+# cleaned as easily as a build directory, so the rule comes before the mistake.
+_to_delete/
+.device-md5-tmp.txt

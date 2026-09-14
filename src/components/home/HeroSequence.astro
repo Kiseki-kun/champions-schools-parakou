@@ -1,0 +1,544 @@
+---
+/**
+ * HERO — cinematic full-bleed field (homepage redesign pass).
+ *
+ * Supersedes the Phase 5 "Editorial Overlap" hero, which was a typographic
+ * masthead with a photograph beneath it. The references (EXL above all) open on
+ * a single art-directed composition: the photograph IS the viewport, the header
+ * sits on it, and the words live inside the image rather than above it.
+ *
+ * What changed and why:
+ *  - Full-bleed photograph, edge to edge, 78-88svh. The image is the design.
+ *  - The floating neighbour frame is gone. In a full-bleed field it read as a
+ *    card stuck on a photograph, which is exactly what the brief rules out.
+ *  - Type sits bottom-left inside the container, over a bottom-weighted scrim.
+ *  - The controls became a quiet rail on the same baseline as the type, so the
+ *    sequence reads as an edition of images rather than a widget.
+ *  - The hero ends in blue-900, and the band beneath it IS blue-900, so the
+ *    opening reads as one continuous dark field before the page cuts to light.
+ *
+ * The photographs themselves are never altered: no filter, no grade, no blur.
+ * The scrim is a directional darkening for legibility, nothing more.
+ *
+ * Behaviour (auto-advance, prev/next, swipe, keyboard, pause, counter,
+ * reduced motion, the live region) is carried over unchanged from Phase 5 —
+ * it was tested and it works. Only the composition is new.
+ */
+import { getEntry } from 'astro:content';
+import SchoolImage from '../media/SchoolImage.astro';
+import Button from '../ui/Button.astro';
+import type { Locale } from '../../i18n/routes';
+
+interface Props {
+  locale: Locale;
+  ids: string[];
+  /** Per-frame object-position, reviewed at hero scale. Presentation only. */
+  focus?: string[];
+  /** One headline per frame, in frame order. The photograph and its message
+      are one slide: the text changes when the picture does. */
+  headlines: string[];
+  lead: string;
+  eyebrow: string;
+  labels: {
+    region: string; prev: string; next: string;
+    pause: string; play: string; position: string; slideRole: string;
+  };
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref: string;
+  secondaryLabel: string;
+}
+
+const {
+  locale, ids, focus = [], headlines, lead, eyebrow, labels,
+  primaryHref, primaryLabel, secondaryHref, secondaryLabel,
+} = Astro.props;
+
+/* A headline per photograph, or the pairing is a lie. Caught at build time
+   rather than shipping a slide whose message belongs to a different picture. */
+if (headlines.length !== ids.length) {
+  throw new Error(
+    `HeroSequence: ${ids.length} photographs but ${headlines.length} headlines — `
+    + 'each frame must carry its own message.'
+  );
+}
+
+/* Captions come from the manifest, not from this component. A hero frame
+   without a caption in both languages is a build error, not a blank panel. */
+const captions = await Promise.all(
+  ids.map(async (id) => {
+    const entry = await getEntry('media', id);
+    if (!entry) throw new Error(`HeroSequence: "${id}" is not in the media manifest.`);
+    const cap = entry.data.caption?.[locale];
+    if (!cap) throw new Error(`HeroSequence: "${id}" has no ${locale} caption.`);
+    return cap;
+  }),
+);
+
+const total = ids.length;
+const pad = (n: number) => String(n).padStart(2, '0');
+const fill = (tpl: string, ...v: string[]) => v.reduce((s, x) => s.replace('%s', x), tpl);
+---
+
+<section
+  class="hero"
+  aria-label={labels.region}
+  data-hero
+  data-position={labels.position}
+  data-slide-role={labels.slideRole}
+  data-pause={labels.pause}
+  data-play={labels.play}
+  data-captions={JSON.stringify(captions)}
+>
+  {/* data-armed: see the CSS and the script below. Only the opening frame is
+      armed on arrival; the rest are display:none, so the browser does not fetch
+      five photographs in order to show one. */}
+  <div class="hero__field">
+    {ids.map((id, i) => (
+      <div class="hero__frame" data-hero-slide data-on={i === 0 ? 'true' : 'false'}
+           data-armed={i === 0 ? 'true' : 'false'}
+           aria-hidden={i === 0 ? undefined : 'true'}
+           style={focus[i] ? `--frame-focus: ${focus[i]}` : undefined}>
+        <SchoolImage
+          id={id} locale={locale}
+          priority={i === 0}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          widths={[640, 960, 1280, 1600, 2000, 2400]}
+          sizes="100vw"
+        />
+      </div>
+    ))}
+    <div class="hero__scrim" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__content">
+    <div class="container container--wide hero__inner">
+      <div class="hero__words">
+        <p class="hero__eyebrow"><span class="hero__tick" aria-hidden="true"></span>{eyebrow}</p>
+        {/* All five headlines are in the DOM, stacked in ONE grid cell, so the
+            heading block is as tall as its longest message at every width and
+            the page below never jumps when the frame changes. Swapping
+            textContent instead would reflow the whole page every seven seconds.
+
+            The inactive ones are `visibility: hidden`: that keeps their layout
+            box — which is the point — while removing them from the
+            accessibility tree, so the <h1> still has exactly one accessible
+            name, the one on screen.
+
+            Deliberately NOT a live region: the sequence already announces each
+            slide through the status line below, and a heading that announced
+            itself every seven seconds would talk over everything else. */}
+        <h1 class="hero__headline">
+          {headlines.map((h, i) => (
+            <span class="hero__headline-line" data-hero-headline data-on={i === 0 ? 'true' : 'false'}>{h}</span>
+          ))}
+        </h1>
+        <p class="hero__lead">{lead}</p>
+        <div class="hero__actions">
+          <Button href={primaryHref} variant="ondark">{primaryLabel}</Button>
+          <Button href={secondaryHref} variant="onphoto">{secondaryLabel}</Button>
+        </div>
+      </div>
+
+      <div class="hero__rail">
+        <p class="hero__caption" data-hero-caption>{captions[0]}</p>
+        <div class="hero__controls">
+          <button type="button" class="hero__nav" data-hero-prev aria-label={labels.prev}>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button type="button" class="hero__nav" data-hero-next aria-label={labels.next}>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+              <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <p class="hero__count" data-hero-position>
+            {fill(labels.position, pad(1), pad(total))}
+          </p>
+          <ol class="hero__segs" role="list" aria-hidden="true">
+            {ids.map((_, i) => <li class="hero__seg" data-hero-seg data-on={i === 0 ? 'true' : 'false'} />)}
+          </ol>
+          <button type="button" class="hero__nav hero__nav--toggle" data-hero-toggle
+                  aria-label={labels.pause} aria-pressed="false">
+            <svg class="hero__ico-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <path d="M8 5h3v14H8zM13 5h3v14h-3z" fill="currentColor" />
+            </svg>
+            <svg class="hero__ico-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+              <path d="M8 5.5v13l11-6.5z" fill="currentColor" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="visually-hidden" role="status" aria-live="polite" data-hero-status></p>
+
+  {/* Where the overlay header stops floating and becomes a solid bar. */}
+  <span class="hero__sentinel" data-header-sentinel aria-hidden="true"></span>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    background: var(--blue-900);
+    /* Tall enough to be the viewport, capped so it never becomes a wall. */
+    min-height: clamp(520px, 82svh, 860px);
+    display: flex;
+    align-items: flex-end;
+    /* The band below is blue-900 too: the opening reads as one dark field. */
+    color: var(--paper);
+    overflow: clip;
+  }
+  @media (min-width: 1024px) { .hero { min-height: clamp(600px, 88svh, 900px); } }
+
+  /* ---------- the photographic field ---------- */
+  .hero__field { position: absolute; inset: 0; z-index: -2; }
+  .hero__frame {
+    position: absolute; inset: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity 700ms var(--ease-standard), visibility 0s linear 700ms;
+  }
+  /* Every frame is absolutely positioned over the same rectangle, so all five
+     are INSIDE the viewport — and loading="lazy" defers nothing that is inside
+     the viewport. Measured, the page fetched all five before first paint:
+     407 KB at 1280 and 133 KB at 375, of which four frames are invisible and
+     the visitor may never see any of them.
+
+     display:none is the only state that actually stops the fetch (visibility
+     and opacity do not). A frame is armed the moment it is about to be needed
+     and stays armed thereafter, so no cross-fade ever runs against a frame
+     that is display:none. Nothing about the sequence, the photographs or the
+     composition changes — only when the bytes are asked for. */
+  .hero__frame[data-armed="false"] { display: none; }
+  .hero__frame[data-on="true"] {
+    opacity: 1; visibility: visible;
+    transition: opacity 700ms var(--ease-standard);
+  }
+  .hero__frame :global(.school-image) { height: 100%; }
+  .hero__frame :global(picture) { display: block; height: 100%; }
+  .hero__frame :global(img) {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: var(--frame-focus, 50% 42%);
+    border-radius: 0;
+  }
+  .hero__scrim {
+    position: absolute; inset: 0;
+    background: var(--scrim-hero);
+    pointer-events: none;
+  }
+
+  .hero__sentinel {
+    position: absolute; left: 0; width: 1px; height: 1px;
+    bottom: var(--header-height);
+  }
+
+  /* ---------- the words, inside the image ---------- */
+  .hero__content { position: relative; width: 100%; z-index: 1; }
+  .hero__inner {
+    padding-block: var(--space-9) var(--space-7);
+    display: grid; gap: var(--space-7);
+  }
+  @media (min-width: 1024px) {
+    .hero__inner {
+      padding-block: var(--space-10) var(--space-8);
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      column-gap: var(--space-9);
+    }
+  }
+
+  .hero__eyebrow {
+    display: flex; align-items: center; gap: var(--space-3);
+    font-size: var(--fs-micro); font-weight: 650;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold-300);
+  }
+  .hero__tick { display: block; width: 34px; height: 2px; background: var(--gold-300); flex: 0 0 34px; }
+
+  .hero__headline {
+    margin-top: var(--space-5);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--fs-hero);
+    line-height: 0.99;
+    letter-spacing: -0.03em;
+    font-variation-settings: "SOFT" 0, "WONK" 0;
+    color: var(--paper);
+    max-width: 16ch;
+    text-wrap: balance;
+    /* Warm near-black, matching --scrim-hero. A navy glow at 24px haloed the
+       headline in blue across a wide area of the picture. */
+    text-shadow: 0 2px 24px rgba(34, 30, 23, .35);
+
+    /* One cell, five messages stacked in it. The row takes the height of the
+       tallest, so the block does not resize when the frame changes and nothing
+       below the hero moves. */
+    display: grid;
+  }
+  .hero__headline-line { grid-area: 1 / 1; }
+  /* visibility, not display: the box stays and reserves the height, but the
+     text leaves the accessibility tree, so the heading has one name. */
+  .hero__headline-line[data-on="false"] { visibility: hidden; }
+  .hero__lead {
+    margin-top: var(--space-5);
+    max-width: 46ch;
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: rgba(251, 250, 248, .92);
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+
+  /* ---------- caption + controls ---------- */
+  .hero__rail { display: grid; gap: var(--space-4); }
+  @media (min-width: 1024px) {
+    .hero__rail { justify-items: end; text-align: right; }
+    .hero__caption { max-width: 34ch; }
+  }
+  .hero__caption {
+    font-size: var(--fs-micro);
+    line-height: 1.55;
+    color: rgba(251, 250, 248, .95);
+    border-left: 2px solid var(--gold-300);
+    padding-left: var(--space-4);
+  }
+  @media (min-width: 1024px) {
+    .hero__caption { border-left: 0; border-right: 2px solid var(--gold-300); padding: 0 var(--space-4) 0 0; }
+  }
+  /* One ruled group rather than four pieces of interface furniture: the
+     boundary belongs to the set, the controls inside it are plain marks. */
+  .hero__controls {
+    display: flex; align-items: center;
+    border: 1px solid rgba(251, 250, 248, .58);
+    border-radius: var(--radius-pill);
+    /* Same warm near-black as the scrim: this pill sits directly on the
+       photograph, and at navy it read as a blue patch on the picture. Slightly
+       lower luminance than the navy it replaces, so the marks inside it keep
+       their contrast. */
+    background: rgba(34, 30, 23, .28);
+    padding: 3px;
+  }
+  .hero__nav {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    background: none; border: 0; border-radius: var(--radius-pill);
+    color: var(--paper); cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-standard),
+                color var(--dur-fast) var(--ease-standard);
+  }
+  .hero__nav:hover { background: var(--gold-300); color: var(--blue-900); }
+  .hero__count {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--fs-body); font-weight: 600;
+    letter-spacing: 0.04em; color: var(--paper);
+    white-space: nowrap;
+    padding-inline: var(--space-4) var(--space-3);
+  }
+  .hero__segs { gap: 5px; list-style: none; padding: 0 var(--space-4) 0 0; margin: 0; display: none; }
+  @media (min-width: 560px) { .hero__segs { display: flex; } }
+  .hero__seg {
+    width: 20px; height: 2px; border-radius: 2px;
+    background: rgba(251, 250, 248, .40);
+    transition: background var(--dur-base) var(--ease-standard),
+                width var(--dur-base) var(--ease-standard);
+  }
+  .hero__seg[data-on="true"] { background: var(--gold-300); width: 32px; }
+  .hero__nav--toggle { margin-left: auto; }
+  @media (min-width: 560px) { .hero__nav--toggle { margin-left: 0; } }
+  .hero__ico-play { display: none; }
+  .hero__nav--toggle[aria-pressed="true"] .hero__ico-play { display: block; }
+  .hero__nav--toggle[aria-pressed="true"] .hero__ico-pause { display: none; }
+
+  /* No gold focus override here either — on the gold primary button a gold
+     ring measured 1.00:1, i.e. nothing at all. See global.css. */
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__frame { transition: none; }
+    .hero__seg { transition: none; }
+  }
+</style>
+
+<script>
+  const stage = document.querySelector<HTMLElement>('[data-hero]');
+
+  if (stage) {
+    const scope = stage;
+    const slides = Array.from(stage.querySelectorAll<HTMLElement>('[data-hero-slide]'));
+    const segs = Array.from(scope.querySelectorAll<HTMLElement>('[data-hero-seg]'));
+    const headEls = Array.from(stage.querySelectorAll<HTMLElement>('[data-hero-headline]'));
+    const capEl = stage.querySelector<HTMLElement>('[data-hero-caption]');
+    const posEl = scope.querySelector<HTMLElement>('[data-hero-position]');
+    const statusEl = scope.querySelector<HTMLElement>('[data-hero-status]');
+    const prevBtn = scope.querySelector<HTMLButtonElement>('[data-hero-prev]');
+    const nextBtn = scope.querySelector<HTMLButtonElement>('[data-hero-next]');
+    const toggle = scope.querySelector<HTMLButtonElement>('[data-hero-toggle]');
+
+    const captions: string[] = JSON.parse(stage.dataset.captions || '[]');
+    const posTpl = stage.dataset.position || '%s / %s';
+    const roleTpl = stage.dataset.slideRole || '%s / %s';
+    const pauseLabel = stage.dataset.pause || 'Pause';
+    const playLabel = stage.dataset.play || 'Play';
+
+    const total = slides.length;
+    const INTERVAL = 7000;
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    let index = 0;
+    let timer = 0;
+    /** the visitor asked for it to stop — sticky until they ask again */
+    let userPaused = motionQuery.matches;
+    /** transient: pointer over the hero, focus inside it, or the tab is hidden */
+    let suspended = false;
+
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const fill = (tpl: string, ...v: string[]) =>
+      v.reduce((s, x) => s.replace('%s', x), tpl);
+
+    function stop() {
+      if (timer) { window.clearInterval(timer); timer = 0; }
+    }
+    function start() {
+      stop();
+      if (userPaused || suspended || motionQuery.matches || total < 2) return;
+      timer = window.setInterval(() => go(index + 1, false), INTERVAL);
+    }
+
+    /* Arm a frame — let it into the layout so its <picture> resolves and the
+       browser fetches it. Idempotent, and never reversed: a frame that has been
+       shown must stay in the layout or the next cross-fade would have nothing
+       to fade out of. */
+    function arm(i: number) {
+      const el = slides[((i % total) + total) % total];
+      if (el && el.dataset.armed !== 'true') el.dataset.armed = 'true';
+    }
+
+    /* The first pass: paint the state without arming the neighbour. */
+    function renderInitial() {
+      arm(index);
+      paint(false);
+    }
+
+    function render(announce: boolean) {
+      /* The frame being shown, and the one after it, so the next transition
+         has its photograph ready before it is asked for. */
+      arm(index);
+      arm(index + 1);
+      paint(announce);
+    }
+
+    function paint(announce: boolean) {
+      slides.forEach((el, i) => {
+        const on = i === index;
+        el.dataset.on = String(on);
+        if (on) el.removeAttribute('aria-hidden');
+        else el.setAttribute('aria-hidden', 'true');
+      });
+      segs.forEach((el, i) => { el.dataset.on = String(i === index); });
+
+      /* The photograph and its message move together. If this did not happen,
+         frame 1's headline would sit over frame 4's picture. */
+      headEls.forEach((el, i) => { el.dataset.on = String(i === index); });
+      if (capEl) capEl.textContent = captions[index] ?? '';
+      if (posEl) posEl.textContent = fill(posTpl, pad(index + 1), pad(total));
+      // Announced only for changes the visitor asked for; auto-advance is silent.
+      if (announce && statusEl) {
+        statusEl.textContent =
+          `${fill(roleTpl, String(index + 1), String(total))}. ${captions[index] ?? ''}`;
+      }
+    }
+
+    function go(next: number, announce: boolean) {
+      index = ((next % total) + total) % total;
+      render(announce);
+    }
+
+    function setPaused(next: boolean) {
+      userPaused = next;
+      if (toggle) {
+        toggle.setAttribute('aria-pressed', String(next));
+        toggle.setAttribute('aria-label', next ? playLabel : pauseLabel);
+      }
+      if (next) stop(); else start();
+    }
+
+    /* The neighbour in the other direction only matters once someone goes
+       backwards, so it is armed on demand rather than on arrival. */
+    prevBtn?.addEventListener('click', () => { arm(index - 1); go(index - 1, true); start(); });
+    nextBtn?.addEventListener('click', () => { go(index + 1, true); start(); });
+    toggle?.addEventListener('click', () => setPaused(!userPaused));
+
+    // Keyboard: arrows act while focus is anywhere inside the hero.
+    scope.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); arm(index - 1); go(index - 1, true); start(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1, true); start(); }
+    });
+
+    // Pause while the visitor is reading or interacting, resume afterwards.
+    const suspend = () => { suspended = true; stop(); };
+    const release = () => { suspended = false; start(); };
+    scope.addEventListener('pointerenter', suspend);
+    scope.addEventListener('pointerleave', release);
+    scope.addEventListener('focusin', suspend);
+    scope.addEventListener('focusout', (e) => {
+      if (!scope.contains(e.relatedTarget as Node)) release();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { suspended = true; stop(); }
+      else { suspended = false; start(); }
+    });
+
+    // Swipe. Pointer events only; no library, no drag-follow animation.
+    let downX = 0, downY = 0, tracking = false;
+    stage.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      tracking = true; downX = e.clientX; downY = e.clientY;
+    });
+    stage.addEventListener('pointerup', (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.clientX - downX;
+      if (Math.abs(dx) < 44 || Math.abs(e.clientY - downY) > Math.abs(dx)) return;
+      if (dx >= 0) arm(index - 1);
+      go(dx < 0 ? index + 1 : index - 1, true);
+      start();
+    });
+    stage.addEventListener('pointercancel', () => { tracking = false; });
+
+    motionQuery.addEventListener('change', () => {
+      if (motionQuery.matches) setPaused(true);
+      else start();
+    });
+
+    /* First paint arms the opening frame ONLY. The neighbour is armed once the
+       page has finished loading and the browser is idle, so the second
+       photograph is ready well before the 7s auto-advance without competing
+       with anything the visitor can actually see. When reduced motion is
+       requested the sequence starts paused and never advances on its own, so
+       nothing beyond the opening frame is fetched until the visitor asks. */
+    renderInitial();
+    if (userPaused && toggle) {
+      toggle.setAttribute('aria-pressed', 'true');
+      toggle.setAttribute('aria-label', playLabel);
+    }
+    const armNeighbour = () => { if (!userPaused && total > 1) arm(index + 1); };
+    /* `'requestIdleCallback' in window` narrows `window` to never in the else
+       branch, because the DOM types declare the method as always present. Read
+       the property and test it instead. */
+    const whenIdle = () => {
+      const idle = (window as unknown as {
+        requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      }).requestIdleCallback;
+      if (typeof idle === 'function') idle(armNeighbour, { timeout: 2500 });
+      else window.setTimeout(armNeighbour, 1200);
+    };
+    if (document.readyState === 'complete') whenIdle();
+    else window.addEventListener('load', whenIdle, { once: true });
+    start();
+  }
+</script>

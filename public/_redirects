@@ -1,0 +1,3 @@
+# Root -> default locale (French). An HTML fallback also exists at / for hosts
+# that ignore this file.
+/    /fr/    301

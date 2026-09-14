@@ -1,0 +1,130 @@
+# about — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: about
+title: Building Champions. Shaping Futures.
+lead: 'Champions Schools was founded in 2009 in Parakou, Benin Republic, with a simple but profound
+  conviction: education should develop the whole child.'
+hero:
+  image: assembly
+  focus: 50% 40%
+  social: hero-nursery-gate
+  eyebrow: About the school
+blocks:
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: Our identity
+  title: An institution shaped by experience, strengthened by results
+  body:
+  - Born out of the founders’ experience in education and Christian missionary work, the school began
+    with a vision to provide an environment where children could receive a strong academic foundation
+    while developing character, confidence, discipline and a sense of purpose.
+  - From its beginnings, Champions Schools has been distinguished by its bilingual approach to education,
+    providing learners with opportunities to develop proficiency in both English and French and preparing
+    them to participate confidently in national and international academic environments.
+  - Over the years, that vision has grown into a vibrant educational community serving learners across
+    Nursery, Primary and College levels, complemented by boarding facilities and a learning environment
+    designed to support both academic and personal development.
+  - We are not simply preparing students for examinations. We are preparing them for life.
+- type: feature
+  side: left
+  image: excursion-friends
+  focus: 50% 40%
+  eyebrow: Our story
+  title: From a vision to a growing educational community
+  body:
+  - In 2009, Champions Schools opened its doors in Parakou. The idea was born from a desire to combine
+    the founders’ experience in education with their Christian missionary calling, creating a school
+    where learning, character and purposeful living could develop together.
+  - One of our earliest distinguishing decisions was to embrace bilingual education, giving students
+    access to both English and French systems of learning. This has allowed our learners to communicate
+    across linguistic and cultural boundaries while opening pathways to both national and international
+    examinations.
+  - We also recognised early that education must go beyond academic instruction. Christian values
+    and character formation became an integral part of school life, encouraging students to develop
+    integrity, responsibility, compassion and respect for others.
+  cta:
+    label: Founders’ Message
+    page: founders
+- type: index
+  tone: tint
+  eyebrow: Our mission
+  title: To Educate, Equip and Empower
+  intro: 'We provide a high-quality, holistic and values-driven education that equips every learner
+    with the knowledge, skills, character and confidence needed to thrive in an ever-changing world.
+    We are committed to:'
+  items:
+  - index: '01'
+    name: Academic Excellence
+    body: Delivering rigorous and relevant learning that enables students to achieve strong academic
+      outcomes and develop a lifelong love for learning.
+  - index: '02'
+    name: Bilingual Competence
+    body: Developing confident English and French speakers who can communicate effectively and engage
+      meaningfully in an increasingly connected world.
+  - index: '03'
+    name: Character & Values
+    body: Nurturing integrity, discipline, responsibility, compassion and respect as essential foundations
+      for responsible citizenship and leadership.
+  - index: '04'
+    name: Technology & Innovation
+    body: Introducing learners to technology and digital tools that expand how they learn, create,
+      communicate and solve problems.
+  - index: '05'
+    name: Experiential Learning
+    body: Taking education beyond textbooks through excursions, competitions, practical activities,
+      projects and real-world experiences.
+  - index: '06'
+    name: Leadership & Purpose
+    body: Creating opportunities for students to discover their abilities, take responsibility and
+      develop the confidence to become positive influences in their communities.
+- type: feature
+  side: right
+  image: hero-bilingual-lesson
+  focus: 50% 36%
+  eyebrow: Our approach
+  title: Two languages, from the beginning
+  body:
+  - Our academic programme offers a fully integrated, dual-language immersion curriculum in English
+    and French. We balance our instructional time to ensure fluency and academic mastery in both
+    languages.
+  - Students are encouraged to explore, create, compete, collaborate and discover the world around
+    them. From educational excursions and technology-driven learning to academic competitions and
+    extracurricular activities, we believe that meaningful education happens both within and beyond
+    the walls of a classroom.
+  cta:
+    label: See the programme
+    page: academics
+- type: prose
+  tone: deep
+  measure: wide
+  eyebrow: Our vision
+  title: Raising a Generation of Champions
+  body:
+  - Our vision is to become a leading centre of academic excellence, character development and innovative
+    education, raising a generation of confident, competent and compassionate young people equipped
+    to make a meaningful impact in their communities and the world.
+  - We envision a Champions graduate who is knowledgeable, with a strong academic foundation. Bilingual,
+    able to communicate confidently across languages and cultures. Technologically capable, prepared
+    for the opportunities and demands of the modern world. Principled, guided by integrity, discipline
+    and sound values.
+  - Creative, curious and willing to explore new ideas. Confident, able to express ideas, face challenges
+    and pursue opportunities. A leader, prepared not merely to succeed personally but to influence
+    others positively.
+  - We envision a community where education builds character, curiosity fuels learning, excellence
+    becomes a habit, and every child is equipped to become a champion in their own right.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Come and see the school
+  body: Write or call. Enquiries reach the school’s official email address.
+  primary:
+    label: Request admission
+    page: admissions
+  secondary:
+    label: Meet our heads
+    page: leadership
+  image: graduation-group

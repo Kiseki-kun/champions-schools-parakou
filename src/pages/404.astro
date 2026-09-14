@@ -1,0 +1,32 @@
+---
+import { DEFAULT_LOCALE, pathFor } from '../i18n/routes';
+import { getSite } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+const locale = DEFAULT_LOCALE;
+const site = await getSite(locale);
+const en = await getSite('en');
+---
+{/* pageKey="home" only so the language switcher has somewhere to send people.
+    `standalone` stops the page telling a crawler it IS the homepage, and stops
+    the navigation lighting Home up as though the visitor were on it. */}
+<BaseLayout locale={locale} pageKey="home" standalone
+            title={site.ui.notFoundTitle} description={site.ui.notFoundBody}>
+  <section class="section">
+    <div class="container container--prose">
+      <hr class="rule-gold" />
+      <h1>{site.ui.notFoundTitle}</h1>
+      <p class="lead">{site.ui.notFoundBody}</p>
+      <p class="lead" lang="en">{en.ui.notFoundBody}</p>
+      <p class="actions">
+        <Button href={pathFor('home', 'fr')} variant="primary">{site.ui.backHome}</Button>
+        <Button href={pathFor('home', 'en')} variant="secondary" lang="en">{en.ui.backHome}</Button>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .rule-gold { margin-bottom: var(--space-5); }
+  h1 + .lead { margin-top: var(--space-4); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+</style>

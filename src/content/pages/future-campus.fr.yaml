@@ -1,0 +1,52 @@
+# future-campus — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: future-campus
+title: Le campus d’aujourd’hui, et celui qui se construit
+lead: Une salle informatique, des salles de classe pour les trois sections et un internat aujourd’hui
+  — et un nouveau campus en construction.
+hero:
+  eyebrow: Campus et installations
+blocks:
+- type: feature
+  side: left
+  image: computer-lab
+  focus: 50% 45%
+  eyebrow: Aujourd’hui
+  title: La technologie et l’apprentissage sur ordinateur
+  body:
+  - La salle informatique de l’école est le lieu de l’apprentissage par la technologie. Initier les
+    élèves aux technologies et aux outils numériques qui élargissent leur façon d’apprendre, de créer,
+    de communiquer et de résoudre des problèmes est l’un des six engagements de notre mission.
+  - Aux côtés des salles de classe de la maternelle, du primaire et du collège, l’école dispose d’un
+    internat et d’un cadre d’apprentissage conçu pour soutenir le développement académique et personnel.
+- type: concepts
+  slogan: Former des champions. Façonner leur avenir.
+  kicker: Le futur est ici
+  title: Un nouveau campus, en construction
+  body:
+  - L’école construit un nouveau campus à Parakou. Les images ci-dessous sont des représentations
+    conceptuelles de ce projet. Ce ne sont pas des photographies des bâtiments tels qu’ils existent
+    aujourd’hui.
+  - Chacune est signalée comme une image conceptuelle partout où elle apparaît sur ce site.
+  status: Projet actuellement en construction
+  images:
+  - campus-playground
+  - campus-classroom
+  - campus-library
+  - campus-nursery-room
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Venez visiter l’école
+  body: Écrivez-nous ou appelez-nous pour convenir d’une visite. Les demandes parviennent à l’adresse
+    électronique officielle de l’école.
+  primary:
+    label: Contacter l’école
+    page: contact
+  secondary:
+    label: Demander une inscription
+    page: admissions
+  image: excursion-fountain

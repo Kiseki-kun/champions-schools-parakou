@@ -1,0 +1,93 @@
+# school-life — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: school-life
+title: The school does not stop at the classroom door
+lead: Students are encouraged to explore, create, compete, collaborate and discover the world around
+  them.
+hero:
+  image: excursion-sculpture-ride
+  focus: 50% 42%
+  eyebrow: School life
+blocks:
+- type: mosaic
+  eyebrow: Beyond the walls
+  title: Learning that happens outside the classroom
+  body:
+  - From educational excursions and technology-driven learning to academic competitions and extracurricular
+    activities, we believe that meaningful education happens both within and beyond the walls of
+    a classroom.
+  - Inter-house sports, practical classes and excursions are part of the school year, not an addition
+    to it.
+  lead: excursion-sculpture
+  support:
+  - sports-day-houses
+  - practical-tie-dye
+  chipsLabel: Our clubs
+  chips:
+  - Jet Club
+  - Press Club
+  - Literary Club
+  - Arts and Drama Club
+- type: feature
+  side: right
+  image: assembly
+  focus: 50% 42%
+  eyebrow: Character and values
+  title: Education that goes beyond instruction
+  body:
+  - We recognised early that education must go beyond academic instruction. Christian values and
+    character formation became an integral part of school life, encouraging students to develop integrity,
+    responsibility, compassion and respect for others.
+  - A truly educated child is not merely knowledgeable. A truly educated child is prepared to think,
+    lead, serve and make a difference.
+- type: figure
+  image: excursion-friends
+  ratio: 16/9
+  focus: 50% 38%
+  full: true
+- type: index
+  tone: tint
+  eyebrow: What our learners benefit from
+  title: The breadth of the Champions experience
+  intro: 'As the school has grown, so has the breadth of the Champions experience. Today, our learners
+    benefit from:'
+  items:
+  - index: '01'
+    name: Boarding facilities
+    body: The school has boarding facilities alongside its day programme.
+  - index: '02'
+    name: Technology and computer-based learning
+    body: Learners work with computers and digital tools as part of their education.
+  - index: '03'
+    name: Academic competitions and challenges
+    body: Our students have distinguished themselves in competitions such as the English Challenge
+      Championship.
+  - index: '04'
+    name: Educational excursions and experiential learning
+    body: Education taken beyond textbooks, through visits, practical activities and projects.
+  - index: '05'
+    name: Character and values formation
+    body: Integrity, responsibility, compassion and respect for others, formed as part of school
+      life.
+  - index: '06'
+    name: Leadership and personal development
+    body: Opportunities for students to discover their abilities and take responsibility.
+  - index: '07'
+    name: The wider community
+    body: We have embraced opportunities to contribute to the wider community, including our participation
+      in initiatives such as the Pink Foundation’s cancer awareness programmes.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: See the school for yourself
+  body: Photographs of school life, or write to us about a place for your child.
+  primary:
+    label: Open the gallery
+    page: gallery
+  secondary:
+    label: Request admission
+    page: admissions
+  image: hero-demonstration

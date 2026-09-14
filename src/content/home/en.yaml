@@ -1,0 +1,146 @@
+# HOMEPAGE COPY — ENGLISH
+#
+# Every claim below is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections listed in 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are
+# applied; no factual content is changed. Nothing here asserts a fact the school
+# did not supply.
+
+locale: en
+
+hero:
+  # One headline per photograph, in frame order. The image and its message are
+  # one slide: 01 bilingual classroom · 02 pupils in class · 03 the youngest
+  # pupils with their school bags · 04 a guided demonstration on an educational
+  # visit · 05 pupils in graduation dress.
+  headlines:
+    - Raising a Generation of Champions
+    - Learning Today. Leading Tomorrow.
+    - Every Child. Every Beginning. Every Possibility.
+    - Learning Beyond the Classroom
+    - Building Champions. Shaping Futures.
+  lead: A bilingual English–French school in Parakou, Benin Republic. Nursery, Primary and College since 2009.
+  region: Photographs of the school
+  prev: Previous photograph
+  next: Next photograph
+  pause: Pause the sequence
+  play: Resume the sequence
+  position: "%s of %s"
+  slideRole: "Photograph %s of %s"
+
+results:
+  eyebrow: Results
+  title: The results speak for themselves.
+  items:
+    - value: 100%
+      label: CEP pass rate
+      detail: 2023 · 2025 · 2026
+    - value: 100%
+      label: BEPC pass rate
+      detail: "2026"
+    - value: "2024"
+      label: English Challenge
+      detail: Championship winners
+    - value: 50/50
+      label: Bilingual instruction
+      detail: English and French, equally split
+
+bilingual:
+  eyebrow: Our model
+  title: "Growing Globally: our bilingual academic programme"
+  body: We balance our instructional time to ensure fluency and academic mastery in both languages.
+  points:
+    - title: The 50/50 approach
+      body: Core subjects are split equally between the two languages. A child studies mathematics in French one day and science in English the next.
+    - title: Native-speaking educators
+      body: All classes are co-taught or led by native speakers of English and French, providing authentic pronunciation and real cultural context.
+    - title: Translanguaging confidence
+      body: Students learn to switch effortlessly between languages, developing advanced problem-solving and critical-thinking skills.
+  cta: See the programme
+
+levels:
+  eyebrow: Our levels
+  title: From Nursery to College
+  intro: Champions Schools serves learners from Nursery through Primary to College, with boarding facilities.
+  items:
+    - index: "01"
+      name: Nursery
+      range: Nursery 1 – 3 · Maternelle 1 au 3
+      hoursLabel: Hours
+      hours: 7:30 a.m. – 2:30 p.m.
+      body: The three nursery years, and the shortest school day.
+    - index: "02"
+      name: Primary
+      range: Primary 1 – 6 · CI au CM2
+      hoursLabel: Hours
+      hours: 7:30 a.m. – 3:30 p.m.
+      body: Six years across which the bilingual immersion programme is set out, subject by subject.
+    - index: "03"
+      name: College
+      range: JSS 1 – SS 1 · 6ème au 3ème
+      hoursLabel: Hours
+      hours: 7:00 a.m. – 4:00 p.m.
+      body: Four years up to the BEPC, and the longest school day.
+  cta: See the calendar and hours
+
+life:
+  eyebrow: School life
+  title: Education does not stop at the classroom wall
+  body: "Educational excursions, inter-house sports day, academic competitions and clubs: students are encouraged to explore, create, compete, collaborate and discover the world around them."
+  clubsLabel: Our clubs
+  clubs:
+    - Jet Club
+    - Press Club
+    - Literary Club
+    - Arts and Drama Club
+  cta: Explore school life
+
+heads:
+  eyebrow: Leadership
+  title: Meet Our Heads
+  intro: The Directeur Général and the three heads who lead Nursery, Primary and College.
+  cta: Founders’ Message
+  items:
+    - index: "01"
+      name: M. Houtunde Houngbedji Sylvain
+      role: Directeur Général
+      image: head-dg
+    - index: "02"
+      name: Mrs. Afolabi Demilade
+      role: Headmistress — Nursery
+      image: head-nursery
+    - index: "03"
+      name: Mr. Obaje Joseph
+      role: Headmaster — Primary
+      image: head-primary
+    - index: "04"
+      name: Mme Idrissou Djoueratou
+      role: Censeur du Collège
+      image: head-college
+
+testimonial:
+  eyebrow: What parents are saying
+  quote: My child didn’t just learn French. She mastered it.
+  body: One of the things that impressed me most was seeing how well my child eventually performed in the French curriculum. What makes it even more remarkable is that she had been learning both English and French from the beginning. By the time she left Champions, her performance in the French programme was outstanding, even compared with students who had been following a French-only curriculum. It showed me that the bilingual system really works.
+  attribution: Mama Hikmah — parent of a former Champions Schools student
+  cta: Read all the testimonials
+
+future:
+  slogan: Building Champions. Shaping Futures.
+  kicker: The future is here
+  title: A new campus, under construction
+  body: The school is building a new campus in Parakou. The images below are concept representations of that project, not photographs of the buildings as they stand today.
+  status: Project currently under construction
+  cta: See the future campus
+
+admissions:
+  mission: To Educate, Equip and Empower
+  eyebrow: Admissions
+  title: Enrol your child
+  body: Write or call. Enquiries reach the school’s official email address.
+  requirementsLabel: What to bring
+  requirements:
+    - Birth certificate
+    - 2 passport photographs
+    - Transfer certificate
+    - Photocopy of the last report card
+  cta: Request admission

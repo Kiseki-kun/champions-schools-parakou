@@ -1,0 +1,63 @@
+# privacy — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: privacy
+title: Comment ce site traite vos informations
+lead: Cette notice décrit le site web lui-même. Ce n’est pas une politique de protection des données
+  de l’école en tant qu’institution.
+hero:
+  eyebrow: Confidentialité
+blocks:
+- type: prose
+  measure: prose
+  tone: paper
+  eyebrow: Ce que le site collecte
+  title: Rien
+  body:
+  - Ce site est un ensemble de pages statiques. Il n’a ni compte, ni connexion, ni formulaire envoyant
+    des informations où que ce soit. Il ne vous demande ni votre nom, ni votre numéro de téléphone,
+    ni votre adresse électronique, ni quoi que ce soit d’autre à votre sujet.
+  - Rien de ce que vous faites en lisant ces pages n’est enregistré ni transmis à l’école.
+- type: prose
+  measure: prose
+  tone: tint
+  eyebrow: Cookies et traceurs
+  title: Ni cookies, ni mesure d’audience, ni tiers
+  body:
+  - Le site ne dépose aucun cookie qui lui soit propre. Il n’utilise ni mesure d’audience, ni publicité,
+    ni traceur de réseau social.
+  - 'Ses polices de caractères et ses images sont servies depuis le site lui-même et non depuis une
+    autre société : ouvrir une page n’envoie donc de requête nulle part ailleurs.'
+- type: prose
+  measure: prose
+  tone: paper
+  eyebrow: Lorsque vous contactez l’école
+  title: Votre message va à l’école, pas à ce site
+  body:
+  - Si vous écrivez à l’adresse électronique de l’école ou appelez l’un de ses numéros, votre message
+    et vos coordonnées parviennent directement à l’école. Ce site n’y prend aucune part et n’en conserve
+    aucune copie.
+  - Ce que l’école fait de ce que vous lui envoyez relève de l’école et de vous.
+- type: prose
+  measure: prose
+  tone: deep
+  eyebrow: Les limites de cette notice
+  title: Ce que cette page ne couvre pas
+  body:
+  - Cette notice n’énonce que ce que fait le site lui-même, c’est-à-dire ce qui peut être vérifié
+    sur le site. Elle ne constitue pas un avis juridique et ne décrit pas la manière dont l’école
+    traite les dossiers scolaires, les dossiers d’admission ou toute autre information qu’elle détient.
+  - Pour tout ce qui dépasse le site web, veuillez contacter l’école directement.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Contacter l’école
+  body: Adresse, numéros de téléphone et adresse électronique officielle de l’école.
+  primary:
+    label: Contact
+    page: contact
+  secondary:
+    label: Retour à l’école
+    page: about

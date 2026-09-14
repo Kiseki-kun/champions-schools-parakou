@@ -1,0 +1,77 @@
+---
+/**
+ * A form field. Label is ALWAYS visible — never a placeholder standing in for
+ * a label. Errors are text plus icon, associated with the field.
+ *
+ * NOT USED BY ANY PAGE, DELIBERATELY — Phase 7 audit.
+ *
+ * The site has no form. `output: 'static'` means there is no server to receive
+ * one, the brief forbids inventing a backend or a third-party form provider,
+ * and a form that silently discards a parent's enquiry is worse than no form.
+ * Contact and Admissions publish the school's telephone numbers and its
+ * official email address instead, and those are live links.
+ *
+ * This component is kept because the design system defines the field pattern
+ * (visible label, associated help and error text). Before wiring it to
+ * anything, a real submission destination has to exist and be approved by the
+ * school — see 08-FUNCTIONALITY.md §4.
+ */
+import Icon from './Icon.astro';
+interface Props {
+  id: string; label: string; type?: 'text' | 'email' | 'tel' | 'number'; required?: boolean;
+  help?: string; error?: string; placeholder?: string;
+  requiredWord?: string; as?: 'input' | 'textarea' | 'select';
+  options?: string[]; autocomplete?: string;
+}
+const {
+  id, label, type = 'text', required = false, help, error,
+  placeholder, requiredWord = 'required', as = 'input', options = [], autocomplete,
+} = Astro.props as Props;
+const helpId = help ? `${id}-help` : undefined;
+const errId = error ? `${id}-error` : undefined;
+const describedBy = [helpId, errId].filter(Boolean).join(' ') || undefined;
+---
+<div class:list={['field', error && 'field--error']}>
+  <label for={id}>
+    {label}{required && <span class="req"> ({requiredWord})</span>}
+  </label>
+  {help && <p class="help" id={helpId}>{help}</p>}
+  {as === 'textarea' ? (
+    <textarea id={id} name={id} rows="5" required={required}
+      placeholder={placeholder} aria-describedby={describedBy}
+      aria-invalid={error ? 'true' : undefined}></textarea>
+  ) : as === 'select' ? (
+    <select id={id} name={id} required={required} aria-describedby={describedBy}>
+      {options.map((o: string) => <option value={o}>{o}</option>)}
+    </select>
+  ) : (
+    <input id={id} name={id} type={type} required={required}
+      placeholder={placeholder} autocomplete={autocomplete}
+      aria-describedby={describedBy} aria-invalid={error ? 'true' : undefined} />
+  )}
+  {error && (
+    <p class="msg" id={errId}><Icon name="alert" size={16} />{error}</p>
+  )}
+</div>
+
+<style>
+  .field { margin-bottom: var(--space-5); max-width: 460px; }
+  label { display: block; font-size: var(--fs-small); font-weight: 600; margin-bottom: 6px; }
+  .req { font-weight: 400; color: var(--n-700); }
+  .help { font-size: var(--fs-small); color: var(--n-700); margin-bottom: 6px; }
+  input, select, textarea {
+    width: 100%; min-height: 48px; padding: 12px 14px;
+    background: var(--paper); color: var(--ink);
+    /* --n-500 is the minimum that meets 3:1 for a control boundary. */
+    border: 1.5px solid var(--n-500);
+    border-radius: var(--radius-sm);
+  }
+  textarea { resize: vertical; }
+  input::placeholder, textarea::placeholder { color: var(--n-700); }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { border-color: var(--blue-600); }
+  .field--error input, .field--error textarea, .field--error select { border-color: var(--error); }
+  .msg {
+    display: flex; gap: 7px; align-items: flex-start;
+    font-size: var(--fs-small); color: var(--error); margin-top: 7px; font-weight: 500;
+  }
+</style>

@@ -1,0 +1,79 @@
+# admissions — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: admissions
+title: Inscrire votre enfant
+lead: Champions Schools accueille des élèves en maternelle, au primaire et au collège. Voici les
+  pièces à fournir et comment nous joindre.
+hero:
+  image: hero-graduation
+  focus: 50% 38%
+  eyebrow: Admissions
+blocks:
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: Comment nous écrire
+  title: Les admissions sont traitées directement par l’école
+  body:
+  - Pour demander une place pour votre enfant, écrivez à l’adresse électronique officielle de l’école
+    ou appelez l’un de ses numéros de téléphone. Les deux figurent plus bas sur cette page.
+  - Les frais, les dates et les étapes qui suivent votre demande ne sont pas publiés sur ce site.
+    L’école vous les confirme directement lorsque vous la contactez.
+- type: index
+  tone: tint
+  eyebrow: Pièces à fournir
+  title: Conditions d’admission
+  intro: Quatre documents sont demandés pour l’admission.
+  items:
+  - index: '01'
+    name: Acte de naissance
+  - index: '02'
+    name: 2 photos d’identité
+  - index: '03'
+    name: Certificat de transfert
+  - index: '04'
+    name: Photocopie du dernier bulletin
+- type: index
+  tone: paper
+  eyebrow: Classes proposées
+  title: Les niveaux que votre enfant peut rejoindre
+  items:
+  - index: '01'
+    name: Maternelle
+    meta: Maternelle 1 au 3 · Nursery 1 – 3
+    asideLabel: Horaires
+    aside: 7h30 – 14h30
+  - index: '02'
+    name: Primaire
+    meta: CI au CM2 · Primary 1 – 6
+    asideLabel: Horaires
+    aside: 7h30 – 15h30
+  - index: '03'
+    name: Collège
+    meta: 6ème au 3ème · JSS 1 – SS 1
+    asideLabel: Horaires
+    aside: 7h00 – 16h00
+- type: contact
+  eyebrow: Nous joindre
+  title: Parler à l’école
+  body:
+  - Les demandes parviennent à l’adresse électronique officielle de l’école. Vous pouvez aussi appeler
+    pendant les heures de classe.
+  addressLabel: Adresse
+  phoneLabel: Téléphone
+  emailLabel: E-mail
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Voir avant de décider
+  body: Le programme académique, le calendrier scolaire et des photographies de la vie scolaire.
+  primary:
+    label: Le programme académique
+    page: academics
+  secondary:
+    label: Calendrier et horaires
+    page: calendar
+  image: hero-classroom-focus

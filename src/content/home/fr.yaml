@@ -1,0 +1,148 @@
+# HOMEPAGE COPY — FRENCH (default locale)
+#
+# Every claim below is traceable to 01-School-Information/school-information.docx.
+# Where the source supplies English only, the French is a faithful translation of
+# the school’s own words and is listed for school confirmation in 05-HOMEPAGE.md §3.
+# Nothing here asserts a fact the school did not supply.
+
+locale: fr
+
+hero:
+  # Un titre par photographie, dans l’ordre des vues. L’image et son message
+  # forment une seule diapositive : 01 la classe bilingue · 02 des élèves en
+  # classe · 03 les plus jeunes élèves avec leurs cartables · 04 une
+  # démonstration guidée lors d’une sortie éducative · 05 des élèves en tenue
+  # de fin d’études.
+  headlines:
+    - Élever une génération de champions
+    - Apprendre aujourd’hui. Diriger demain.
+    - Chaque enfant. Chaque début. Chaque possibilité.
+    - Apprendre au-delà de la salle de classe
+    - Bâtir des champions. Façonner l’avenir.
+  lead: École bilingue anglais-français à Parakou, en République du Bénin. Maternelle, primaire et collège depuis 2009.
+  region: Photographies de l’école
+  prev: Photographie précédente
+  next: Photographie suivante
+  pause: Mettre le défilement en pause
+  play: Reprendre le défilement
+  position: "%s sur %s"
+  slideRole: "Photographie %s sur %s"
+
+results:
+  eyebrow: Résultats
+  title: Les résultats parlent d’eux-mêmes.
+  items:
+    - value: 100 %
+      label: Réussite au CEP
+      detail: 2023 · 2025 · 2026
+    - value: 100 %
+      label: Réussite au BEPC
+      detail: "2026"
+    - value: "2024"
+      label: English Challenge
+      detail: Vainqueur du championnat
+    - value: 50/50
+      label: Enseignement bilingue
+      detail: Anglais et français, à parts égales
+
+bilingual:
+  eyebrow: Notre modèle
+  title: "Grandir ensemble : notre programme académique bilingue"
+  body: Nous répartissons le temps d’enseignement de façon à assurer l’aisance et la maîtrise académique dans les deux langues.
+  points:
+    - title: L’approche 50/50
+      body: "Les matières fondamentales sont réparties à parts égales entre les deux langues : les mathématiques en français un jour, les sciences en anglais le lendemain."
+    - title: Des enseignants natifs
+      body: Toutes les classes sont co-animées ou dirigées par des locuteurs natifs de l’anglais et du français, ce qui apporte une prononciation authentique et un contexte culturel réel.
+    - title: Le translanguaging
+      body: Les élèves apprennent à passer d’une langue à l’autre sans effort, développant ainsi la résolution de problèmes et l’esprit critique.
+  cta: Voir le programme
+
+levels:
+  eyebrow: Nos niveaux
+  title: De la maternelle au collège
+  intro: Champions Schools accueille les élèves de la maternelle au collège, avec un internat.
+  items:
+    - index: "01"
+      name: Maternelle
+      range: Maternelle 1 au 3 · Nursery 1 – 3
+      hoursLabel: Horaires
+      hours: 7h30 – 14h30
+      body: Les trois années de maternelle, et les journées les plus courtes de l’école.
+    - index: "02"
+      name: Primaire
+      range: CI au CM2 · Primary 1 – 6
+      hoursLabel: Horaires
+      hours: 7h30 – 15h30
+      body: Six années au cours desquelles se déploie le programme d’immersion bilingue, matière par matière.
+    - index: "03"
+      name: Collège
+      range: 6ème au 3ème · JSS 1 – SS 1
+      hoursLabel: Horaires
+      hours: 7h00 – 16h00
+      body: Quatre années jusqu’au BEPC, et les journées les plus longues de l’école.
+  cta: Voir le calendrier et les horaires
+
+life:
+  eyebrow: Vie scolaire
+  title: L’école ne s’arrête pas à la salle de classe
+  body: "Sorties éducatives, journée sportive inter-maisons, compétitions académiques et clubs : les élèves sont encouragés à explorer, créer, concourir, collaborer et découvrir le monde qui les entoure."
+  clubsLabel: Nos clubs
+  clubs:
+    - Jet Club
+    - Press Club
+    - Literary Club
+    - Arts and Drama Club
+  cta: Découvrir la vie scolaire
+
+heads:
+  eyebrow: Direction
+  title: Nos responsables de section
+  intro: Le directeur général et les trois responsables qui dirigent la maternelle, le primaire et le collège.
+  cta: Message des fondateurs
+  items:
+    - index: "01"
+      name: M. Houtunde Houngbedji Sylvain
+      role: Directeur Général
+      image: head-dg
+    - index: "02"
+      name: Mrs. Afolabi Demilade
+      role: Directrice de la Maternelle
+      image: head-nursery
+    - index: "03"
+      name: Mr. Obaje Joseph
+      role: Directeur du Primaire
+      image: head-primary
+    - index: "04"
+      name: Mme Idrissou Djoueratou
+      role: Censeur du Collège
+      image: head-college
+
+testimonial:
+  eyebrow: Ce que disent les parents
+  quote: Mon enfant n’a pas seulement appris le français. Elle l’a maîtrisé.
+  body: Ce qui m’a le plus impressionnée, c’est de voir à quel point mon enfant a fini par réussir dans le programme français. Ce qui rend la chose plus remarquable encore, c’est qu’elle apprenait l’anglais et le français depuis le début. À son départ de Champions, ses résultats dans le programme français étaient excellents, même comparés à ceux d’élèves qui n’avaient suivi qu’un cursus francophone. Cela m’a montré que le système bilingue fonctionne vraiment.
+  attribution: Mama Hikmah — parent d’une ancienne élève de Champions Schools
+  note: Témoignage recueilli en anglais et traduit.
+  cta: Lire tous les témoignages
+
+future:
+  slogan: Former des champions. Façonner leur avenir.
+  kicker: Le futur est ici
+  title: Un nouveau campus, en construction
+  body: L’école construit un nouveau campus à Parakou. Les images ci-dessous sont des représentations conceptuelles du projet, et non des photographies des bâtiments actuels.
+  status: Projet actuellement en construction
+  cta: Voir le futur campus
+
+admissions:
+  mission: Éduquer, équiper, donner les moyens d’agir
+  eyebrow: Admissions
+  title: Inscrire votre enfant
+  body: Écrivez-nous ou appelez-nous. Les demandes parviennent à l’adresse électronique officielle de l’école.
+  requirementsLabel: Pièces à fournir
+  requirements:
+    - Acte de naissance
+    - 2 photos d’identité
+    - Certificat de transfert
+    - Photocopie du dernier bulletin
+  cta: Demander une inscription

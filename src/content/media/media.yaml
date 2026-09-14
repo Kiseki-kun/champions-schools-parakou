@@ -1,0 +1,916 @@
+# THE IMAGE MANIFEST
+#
+# Image status NEVER comes from a folder path. It is declared here and checked
+# by the schema in src/content.config.ts at build time.
+#
+# `source` is relative to 02-School-Assets/ and is READ-ONLY. Originals are
+# never modified. scripts/prepare-assets.mjs derives web masters into
+# src/assets/ from these entries.
+#
+# Phase 4 declares the images the foundation uses. Remaining images are added
+# with the pages that use them.
+
+- id: logo
+  source: "logo/school logo.jpeg"
+  status: photograph
+  category: brand
+  decorative: true
+  alt:
+    en: ""
+    fr: ""
+
+# CORRECTED 10 September 2026. This entry previously pointed at
+# students/Students (1).jpg — which is the excursion photograph below, not the
+# morning assembly. The source, alt text and caption now match what the image
+# visibly shows. See students-excursion.
+- id: assembly
+  source: "students/Morning-assembly.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils gathered closely together in the school courtyard for morning assembly, facing staff in navy school polo shirts."
+    fr: "Des élèves rassemblés dans la cour de l’école pour l’assemblée du matin, face au personnel en polo bleu marine."
+  caption:
+    en: "Morning assembly in the school courtyard."
+    fr: "L’assemblée du matin dans la cour de l’école."
+
+# The photograph previously and incorrectly captioned as morning assembly.
+- id: students-excursion
+  source: "students/students-excursion.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A large group of students in school uniform, with accompanying adults, standing together in front of a coach on an educational excursion."
+    fr: "Un grand groupe d’élèves en uniforme, accompagnés d’adultes, réunis devant un car lors d’une sortie éducative."
+  caption:
+    en: "Students and accompanying staff before an educational excursion."
+    fr: "Les élèves et le personnel accompagnateur avant une sortie éducative."
+
+- id: staff-group
+  source: "Teachers/staffs.jpeg"
+  status: photograph
+  category: community
+  alt:
+    en: "The staff of Champions Schools Parakou, a large group in navy branded polo shirts, gathered in an open bay of an unfinished block building."
+    fr: "L’équipe de Champions Schools Parakou, un groupe nombreux en polo bleu marine floqué, réuni sous une travée ouverte d’un bâtiment en blocs inachevé."
+  caption:
+    en: "The staff of Champions Schools Parakou."
+    fr: "L’équipe de Champions Schools Parakou."
+
+- id: founders
+  source: "Teachers/Founders.jpeg"
+  status: photograph
+  category: leadership
+  focal: top
+  alt:
+    en: "Rev. & Pastor Mrs. MOMOH, Founders of Champions Schools."
+    fr: "Rev. & Pastor Mrs. MOMOH, fondateurs de Champions Schools."
+
+# ------------------------------------------------------------------
+# A NOTE ON `status`, added by the Phase 8 audit.
+#
+# `status` answers one question and only one: is this an image of something
+# that EXISTS, or an image of the campus that is still being built? It is what
+# drives the "Future Campus Concept" frame and the alt-text prefix the schema
+# enforces. It is not a statement about how an image was made.
+#
+# That distinction matters for the four Head of Sections portraits below. They
+# show characteristics associated with AI generation; the school reviewed them,
+# considers them "as good as a professional photoshoot", and directed that they
+# be used [SOURCE — R2-1, discovery §11.2]. So their alt text names the person
+# and the role — "M. Houtunde Houngbedji Sylvain, Directeur Général" — and
+# never asserts that the image is a photograph. Nothing on the site calls them
+# photographs either. `Founders.jpeg` and `staffs.jpeg` are camera photographs.
+# ------------------------------------------------------------------
+
+- id: head-dg
+  source: "Teachers/M. Houtunde Houngbedji Sylvain. Directeur Général.jpeg"
+  status: photograph
+  category: leadership
+  focal: top
+  alt:
+    en: "M. Houtunde Houngbedji Sylvain, Directeur Général."
+    fr: "M. Houtunde Houngbedji Sylvain, Directeur Général."
+
+- id: head-nursery
+  source: "Teachers/Mrs Afolabi Demilade. Headmistress - Nursery.jpeg"
+  status: photograph
+  category: leadership
+  focal: top
+  alt:
+    en: "Mrs. Afolabi Demilade, Headmistress — Nursery."
+    fr: "Mrs. Afolabi Demilade, directrice de la maternelle."
+
+- id: head-primary
+  source: "Teachers/Mr. Obaje Joseph. Headmaster - Primary.jpeg"
+  status: photograph
+  category: leadership
+  focal: top
+  alt:
+    en: "Mr. Obaje Joseph, Headmaster — Primary."
+    fr: "Mr. Obaje Joseph, directeur du primaire."
+
+- id: head-college
+  source: "Teachers/Mme. Idrissou Djoueratou. Censeur du Collège.jpeg"
+  status: photograph
+  category: leadership
+  focal: top
+  alt:
+    en: "Mme Idrissou Djoueratou, Censeur du Collège."
+    fr: "Mme Idrissou Djoueratou, censeur du collège."
+
+- id: computer-lab
+  source: "facilities/computer lab.jpeg"
+  status: photograph
+  category: facilities
+  focal: center
+  alt:
+    en: "Young people gathered around a desktop computer in the school’s computer room, one of them typing; a second screen, a printer and a chalkboard are behind them."
+    fr: "Des jeunes réunis autour d’un ordinateur dans la salle informatique de l’école, l’un d’eux au clavier ; derrière eux, un second écran, une imprimante et un tableau noir."
+
+# EXCLUDED — kept on the record, never published.
+#
+# The building in this image carries painted signage reading "CHAMPIONS NURSERY
+# & PRIMARY SCHOOL (CMPS)" and "CHAMPIONS INTERNATIONAL COLLEGE (CICO) PARAKOU".
+# Those are not the confirmed school name (Phase 1 risk R3, escalated to Q21;
+# the school confirmed "Champions Schools Parakou"). Publishing it would put a
+# conflicting entity name on the school's own site, in a photograph, where no
+# caption can undo it.
+#
+# The entry stays here so the decision is documented and so the id cannot be
+# silently reused. `excluded` is enforced in three places, not by convention:
+# the schema requires a reason, scripts/prepare-assets.mjs derives no web master
+# (so the bytes never reach dist/), and SchoolImage throws at build time if any
+# page asks for it. tests/qa-check.mjs fails if any of that stops being true.
+- id: campus-entrance
+  source: "campus/Campus  (2).jpeg"
+  status: concept
+  category: future-campus
+  conceptLabel: true
+  upscale: 4
+  excluded: "Painted signage names CMPS and CICO Parakou, which are not the confirmed school name (Phase 1 risk R3 / Q21)."
+  alt:
+    en: "Future campus concept: the school entrance gates and a two-storey classroom building with a landscaped forecourt."
+    fr: "Projet du futur campus : le portail d’entrée de l’école et un bâtiment de classes à deux niveaux avec une cour paysagée."
+  caption:
+    en: "The future campus seen from the main entrance. Concept image of the project now under construction."
+    fr: "Le futur campus vu depuis l’entrée principale. Image conceptuelle du projet actuellement en construction."
+
+- id: campus-classroom
+  source: "campus/Campus  (3).jpeg"
+  status: concept
+  category: future-campus
+  conceptLabel: true
+  upscale: 4
+  alt:
+    en: "Future campus concept: a classroom with rows of desks, a whiteboard and a chalkboard, wall lettering reading Learn Grow Achieve and the school emblem above the bookshelf."
+    fr: "Projet du futur campus : une salle de classe avec des rangées de pupitres, un tableau blanc et un tableau noir, l’inscription murale « Learn Grow Achieve » et l’emblème de l’école au-dessus de l’étagère."
+  caption:
+    en: "A learning space in the future campus. Concept image of the project now under construction."
+    fr: "Un espace d’apprentissage du futur campus. Image conceptuelle du projet actuellement en construction."
+
+# ------------------------------------------------------------------
+# PHASE 5 — HOMEPAGE
+#
+# The five hero frames locked in Phase 4.5F (§27, revised audit) plus the
+# supporting school-life photographs the homepage uses.
+#
+# NOTE ON NAMING: the originals in 02-School-Assets/Hero/ are NOT renamed.
+# The manifest maps a readable id to the original filename, and the pipeline
+# derives src/assets/<category>/<id>.jpg from it. Originals stay untouched.
+#
+# Every alt line below describes only what is visible in the frame. No
+# caption states a date, a year group, a named event or an outcome.
+# ------------------------------------------------------------------
+
+# HERO 01 — bilingual teaching. The blackboard carries a dated exercise;
+# neither the alt text nor the caption presents that date as current.
+- id: hero-bilingual-lesson
+  source: "Hero/CLASR.jpg"
+  status: photograph
+  category: hero
+  focal: center
+  alt:
+    en: "A teacher points to a blackboard that carries a French reading passage on the left and an English reading lesson on the right, while a class of pupils follows from wooden benches."
+    fr: "Une enseignante montre un tableau noir portant un texte de lecture en français à gauche et une leçon d’anglais à droite, tandis qu’une classe d’élèves suit depuis des bancs en bois."
+  caption:
+    en: "French and English lessons side by side on the same blackboard."
+    fr: "Des leçons de français et d’anglais côte à côte au même tableau."
+
+# HERO 02 — concentration.
+- id: hero-classroom-focus
+  source: "Hero/CLASR2.jpg"
+  status: photograph
+  category: hero
+  focal: center
+  alt:
+    en: "Young pupils sitting at wooden desks, working on the papers in front of them, with school bags hanging on the wall behind."
+    fr: "De jeunes élèves assis à des pupitres en bois travaillent sur les feuilles posées devant eux ; des cartables sont accrochés au mur derrière eux."
+  caption:
+    en: "Pupils at work in class."
+    fr: "Des élèves au travail en classe."
+
+# HERO 03 — the youngest.
+- id: hero-nursery-gate
+  source: "Hero/NURSP2.jpg"
+  status: photograph
+  category: hero
+  focal: center
+  alt:
+    en: "Very young pupils in peach and navy uniform gathered by a metal gate outdoors, several carrying school bags; a girl with beaded braids looks towards the camera."
+    fr: "De très jeunes élèves en uniforme pêche et bleu marine rassemblés près d’un portail métallique, plusieurs portant leur cartable ; une fillette aux tresses perlées regarde vers l’objectif."
+  caption:
+    en: "The school’s youngest pupils with their school bags."
+    fr: "Les plus jeunes élèves de l’école avec leurs cartables."
+
+# HERO 04 — beyond the classroom.
+- id: hero-demonstration
+  source: "Hero/DSC_3320.jpg"
+  status: photograph
+  category: hero
+  focal: center
+  alt:
+    en: "Students in checked uniform gathered closely around an adult who is pointing into an open wooden container during an educational visit."
+    fr: "Des élèves en uniforme à carreaux entourent un adulte qui leur montre l’intérieur d’un coffre en bois lors d’une visite éducative."
+  caption:
+    en: "Students watching a guided demonstration on an educational visit."
+    fr: "Des élèves suivent une démonstration lors d’une visite éducative."
+
+# HERO 05 — achievement.
+- id: hero-graduation
+  source: "Hero/WhatsApp Image 2026-09-10 at 5.38.54 PM (1).jpeg"
+  status: photograph
+  category: hero
+  focal: center
+  alt:
+    en: "Pupils in green graduation gowns with red and yellow sashes and mortarboards, standing together with an adult in front of a painted wall."
+    fr: "Des élèves en toge verte, avec écharpes rouge et jaune et chapeaux de diplômé, réunis avec une adulte devant un mur peint."
+  caption:
+    en: "Pupils in graduation gowns."
+    fr: "Des élèves en toge de fin d’année."
+
+# --- School-life section ---
+
+# Re-pointed in the correction pass of 12 September 2026. The previous source,
+# Hero/DSC_0378.JPG, no longer exists in 02-School-Assets — the school replaced
+# the older sports photographs with the Journée Sportive 2026 set. This is the
+# strongest of them for a single representative image: four houses running at
+# once, so the house colours are the subject rather than a caption.
+- id: sports-day-houses
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (1).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Four girls in pink, yellow, light-blue and orange house kit running a race on a sand ground, spectators seated against a wall behind them. The photograph carries the school’s Journée Sportive 2026 frame."
+    fr: "Quatre filles en tenue de maison rose, jaune, bleu clair et orange courent une course sur un terrain sablonneux, des spectateurs assis contre un mur derrière elles. La photographie porte le cadre « Journée Sportive 2026 » de l’école."
+  caption:
+    en: "Racing in house colours at the school’s Journée Sportive 2026."
+    fr: "Une course aux couleurs des maisons lors de la Journée Sportive 2026 de l’école."
+
+- id: excursion-friends
+  source: "Hero/DSC_3257.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Five boys in school uniform standing arm in arm and posing for the camera in dappled light during an educational excursion."
+    fr: "Cinq garçons en uniforme scolaire, bras dessus bras dessous, prennent la pose sous une lumière tachetée lors d’une sortie éducative."
+  caption:
+    en: "Students together during an educational excursion."
+    fr: "Des élèves réunis lors d’une sortie éducative."
+
+- id: excursion-fountain
+  source: "Hero/DSC_3422.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Students gathered around a white bird sculpture on a stone fountain during an educational excursion."
+    fr: "Des élèves rassemblés autour d’une sculpture d’oiseau blanche sur une fontaine en pierre lors d’une sortie éducative."
+  caption:
+    en: "Students on an educational excursion."
+    fr: "Des élèves lors d’une sortie éducative."
+
+# Future-campus concept used on the homepage. Exterior, and — unlike
+# campus-entrance — it carries no painted school signage, so it cannot imply
+# an entity name that conflicts with the confirmed "Champions Schools Parakou".
+- id: campus-playground
+  source: "facilities/playground.jpeg"
+  status: concept
+  category: future-campus
+  conceptLabel: true
+  upscale: 4
+  alt:
+    en: "Future campus concept: a playground with a climbing frame, slide, swings and a painted hopscotch grid, in front of a two-storey school building."
+    fr: "Projet du futur campus : une aire de jeux avec portique, toboggan, balançoires et une marelle peinte, devant un bâtiment scolaire à deux niveaux."
+  caption:
+    en: "Outdoor space in the future campus. Concept image of the project now under construction."
+    fr: "Un espace extérieur du futur campus. Image conceptuelle du projet actuellement en construction."
+
+# The school’s emblem, supplied 11 September 2026 for the footer. Used as
+# artwork exactly as delivered — not recreated, redrawn or recoloured. It is
+# decorative here because the footer prints the school’s name as text beside it.
+- id: footer-emblem
+  source: "footer logo/photo_2026-09-11_12-11-29.jpg"
+  status: photograph
+  category: brand
+  decorative: true
+  alt:
+    en: ""
+    fr: ""
+
+# ------------------------------------------------------------------
+# PHASE 6 — INNER PAGES
+#
+# Curated from Events/ and students/. Each was viewed individually before
+# being described. Rejected and why:
+#   Events/carol.jpeg .................. banner reads "NURSERY & PRIMARY
+#       SCHOOL (CNPS) & INTERNATIONAL COLLEGE (CICO) PARAKOU" — the same
+#       conflicting-name problem as the campus facade concept
+#   Events/cultural day.jpeg ........... subject unclear; adults, no school context
+#   Events/Inter-house sports (1,2,4) .. burned-in event graphics would collide
+#       with an editorial caption; sports-day-houses already covers the subject
+# ------------------------------------------------------------------
+
+- id: practical-tie-dye
+  source: "students/tie-dye-practical.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Young people working with tie-dyed cloth hung over metal drying rails and draped across a table in a paved yard; one wears protective gloves."
+    fr: "Des jeunes travaillent des tissus teints, suspendus sur des séchoirs métalliques et étalés sur une table dans une cour pavée ; l’un d’eux porte des gants de protection."
+  caption:
+    en: "A practical class working with dyed fabric."
+    fr: "Un cours pratique de teinture sur tissu."
+
+- id: excursion-sculpture
+  source: "Events/excursions  (4).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Students in checked uniform gathered around a stone basin and a figure sculpture while an adult points into the water."
+    fr: "Des élèves en uniforme à carreaux entourent un bassin de pierre et une sculpture pendant qu’un adulte leur montre l’eau."
+  caption:
+    en: "Students at a sculpture on an educational excursion."
+    fr: "Des élèves devant une sculpture lors d’une sortie éducative."
+
+- id: excursion-sculpture-ride
+  source: "Events/excursions  (6).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A pupil in school uniform sitting astride a gold-painted animal sculpture, holding its horns, in a dry wooded clearing during an educational excursion."
+    fr: "Un élève en uniforme est assis à califourchon sur une sculpture d’animal peinte en doré, tenant ses cornes, dans une clairière sèche lors d’une sortie éducative."
+  caption:
+    en: "A moment between stops on an educational excursion."
+    fr: "Un instant entre deux étapes d’une sortie éducative."
+
+- id: college-group
+  source: "students/college-students (1).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Older students in checked uniform standing in a line in front of a building with red shutters, with seated adults in front of them."
+    fr: "Des élèves plus âgés en uniforme à carreaux alignés devant un bâtiment aux volets rouges, des adultes assis devant eux."
+  caption:
+    en: "College students with staff."
+    fr: "Des élèves du collège et le personnel."
+
+- id: awards-presentation
+  source: "students/Students (4).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Students holding framed certificates and a trophy alongside adults, in front of a doorway marked Primary II."
+    fr: "Des élèves tiennent des certificats encadrés et un trophée aux côtés d’adultes, devant une porte marquée Primary II."
+  caption:
+    en: "Students with certificates and a trophy."
+    fr: "Des élèves avec leurs certificats et un trophée."
+
+- id: graduation-group
+  source: "Events/graduation.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in green graduation gowns with red and yellow sashes and mortarboards, standing with two adults in front of a painted wall."
+    fr: "Des élèves en toge verte, avec écharpes rouge et jaune et chapeaux de diplômé, entourés de deux adultes devant un mur peint."
+  caption:
+    en: "A graduating group with staff."
+    fr: "Un groupe de diplômés avec le personnel."
+
+# The remaining future-campus concepts, for the Campus page. Filed under
+# facilities/ and campus/ by SUBJECT; their status is concept, declared here,
+# and the schema enforces the label and the alt prefix. campus-entrance stays
+# out of both the homepage and this page: its painted signage names entities
+# that are not the confirmed school name (Phase 1 risk R3, escalated to Q21).
+- id: campus-library
+  source: "facilities/library.jpeg"
+  status: concept
+  category: future-campus
+  conceptLabel: true
+  upscale: 4
+  alt:
+    en: "Future campus concept: a library with tables, blue chairs and wall-length bookshelves, lettering on the wall reading La lecture ouvre les portes du savoir."
+    fr: "Projet du futur campus : une bibliothèque avec des tables, des chaises bleues et des rayonnages sur toute la longueur du mur, portant l’inscription « La lecture ouvre les portes du savoir »."
+  caption:
+    en: "A reading room in the future campus. Concept image of the project now under construction."
+    fr: "Une salle de lecture du futur campus. Image conceptuelle du projet actuellement en construction."
+
+- id: campus-nursery-room
+  source: "campus/Campus  (4).jpeg"
+  status: concept
+  category: future-campus
+  conceptLabel: true
+  upscale: 4
+  alt:
+    en: "Future campus concept: a nursery classroom with low coloured tables and chairs, a reading rug, low bookshelves and wall lettering reading Apprendre Aujourd’hui Réussir Demain."
+    fr: "Projet du futur campus : une salle de maternelle avec tables et chaises basses colorées, un tapis de lecture, des étagères basses et l’inscription murale « Apprendre Aujourd’hui Réussir Demain »."
+  caption:
+    en: "A nursery room in the future campus. Concept image of the project now under construction."
+    fr: "Une salle de maternelle du futur campus. Image conceptuelle du projet actuellement en construction."
+
+# ==================================================================
+# THE EVENTS LIBRARY — added in the correction pass of 12 September 2026.
+#
+# Every photograph in 02-School-Assets/Events, so that the Gallery publishes
+# the folder rather than a selection of it. Each was opened and looked at; the
+# alt text and captions describe only what is visible in the frame.
+#
+# DUPLICATES. The Events folder also holds a byte-identical copy of the whole
+# Hero folder. Those photographs are NOT given second entries here: where the
+# bytes already have an id — the five hero frames, excursion-friends,
+# excursion-fountain, excursion-sculpture, excursion-sculpture-ride,
+# students-excursion, awards-presentation, graduation-group — the existing id is
+# reused, so no photograph is published twice.
+#
+# NAMES. Two of the prize-giving photographs show a hand-written parcel bearing
+# a pupil's name. The names are legible in the picture; they are not repeated in
+# the alt text or the caption, because a caption is indexable and a photograph
+# is not.
+#
+# HOUSE COLOURS. The school's badge in these frames reads "Compétition sportive
+# inter-maisons", so the coloured kit is house kit. The houses' own names are
+# not visible anywhere, so no house is named — the colours are described as
+# colours.
+# ==================================================================
+
+# ---- Journée Sportive 2026 ----------------------------------------
+
+- id: sports-2026-green-lineup
+  source: "Events/Inter-house sports  (1).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in green and black house kit standing in rows on a sand ground, with a girl in a long green dress and another in a green and white dress holding a wrapped gift in front of them. The frame carries the school’s Journée Sportive 2026 border."
+    fr: "Des élèves en tenue de maison verte et noire alignés sur un terrain sablonneux ; devant eux, une fille en longue robe verte et une autre en robe verte et blanche tenant un cadeau emballé. Le cadre porte la bordure « Journée Sportive 2026 » de l’école."
+  caption:
+    en: "Green house colours at the Journée Sportive 2026."
+    fr: "Les couleurs de la maison verte lors de la Journée Sportive 2026."
+
+- id: sports-2026-trophy-raised
+  source: "Events/Inter-house sports  (2).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A man in an orange shirt holding a gold trophy above his head under a green canopy, surrounded by adults in navy polo shirts and by pupils in orange house kit, some wearing medals."
+    fr: "Un homme en chemise orange brandit une coupe dorée au-dessus de sa tête sous un auvent vert, entouré d’adultes en polo bleu marine et d’élèves en tenue de maison orange, certains portant des médailles."
+  caption:
+    en: "The trophy raised at the Journée Sportive 2026."
+    fr: "La coupe brandie lors de la Journée Sportive 2026."
+
+- id: sports-2026-blue-lineup
+  source: "Events/Inter-house sports  (3).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in light blue and black house kit standing in rows on a sand ground, with three girls in blue dresses in front of them, one of them wearing a tiara."
+    fr: "Des élèves en tenue de maison bleu clair et noire alignés sur un terrain sablonneux ; devant eux, trois filles en robe bleue, dont l’une porte un diadème."
+  caption:
+    en: "Blue house colours at the Journée Sportive 2026."
+    fr: "Les couleurs de la maison bleue lors de la Journée Sportive 2026."
+
+- id: sports-2026-orange-lineup
+  source: "Events/Inter-house sports  (4).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in orange and black house kit standing in rows on a sand ground, with girls in orange dresses in front of them carrying flowers and a wrapped gift."
+    fr: "Des élèves en tenue de maison orange et noire alignés sur un terrain sablonneux ; devant eux, des filles en robe orange portant des fleurs et un cadeau emballé."
+  caption:
+    en: "Orange house colours at the Journée Sportive 2026."
+    fr: "Les couleurs de la maison orange lors de la Journée Sportive 2026."
+
+- id: sports-2026-pink-lineup
+  source: "Events/Inter-house sports  (5).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in pink and black house kit standing in rows on a sand ground, with a girl in a long pink dress and a tiara at the right of the frame."
+    fr: "Des élèves en tenue de maison rose et noire alignés sur un terrain sablonneux ; à droite du cadre, une fille en longue robe rose portant un diadème."
+  caption:
+    en: "Pink house colours at the Journée Sportive 2026."
+    fr: "Les couleurs de la maison rose lors de la Journée Sportive 2026."
+
+- id: sports-2026-pink-team
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (2).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A wider view of the same ground: pupils in pink and black house kit waiting in rows, other houses lined up behind them and spectators at the edge of the field."
+    fr: "Une vue plus large du même terrain : des élèves en tenue de maison rose et noire attendent en rangs, les autres maisons alignées derrière eux et des spectateurs en bordure du terrain."
+  caption:
+    en: "Waiting to compete at the Journée Sportive 2026."
+    fr: "En attente de concourir lors de la Journée Sportive 2026."
+
+- id: sports-2026-prize-table
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (3).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Adults in navy polo shirts and white caps reaching across a cloth-covered table to greet girls in blue dresses. A basket of fruit, wrapped gifts and a gold trophy stand on the table."
+    fr: "Des adultes en polo bleu marine et casquette blanche tendent la main par-dessus une table nappeée pour saluer des filles en robe bleue. Un panier de fruits, des cadeaux emballés et une coupe dorée sont posés sur la table."
+  caption:
+    en: "Greetings at the prize table, Journée Sportive 2026."
+    fr: "Salutations à la table des prix, Journée Sportive 2026."
+
+- id: sports-2026-officials
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.55 PM (4).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Three adults standing behind a draped table under a canopy, with wrapped gifts, a fruit basket and three gold trophies in front of them and pupils and spectators behind."
+    fr: "Trois adultes debout derrière une table drapée sous un auvent, devant des cadeaux emballés, un panier de fruits et trois coupes dorées ; des élèves et des spectateurs à l’arrière-plan."
+  caption:
+    en: "Before the prizes are given, Journée Sportive 2026."
+    fr: "Avant la remise des prix, Journée Sportive 2026."
+
+- id: sports-2026-assembly
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A wide view of the sports ground with the houses drawn up in their colours across the field, the flag of Benin flying from a pole at the centre and a marquee at the right."
+    fr: "Vue large du terrain de sport : les maisons rangées dans leurs couleurs d’un bout à l’autre du terrain, le drapeau du Bénin flottant à un mât au centre et une tente à droite."
+  caption:
+    en: "The houses assembled, Journée Sportive 2026."
+    fr: "Les maisons rassemblées, Journée Sportive 2026."
+
+- id: sports-2026-ground
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM (1).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "The full sports ground seen from one end, with marked lanes in the foreground, the houses lined up in the distance, a drummer at the left and the flag of Benin at the centre."
+    fr: "Le terrain de sport vu depuis une extrémité, des couloirs tracés au premier plan, les maisons alignées au loin, un batteur à gauche et le drapeau du Bénin au centre."
+  caption:
+    en: "The ground marked out for the Journée Sportive 2026."
+    fr: "Le terrain tracé pour la Journée Sportive 2026."
+
+- id: sports-2026-guests
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM (2).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Guests seated in white plastic chairs behind a table of wrapped gifts and bottled water, two of them in white caps, watching the events on the ground."
+    fr: "Des invités assis sur des chaises en plastique blanches derrière une table de cadeaux emballés et de bouteilles d’eau, deux d’entre eux en casquette blanche, suivant les épreuves sur le terrain."
+  caption:
+    en: "Watching from the stand, Journée Sportive 2026."
+    fr: "Depuis la tribune, Journée Sportive 2026."
+
+- id: sports-2026-cup-presented
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.56 PM (3).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A girl holding a gold cup with both hands, standing between four adults in navy and purple polo shirts under a green and white canopy."
+    fr: "Une fille tient une coupe dorée à deux mains, entourée de quatre adultes en polo bleu marine et violet sous un auvent vert et blanc."
+  caption:
+    en: "A cup awarded at the Journée Sportive 2026."
+    fr: "Une coupe remise lors de la Journée Sportive 2026."
+
+- id: sports-2026-cup-held
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.57 PM.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A girl in orange house kit raising a large gold cup above her head, surrounded by seven adults in navy and purple polo shirts and white caps."
+    fr: "Une fille en tenue de maison orange lève une grande coupe dorée au-dessus de sa tête, entourée de sept adultes en polo bleu marine et violet et en casquette blanche."
+  caption:
+    en: "The winning house’s cup, Journée Sportive 2026."
+    fr: "La coupe de la maison victorieuse, Journée Sportive 2026."
+
+# ---- End-of-year prize-giving and performances --------------------
+
+- id: year-end-prize-college
+  source: "Events/end of the year party  (1).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A pupil standing between two women in printed dresses in a classroom doorway, holding a paper parcel with a class placing written on it by hand."
+    fr: "Une élève debout entre deux femmes en robe imprimée, dans l’embrasure d’une salle de classe, tenant un paquet en papier sur lequel un classement est écrit à la main."
+  caption:
+    en: "A prize presented at the end-of-year ceremony."
+    fr: "Un prix remis lors de la cérémonie de fin d’année."
+
+- id: year-end-performance
+  source: "Events/end of the year party  (2).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A pupil in pale blue traditional dress and a paper crown speaking into a microphone while seated, with other pupils in costume standing beside him and a girl in red seated to his right."
+    fr: "Un élève en tenue traditionnelle bleu clair et couronne en papier parle au micro, assis ; d’autres élèves en costume se tiennent à ses côtés et une fille en rouge est assise à sa droite."
+  caption:
+    en: "A costumed performance at the end-of-year ceremony."
+    fr: "Une représentation costumée lors de la cérémonie de fin d’année."
+
+- id: year-end-choir
+  source: "Events/end of the year party  (3).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A line of girls in printed wrappers and head-ties, several wearing orange crowns, two of them singing into microphones in front of a classroom door."
+    fr: "Une rangée de filles en pagnes imprimés et foulards, plusieurs coiffées de couronnes orange, deux d’entre elles chantant au micro devant la porte d’une salle de classe."
+  caption:
+    en: "Singing at the end-of-year ceremony."
+    fr: "Un chant lors de la cérémonie de fin d’année."
+
+- id: year-end-prize-nursery
+  source: "Events/end of the year party  (4).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A small girl in a green, yellow and red gown holding a paper parcel, standing between two smiling women in printed dresses in a doorway."
+    fr: "Une petite fille en toge verte, jaune et rouge tient un paquet en papier, debout entre deux femmes souriantes en robe imprimée dans une embrasure."
+  caption:
+    en: "A prize presented at the end-of-year ceremony."
+    fr: "Un prix remis lors de la cérémonie de fin d’année."
+
+- id: year-end-prize-primary
+  source: "Events/end of the year party  (5).JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A boy in a dark red blazer and bow tie holding a paper parcel with a class placing written on it, standing between two women in printed dresses. Above the doorway a wall poster reads “We are a school of champions”."
+    fr: "Un garçon en blazer rouge foncé et nœud papillon tient un paquet en papier portant un classement écrit à la main, debout entre deux femmes en robe imprimée. Au-dessus de la porte, une affiche murale indique « We are a school of champions »."
+  caption:
+    en: "A prize presented at the end-of-year ceremony."
+    fr: "Un prix remis lors de la cérémonie de fin d’année."
+
+# ---- Cultural day and carol service --------------------------------
+
+# cropTop: the painted wall behind the pupils carries an older sign naming two
+# entities that are not the confirmed school name, together with three
+# telephone numbers that are not the school’s. The picture is good and the
+# school asked for it to be used, so the band comes off the DERIVED master.
+# The original file on disk is untouched.
+- id: cultural-day-group
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.54 PM.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  cropTop: 0.14
+  cropReason: "The top band of the frame shows older painted signage naming entities that are not the confirmed school name, and three telephone numbers that are not the school’s."
+  alt:
+    en: "Rows of pupils in matching brown and cream printed shirts standing in a paved courtyard in front of a painted wall, with an adult in blue at the right."
+    fr: "Des rangées d’élèves en chemises imprimées assorties, brunes et crème, debout dans une cour pavée devant un mur peint, un adulte en bleu à droite."
+  caption:
+    en: "Pupils in matching print for cultural day."
+    fr: "Des élèves en tenue imprimée assortie pour la journée culturelle."
+
+- id: cultural-day-pupils
+  source: "Events/cultural day.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Four pupils in printed and embroidered dresses and head-wraps standing together outdoors at the end of the day, one seated in front of the others."
+    fr: "Quatre élèves en robes imprimées et brodées et en foulards, réunies dehors en fin de journée, l’une assise devant les autres."
+  caption:
+    en: "Dressed for cultural day."
+    fr: "En tenue pour la journée culturelle."
+
+# cropTop: as above — the same older painted signage and telephone numbers run
+# across the top of this frame. Original untouched.
+- id: carol-service
+  source: "Events/carol.jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  cropTop: 0.17
+  cropReason: "The top band of the frame shows older painted signage naming entities that are not the confirmed school name, and three telephone numbers that are not the school’s."
+  alt:
+    en: "Pupils in white shirts and black skirts standing in rows on a red mat with their heads bowed, a man at a keyboard with a microphone at the left and a red and white draped backdrop behind."
+    fr: "Des élèves en chemise blanche et jupe noire, en rangs sur un tapis rouge, la tête inclinée ; à gauche, un homme au clavier avec un micro, et derrière, une draperie rouge et blanche."
+  caption:
+    en: "The carol service."
+    fr: "Le service de chants de Noël."
+
+# ---- Nursery -------------------------------------------------------
+
+- id: nursery-classroom
+  source: "Events/NURS.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Young children seated at wooden desks in a classroom, some turning to look at the camera, with satchels and rucksacks hung in a row along the wall above them."
+    fr: "De jeunes enfants assis à des pupitres en bois dans une salle de classe, certains tournés vers l’objectif, des cartables et des sacs à dos accrochés en rangée au mur au-dessus d’eux."
+  caption:
+    en: "A nursery classroom, with the bags hung up for the day."
+    fr: "Une classe de maternelle, les cartables accrochés pour la journée."
+
+- id: nursery-graduation
+  source: "Events/WhatsApp Image 2026-09-10 at 5.38.54 PM (2).jpeg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Nine children in green gowns with red and yellow sashes and mortarboards standing in a courtyard with two adults, in front of a wall painted with a seascape and a figure of a child."
+    fr: "Neuf enfants en toge verte, avec écharpes rouge et jaune et chapeaux de diplômé, dans une cour avec deux adultes, devant un mur peint d’un paysage marin et d’une silhouette d’enfant."
+  caption:
+    en: "A graduating nursery group."
+    fr: "Un groupe de diplômés de la maternelle."
+
+# ---- Excursions and visits ----------------------------------------
+
+- id: excursion-stadium-group
+  source: "Events/excursions  (2).jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A large group of young pupils seated and standing on a stadium pitch with a football in front of them, a row of older youths in numbered kit and several adults behind, and an overlay caption naming the school, the class and the month of the visit."
+    fr: "Un grand groupe de jeunes élèves assis et debout sur la pelouse d’un stade, un ballon devant eux, une rangée de plus grands en maillots numérotés et plusieurs adultes derrière, avec une légende incrustée indiquant l’école, la classe et le mois de la sortie."
+  caption:
+    en: "A class photographed on a stadium pitch during an excursion."
+    fr: "Une classe photographiée sur la pelouse d’un stade lors d’une sortie."
+
+- id: excursion-ball-court
+  source: "Events/excursions  (1).jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in green and pink kit watching a basketball in the air above a post on an outdoor court, with a teacher in a navy tracksuit standing among them."
+    fr: "Des élèves en tenue verte et rose suivent des yeux un ballon de basket en l’air au-dessus d’un poteau, sur un terrain extérieur, un enseignant en survêtement bleu marine parmi eux."
+  caption:
+    en: "A ball game on an outdoor court during an excursion."
+    fr: "Un jeu de ballon sur un terrain extérieur lors d’une sortie."
+
+- id: excursion-sports-court
+  source: "Events/excursions  (3).jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Young pupils and six accompanying adults standing together on a red and blue sports court, three of the children holding basketballs and a volleyball."
+    fr: "De jeunes élèves et six adultes accompagnateurs réunis sur un terrain de sport rouge et bleu, trois enfants tenant des ballons de basket et un ballon de volley."
+  caption:
+    en: "On a sports court during an excursion."
+    fr: "Sur un terrain de sport lors d’une sortie."
+
+- id: excursion-horse
+  source: "Events/excursions  (5).jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A pupil in check uniform standing beside a saddled horse with a decorated bridle, smiling at the camera, with other pupils and a man in printed dress nearby."
+    fr: "Une élève en uniforme à carreaux, debout près d’un cheval sellé à la bride décorée, sourit à l’objectif ; d’autres élèves et un homme en tenue imprimée à proximité."
+  caption:
+    en: "Meeting a horse on an educational visit."
+    fr: "À la rencontre d’un cheval lors d’une visite éducative."
+
+- id: excursion-poolside
+  source: "Events/excursions  (7).jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "A line of young pupils in navy and orange uniform standing at the edge of a swimming pool with three accompanying adults, while a man swims in the water in front of them."
+    fr: "Une rangée de jeunes élèves en uniforme bleu marine et orange au bord d’une piscine avec trois adultes accompagnateurs, tandis qu’un homme nage dans l’eau devant eux."
+  caption:
+    en: "At the poolside during an excursion."
+    fr: "Au bord de la piscine lors d’une sortie."
+
+- id: excursion-shade
+  source: "Events/DSC_3240.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in pink check uniform gathered under trees on a red earth path during an educational visit, several holding papers and booklets."
+    fr: "Des élèves en uniforme rose à carreaux réunis sous les arbres sur un chemin de terre rouge lors d’une visite éducative, plusieurs tenant des feuilles et des livrets."
+  caption:
+    en: "In the shade during an educational visit."
+    fr: "À l’ombre lors d’une visite éducative."
+
+- id: excursion-refreshment
+  source: "Events/DSC_3300.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in pink check uniform crowded together outdoors, several drinking from bottles and sachets, with a man in a striped shirt beside them."
+    fr: "Des élèves en uniforme rose à carreaux serrés les uns contre les autres en plein air, plusieurs buvant à la bouteille ou au sachet, un homme en chemise rayée à leurs côtés."
+  caption:
+    en: "A pause for a drink on an educational visit."
+    fr: "Une pause pour boire lors d’une visite éducative."
+
+- id: excursion-fish-pond
+  source: "Events/DSC_3324.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in pink check uniform gathered around a circular stone water basin fed by a sculpted figure pouring from a jar, while a guide in a striped outfit leans over the netted water to point something out."
+    fr: "Des élèves en uniforme rose à carreaux entourent un bassin de pierre circulaire alimenté par une figure sculptée versant d’une jarre, tandis qu’un guide en tenue rayée se penche au-dessus de l’eau grillagée pour leur montrer quelque chose."
+  caption:
+    en: "A guide explaining a water basin on an educational visit."
+    fr: "Un guide commente un bassin lors d’une visite éducative."
+
+- id: excursion-fountain-rest
+  source: "Events/DSC_3418.jpg"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Pupils in pink check uniform sitting and leaning on the mosaic rim of a white stone fountain in a garden, with more pupils standing behind."
+    fr: "Des élèves en uniforme rose à carreaux assis et appuyés sur la margelle en mosaïque d’une fontaine de pierre blanche dans un jardin, d’autres élèves debout derrière."
+  caption:
+    en: "Resting by a fountain on an educational visit."
+    fr: "Une pause près d’une fontaine lors d’une visite éducative."
+
+# ---- Added 13 September 2026, with the gallery redesign ------------
+#
+# Three photographs the school added to the Events folder after the previous
+# gallery build. All three were opened and looked at. Two carry graphics that
+# are not the school's own — a photographer's watermark and a seasonal overlay
+# — and the school directed that they be published as supplied, so they are
+# used exactly as delivered and the alt text says what is in the frame,
+# overlay included.
+
+- id: pupils-uniform-pair
+  source: "Events/students.JPG"
+  status: photograph
+  category: school-life
+  focal: top
+  retouchMask: "retouch/pupils-uniform-pair.png"
+  retouchReason: "The photographer's watermark (toluXmedia) sat over flat navy uniform fabric in the lower left. The school is authorised by the photographer to publish the photograph, so the mark is rebuilt out of the DERIVED web master only; the original in 02-School-Assets/Events/students.JPG is unchanged. Nothing depicted is removed or added — the covered pixels are plain fabric, reconstructed by diffusion from the fabric immediately around them, and the result was compared with the original at full resolution before this was kept."
+  alt:
+    en: "Two pupils in school uniform — a pink shirt with a navy tie under a navy pinafore and navy trousers — standing side by side in front of a building hung with paper bunting."
+    fr: "Deux élèves en uniforme — chemise rose et cravate bleu marine, sous une chasuble et un pantalon bleu marine — côte à côte devant un bâtiment orné de guirlandes en papier."
+  caption:
+    en: "Pupils in school uniform."
+    fr: "Des élèves en uniforme scolaire."
+
+- id: nursery-benches
+  source: "Events/extracurricular activities.JPG"
+  status: photograph
+  category: school-life
+  focal: center
+  alt:
+    en: "Young children in pink and black sports kit sitting in rows on green benches outdoors beside a hedge, with more children seated along the row behind them."
+    fr: "De jeunes enfants en tenue de sport rose et noire assis en rangs sur des bancs verts en plein air, le long d’une haie, d’autres enfants assis dans la rangée derrière eux."
+  caption:
+    en: "The youngest pupils at an outdoor event."
+    fr: "Les plus jeunes élèves lors d’un événement en plein air."
+
+- id: christmas-soloist
+  source: "Events/IMG130.jpg"
+  status: photograph
+  category: school-life
+  focal: top
+  alt:
+    en: "A girl in a white and pink patterned dress singing into a handheld microphone in front of a drum kit and congas. A decorative “Merry Christmas” graphic with baubles is overlaid on the corners of the photograph."
+    fr: "Une fille en robe blanche et rose à motifs chante dans un micro devant une batterie et des congas. Un graphisme décoratif « Merry Christmas » avec des boules de Noël est incrusté dans les coins de la photographie."
+  caption:
+    en: "A soloist at the Christmas celebration."
+    fr: "Une soliste lors de la célébration de Noël."

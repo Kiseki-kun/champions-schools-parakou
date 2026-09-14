@@ -1,0 +1,154 @@
+---
+/**
+ * The ONLY supported way an image reaches a page.
+ *
+ * Takes a manifest key, never a file path. Status, alt text and the concept
+ * label all come from the manifest, which the build validates. A concept image
+ * therefore cannot render without its frame and its prefixed alt text.
+ */
+import { Picture } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import ConceptFrame from './ConceptFrame.astro';
+import type { Locale } from '../../i18n/routes';
+
+interface Props {
+  id: string;
+  locale: Locale;
+  widths?: number[];
+  sizes?: string;
+  ratio?: '4/3' | '4/5' | '3/2' | 'native';
+  loading?: 'lazy' | 'eager';
+  priority?: boolean;
+  class?: string;
+  caption?: boolean;
+  /* Make the photograph open in the full-screen viewer. The picture is wrapped
+     in a real <button> — not a div with a click handler — so it is reachable by
+     keyboard and announced as a control. The figcaption stays OUTSIDE the
+     button, so the control's accessible name is the photograph, not the
+     photograph plus its caption. */
+  lightbox?: boolean;
+  /* "View photograph" / "Voir la photographie" — supplied by the caller, which
+     already has the site strings, rather than re-read per image. */
+  viewLabel?: string;
+}
+
+const {
+  id, locale,
+  widths = [400, 700, 1000, 1400],
+  sizes = '(min-width: 900px) 700px, 100vw',
+  ratio = 'native',
+  loading = 'lazy',
+  priority = false,
+  class: className = '',
+  caption = false,
+  lightbox = false,
+  viewLabel = '',
+} = Astro.props;
+
+const entry = await getEntry('media', id);
+if (!entry) throw new Error(`SchoolImage: "${id}" is not in the media manifest.`);
+const m = entry.data;
+
+/* An excluded id is documented in the manifest but must never be published.
+   The asset pipeline derives no web master for it, so this would fail anyway
+   with a confusing "no web master" message; saying it plainly here means the
+   build names the real reason rather than sending someone to run `npm run
+   assets` in search of a file that must not exist. */
+if (m.excluded) {
+  throw new Error(
+    `SchoolImage: "${id}" is excluded from publication and cannot be rendered. ${m.excluded}`
+  );
+}
+
+const files = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{jpg,jpeg,png,webp}');
+const path = `/src/assets/${m.category}/${id}.jpg`;
+const loader = files[path];
+if (!loader) {
+  throw new Error(
+    `SchoolImage: no web master at ${path}. Run \`npm run assets\` to derive it from the original.`
+  );
+}
+const img = (await loader()).default;
+
+/* The viewer shows the WEB MASTER itself — the file the asset pipeline derived
+   from the original, capped at 2400px. It is named in a data attribute and
+   nowhere else, so the browser does not fetch it with the grid; it is requested
+   only when a photograph is opened.
+   Deliberately not a second derivation through getImage(): measured, that made
+   Astro emit the unprocessed master for every image it touched AS WELL as the
+   variant, and those 52 masters then shipped with nothing referencing them —
+   the exact defect class §3 of the QA document was written about. Pointing the
+   viewer at the master keeps one file per photograph and no orphans. */
+const full = lightbox ? { src: img.src, width: img.width, height: img.height } : null;
+
+const alt = m.decorative ? '' : m.alt[locale];
+const cap = caption && m.caption ? m.caption[locale] : null;
+/* The viewer's caption is independent of the visible figcaption. A gallery
+   thumbnail carries no caption of its own — the photography is the point — but
+   the photograph still has a verified caption in the manifest, and that is what
+   the viewer shows once it is open. Both come from the same manifest field, so
+   there is no second, unverified string anywhere. */
+const lbCaption = m.caption ? m.caption[locale] : '';
+const ratioClass = ratio === 'native' ? '' : `ratio-${ratio.replace('/', '')}`;
+const focalClass = `focal-${m.focal}`;
+---
+{m.status === 'concept' ? (
+  <ConceptFrame locale={locale} caption={cap}>
+    <Picture
+      src={img} alt={alt} formats={['avif', 'webp']} widths={widths} sizes={sizes}
+      loading={loading} decoding={priority ? 'sync' : 'async'}
+      class={`${ratioClass} ${focalClass} ${className}`.trim()}
+    />
+  </ConceptFrame>
+) : (
+  <figure class="school-image">
+    {lightbox ? (
+      <button
+        type="button" class="school-image__open"
+        data-lb
+        data-lb-full={full!.src}
+        data-lb-w={String(full!.width)}
+        data-lb-h={String(full!.height)}
+        data-lb-alt={alt}
+        data-lb-caption={lbCaption}
+        aria-label={viewLabel ? `${viewLabel}: ${alt}` : alt}
+      >
+        <Picture
+          src={img} alt="" formats={['avif', 'webp']} widths={widths} sizes={sizes}
+          loading={priority ? 'eager' : loading} decoding={priority ? 'sync' : 'async'}
+          class={`${ratioClass} ${focalClass} ${className}`.trim()}
+        />
+      </button>
+    ) : (
+      <Picture
+        src={img} alt={alt} formats={['avif', 'webp']} widths={widths} sizes={sizes}
+        loading={priority ? 'eager' : loading} decoding={priority ? 'sync' : 'async'}
+        class={`${ratioClass} ${focalClass} ${className}`.trim()}
+      />
+    )}
+    {cap && <figcaption>{cap}</figcaption>}
+  </figure>
+)}
+
+<style>
+  /* Astro writes intrinsic width/height for CLS protection; without
+     height:auto that height wins and stretches the box. */
+  .school-image :global(img) { width: 100%; height: auto; border-radius: var(--radius-md); }
+
+  /* The button is the photograph: no chrome of its own, no padding, no border.
+     Everything it adds is on hover and focus. */
+  .school-image__open {
+    display: block; width: 100%; padding: 0; border: 0; background: none;
+    cursor: zoom-in; border-radius: var(--radius-md); overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .school-image__open :global(img) { border-radius: 0; display: block; }
+  /* A restrained lift, in the school's own navy rather than a shadow or a
+     gradient wash: the photograph brightens slightly and the frame rises. */
+  .school-image__open :global(img) { transition: transform .45s cubic-bezier(.2,.6,.2,1), filter .45s ease; }
+  .school-image__open:hover :global(img) { transform: scale(1.035); filter: brightness(1.04); }
+  @media (prefers-reduced-motion: reduce) {
+    .school-image__open :global(img) { transition: none; }
+    .school-image__open:hover :global(img) { transform: none; }
+  }
+</style>

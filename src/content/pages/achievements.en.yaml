@@ -1,0 +1,113 @@
+# achievements — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: achievements
+title: The results speak for themselves.
+lead: A growing record of academic achievement, and what parents say about it.
+hero:
+  image: awards-presentation
+  focus: 50% 40%
+  eyebrow: Achievements
+blocks:
+- type: stats
+  eyebrow: Our record
+  title: Results and distinctions
+  items:
+  - value: 100%
+    label: CEP pass rate
+    detail: 2023 · 2025 · 2026
+  - value: 100%
+    label: BEPC pass rate
+    detail: '2026'
+  - value: '2024'
+    label: English Challenge
+    detail: Championship winners
+- type: prose
+  measure: wide
+  tone: paper
+  eyebrow: What stands behind the figures
+  title: An institution shaped by experience, strengthened by results
+  body:
+  - Champions Schools has built a growing record of academic achievement, including strong performances
+    in CEP and BEPC examinations, while our students have distinguished themselves in competitions
+    such as the English Challenge Championship.
+  - We have also embraced opportunities to contribute to the wider community, including our participation
+    in initiatives such as the Pink Foundation’s cancer awareness programmes.
+- type: feature
+  side: left
+  image: graduation-group
+  focus: 50% 40%
+  eyebrow: From Champions to the next level
+  title: The results travel with them.
+  body:
+  - Our students carry their Champions experience with them wherever their educational journey takes
+    them.
+  - Whether transitioning into another curriculum, moving to a new country, sitting competitive entrance
+    examinations or simply becoming more confident communicators, we are proud to see our learners
+    thrive beyond the walls of our school.
+  - Because the best evidence of a strong foundation is what happens when the learner builds on it.
+- type: index
+  tone: tint
+  variant: quotes
+  eyebrow: What parents are saying
+  title: Six parents, in their own words
+  items:
+  - index: '01'
+    name: “My child didn’t just learn French. She mastered it.”
+    body: One of the things that impressed me most was seeing how well my child eventually performed
+      in the French curriculum. What makes it even more remarkable is that she had been learning
+      both English and French from the beginning. By the time she left Champions, her performance
+      in the French programme was outstanding, even compared with students who had been following
+      a French-only curriculum. It showed me that the bilingual system really works.
+    meta: Mama Hikmah — parent of a former Champions Schools student
+  - index: '02'
+    name: “The transition to Nigeria was much easier than we expected.”
+    body: When our child continued her education in Nigeria, we were initially concerned about how
+      she would perform in the entrance examinations. Those concerns quickly disappeared. She performed
+      exceptionally well, achieving scores as high as 100% in some of her examinations. It was reassuring
+      to see that the education she received at Champions had prepared her to compete confidently
+      in a different academic environment.
+    meta: Mama Purity — parent of a former Champions Schools student
+  - index: '03'
+    name: “I watched my child become confident in English.”
+    body: When my child first joined Champions, English was not the language he was most comfortable
+      speaking. But with daily interaction with other students, classroom activities and constant
+      exposure to English, we began to see a remarkable transformation. He gradually became more
+      confident and started speaking English naturally. It was one of the changes we appreciated
+      most about his time at the school.
+    meta: Papa Samad — parent of a Champions Schools student
+  - index: '04'
+    name: “Two curricula, one well-rounded education.”
+    body: At first, I wondered whether learning both the English and French programmes would be too
+      demanding for my child. But Champions showed us that it could actually become an advantage.
+      The children learn to adapt between two languages and academic systems from an early age. Seeing
+      how confidently they handle both has been one of the most rewarding parts of the experience.
+    meta: Papa Gift — parent of a Champions Schools student
+  - index: '05'
+    name: “Champions prepared my child beyond the classroom.”
+    body: What I appreciate about Champions is that the focus is not only on completing the syllabus.
+      My child developed confidence, communication skills and the ability to adapt. When it was time
+      to continue her studies elsewhere, she was able to walk into a new academic environment and
+      perform exceptionally well. That gave us great confidence in the foundation she received.
+    meta: Mama Chibuike — parent of a former Champions Schools student
+  - index: '06'
+    name: “The English transformation was remarkable.”
+    body: The change in my child’s English ability was something we noticed very clearly. Through
+      classroom interaction and constant communication with other students, English gradually became
+      part of everyday life. The confidence grew with it. Today, my child can express ideas and communicate
+      in English much more freely than when they first arrived.
+    meta: Mama Aisha — parent of a Champions Schools student
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Enrol your child
+  body: Write or call. Enquiries reach the school’s official email address.
+  primary:
+    label: Request admission
+    page: admissions
+  secondary:
+    label: The academic programme
+    page: academics
+  image: students-excursion

@@ -1,0 +1,376 @@
+---
+import { pathFor, type Locale, type PageKey, PRIMARY_NAV } from '../../i18n/routes';
+import { navLabel, telHref, type SiteData } from '../../i18n/ui';
+import PrimaryNav from './PrimaryNav.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import SchoolImage from '../media/SchoolImage.astro';
+
+interface Props {
+  site: SiteData; locale: Locale; current: PageKey;
+  overlay?: boolean;
+  /** False on a page that is not a route (404), so nothing is lit as current. */
+  markCurrent?: boolean;
+}
+const { site, locale, current: currentKey, overlay = false, markCurrent = true } = Astro.props;
+/* One value drives every "you are here" mark in the header and the drawer. */
+const current = markCurrent ? currentKey : null;
+---
+{/* Overlay mode (homepage): the header sits ON the opening photograph rather
+    than above it, so the first viewport reads as one composition. It carries
+    its own top scrim for legibility and turns solid once the hero has scrolled
+    past. Every other page keeps the original paper bar untouched. */}
+<header class:list={['header', overlay && 'header--overlay']} data-header>
+  <div class="utility">
+    <div class="container container--wide utility__inner">
+      {/* Calendar & Hours is reached from here rather than from the primary
+          navigation, so this is the link that has to say "you are here". */}
+      <a href={pathFor('calendar', locale)} class="utility__link"
+         aria-current={current === 'calendar' ? 'page' : undefined}>
+        <Icon name="calendar" size={16} />{navLabel(site, 'calendar')}
+      </a>
+      {/* site.headerPhone, not phones[0]: the school asked for the header to
+          carry this line. The footer, the contact page and the structured data
+          still publish both numbers. */}
+      <a href={telHref(site.headerPhone)} class="utility__link">
+        <Icon name="phone" size={16} />{site.headerPhone}
+      </a>
+      <div class="utility__spacer"></div>
+      <LanguageSwitcher pageKey={currentKey} locale={locale} label={site.ui.languageLabel} tone="dark" />
+    </div>
+  </div>
+
+  <div class="mainbar">
+    <div class="container container--wide mainbar__inner">
+      <a href={pathFor('home', locale)} class="lockup">
+        {/* Above the fold on every page, so it is not lazy-loaded: a lazy
+            emblem is a request the browser defers for something already in
+            the first viewport. */}
+        <SchoolImage id="logo" locale={locale} widths={[64, 128]} sizes="56px"
+                     class="lockup__mark" priority />
+        <span class="lockup__text">
+          <span class="lockup__name">{site.schoolName}</span>
+          <span class="lockup__motto">{site.motto}</span>
+        </span>
+      </a>
+
+      <div class="mainbar__desktop">
+        <PrimaryNav site={site} locale={locale} current={current} />
+        <Button href={pathFor('admissions', locale)} variant="primary" size="sm">
+          {navLabel(site, 'admissions')}
+        </Button>
+      </div>
+
+      <div class="mainbar__mobile">
+        <LanguageSwitcher pageKey={currentKey} locale={locale} label={site.ui.languageLabel} tone="light" />
+        <button type="button" class="menu-btn" id="menu-open"
+                aria-expanded="false" aria-controls="mobile-drawer" aria-label={site.ui.openMenu}>
+          <Icon name="menu" size={24} />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="mobile-drawer" hidden>
+  <div class="drawer__scrim" data-drawer-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label={site.ui.menu}>
+    <div class="drawer__head">
+      <span class="drawer__title">{site.ui.menu}</span>
+      <button type="button" class="menu-btn" id="menu-close" aria-label={site.ui.closeMenu}>
+        <Icon name="close" size={24} />
+      </button>
+    </div>
+    <nav aria-label={site.ui.menu}>
+      <ul role="list" class="drawer__list">
+        {PRIMARY_NAV.map(({ key, children }) => (
+          <li>
+            <a href={pathFor(key, locale)} class="drawer__link"
+               aria-current={current === key ? 'page' : undefined}>{navLabel(site, key)}</a>
+            {children && (
+              <ul role="list" class="drawer__sub">
+                {children.filter((c) => c !== key).map((c) => (
+                  <li><a href={pathFor(c, locale)}
+                         aria-current={current === c ? 'page' : undefined}>{navLabel(site, c)}</a></li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="drawer__actions">
+      <Button href={pathFor('admissions', locale)} variant="primary">{site.ui.admissionsCta}</Button>
+      <div class="drawer__pair">
+        <Button href={telHref(site.headerPhone)} variant="route"><Icon name="phone" size={20} />{site.ui.call}</Button>
+        <Button href={`mailto:${site.email}`} variant="route"><Icon name="mail" size={20} />{site.ui.emailUs}</Button>
+      </div>
+      <a href={pathFor('calendar', locale)} class="drawer__minor"
+         aria-current={current === 'calendar' ? 'page' : undefined}>{navLabel(site, 'calendar')}</a>
+      {/* The header's own switcher is still present behind the drawer, so this
+          one repeats it rather than declaring a second landmark of the same name. */}
+      <LanguageSwitcher pageKey={currentKey} locale={locale} label={site.ui.languageLabel} tone="light" landmark={false} />
+    </div>
+  </div>
+</div>
+
+<style>
+  .header { position: sticky; top: 0; z-index: 100; background: var(--paper); }
+
+  /* ---------- overlay mode ---------- */
+  .header--overlay {
+    position: absolute; inset-inline: 0; top: 0;
+    background: transparent;
+  }
+  .header--overlay::before {
+    content: ""; position: absolute; inset: 0 0 -40px;
+    background: var(--scrim-top); pointer-events: none; z-index: -1;
+  }
+  /* From 1024 the scrim has to stay dense the whole depth of the bar (the gold
+     motto sits on its last line), so it needs somewhere to fade out. 110px of
+     frame below the header is that somewhere — without it the gradient would
+     have to fall from 0.58 to nothing inside 23px and would read as an edge
+     ruled across the photograph. */
+  @media (min-width: 1024px) {
+    .header--overlay::before { inset: 0 0 -110px; }
+  }
+  .header--overlay .utility { background: transparent; }
+  .header--overlay .mainbar { background: transparent; border-bottom-color: rgba(251, 250, 248, .18); }
+  .header--overlay .lockup { color: var(--paper); }
+  .header--overlay .lockup__motto { color: var(--gold-300); }
+  .header--overlay .menu-btn { color: var(--paper); }
+  .header--overlay :global(.pnav__link),
+  .header--overlay :global(.pnav__toggle),
+  .header--overlay :global(.utility__link) { color: var(--paper); }
+  .header--overlay :global(.pnav__link:hover),
+  .header--overlay :global(.pnav__toggle:hover),
+  .header--overlay :global(.utility__link:hover) { color: var(--gold-300); }
+  .header--overlay :global(.pnav__link[aria-current="page"]) { color: var(--gold-300); }
+  /* The switcher ships a light tone for the paper bar; on a photograph it has
+     to be paper, and it must out-specify its own component rule. */
+  .header--overlay :global(.lang--light .lang__link),
+  .header--overlay :global(.lang--dark .lang__link) { color: var(--paper); opacity: .9; }
+  .header--overlay :global(.lang--light .lang__link.is-active),
+  .header--overlay :global(.lang--dark .lang__link.is-active),
+  .header--overlay :global(.lang--light .lang__link:hover),
+  .header--overlay :global(.lang--dark .lang__link:hover) { color: var(--gold-300); opacity: 1; }
+  .header--overlay :global(.btn--primary) {
+    background: var(--gold-300); color: var(--blue-900);
+  }
+  .header--overlay :global(.btn--primary:hover) { background: var(--gold-200); color: var(--blue-900); }
+  /* No focus-ring override here any more. The site-wide two-tone ring
+     (global.css) carries its own paper band, which is what makes it visible on
+     this photograph — a single gold ring was fine here but meant three
+     different focus schemes to keep true at once. */
+
+  /* Past the hero the bar becomes a solid deep field — the same colour it was
+     scrimmed with, so nothing about the type flips. */
+  .header--overlay.is-stuck {
+    position: fixed;
+    background: var(--blue-900);
+    box-shadow: 0 1px 0 rgba(251, 250, 248, .12), 0 8px 24px rgba(14, 33, 65, .28);
+  }
+  .header--overlay.is-stuck::before { opacity: 0; }
+  .header--overlay.is-stuck .utility { display: none; }
+  .header--overlay.is-stuck .mainbar { border-bottom-color: transparent; }
+  .header--overlay.is-stuck .mainbar__inner { min-height: 64px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .header--overlay.is-stuck { animation: header-drop var(--dur-slow) var(--ease-standard); }
+    @keyframes header-drop { from { transform: translateY(-100%); } to { transform: none; } }
+  }
+  .utility { background: var(--blue-900); color: var(--paper); font-size: var(--fs-small); }
+  .utility__inner { display: flex; align-items: center; gap: var(--space-5); min-height: 40px; }
+  .utility__link {
+    display: inline-flex; align-items: center; gap: 7px;
+    color: var(--paper); text-decoration: none; white-space: nowrap;
+  }
+  .utility__link:hover { color: var(--gold-300); }
+  .utility__spacer { margin-left: auto; }
+  @media (max-width: 1099px) { .utility { display: none; } }
+
+  .mainbar { border-bottom: 1px solid var(--n-200); background: var(--paper); }
+  .mainbar__inner { display: flex; align-items: center; gap: var(--space-4); min-height: 76px; }
+  @media (min-width: 1100px) { .mainbar__inner { gap: var(--space-6); } }
+
+  /* ---------- the branding lockup ----------
+     Three levels, unmistakable: the mark, the name, then the motto set small
+     and widely tracked so it reads as an attribute of the name rather than a
+     second line of it. The lockup never gives ground to the navigation. */
+  .lockup {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none; color: var(--ink);
+    flex: 0 1 auto; min-width: 0;
+  }
+  /* Only from the desktop breakpoint does the lockup stop giving ground. */
+  @media (min-width: 1100px) { .lockup { flex: 0 0 auto; } }
+  .lockup :global(.school-image) { flex: 0 0 52px; width: 52px; }
+  .lockup :global(.lockup__mark) { width: 52px; height: 52px; border-radius: 6px; object-fit: contain; }
+  .lockup__text { display: flex; flex-direction: column; min-width: 0; }
+  .lockup__name {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1.15rem; line-height: 1.12; letter-spacing: -0.012em;
+  }
+  .lockup__motto {
+    margin-top: 6px;
+    font-size: 0.625rem; line-height: 1.2;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--n-700); font-weight: 600;
+  }
+  /* From the desktop breakpoint the name holds one line: the lockup is sized
+     to its content and the navigation takes what is left. */
+  @media (min-width: 1100px) {
+    .lockup__name { white-space: nowrap; font-size: 1.2rem; }
+    .lockup__motto { white-space: nowrap; }
+  }
+  /* Small screens simplify rather than cramp: the motto goes, the name gets a
+     slightly smaller size so it sits on two comfortable lines instead of three. */
+  @media (max-width: 560px) {
+    .lockup { gap: 11px; }
+    .lockup :global(.school-image) { flex: 0 0 44px; width: 44px; }
+    .lockup :global(.lockup__mark) { width: 44px; height: 44px; }
+    .lockup__name { font-size: 1.02rem; }
+    .lockup__motto { display: none; }
+  }
+  /* 320px is the floor: give the name every pixel the row can spare so it
+     still sits on two lines rather than three. */
+  @media (max-width: 380px) {
+    .mainbar__inner { gap: var(--space-2); }
+    .lockup { gap: 9px; }
+    .lockup :global(.school-image) { flex: 0 0 40px; width: 40px; }
+    .lockup :global(.lockup__mark) { width: 40px; height: 40px; }
+    /* At 320px the row leaves the name about 100px once the mark, the
+       language switcher and the menu button are placed. Three words cannot
+       sit on two lines there, so the name is set tight rather than squeezed:
+       the block stays shorter than the mark beside it. */
+    .lockup__name { font-size: 0.9rem; line-height: 1.08; letter-spacing: -0.02em; }
+  }
+  @media (max-width: 380px) { .mainbar__mobile { gap: var(--space-2); } }
+
+  .mainbar__desktop { display: none; margin-left: auto; align-items: center; gap: var(--space-5); min-width: 0; }
+  /* Seven items plus the Admissions action need a tighter rhythm until the
+     viewport is wide enough to carry them at full size. */
+  @media (min-width: 1100px) and (max-width: 1399px) {
+    .mainbar__desktop { gap: var(--space-4); }
+    .mainbar__desktop :global(.pnav > ul) { gap: clamp(7px, 1vw, 15px); }
+    .mainbar__desktop :global(.pnav__link) { font-size: var(--fs-micro); }
+    .mainbar__desktop :global(.pnav__toggle) { width: 22px; }
+    .mainbar__desktop :global(.btn--sm) { padding-inline: 15px; font-size: var(--fs-micro); }
+  }
+  .mainbar__mobile { display: flex; margin-left: auto; align-items: center; gap: var(--space-3); }
+  @media (min-width: 1100px) {
+    .mainbar__desktop { display: flex; }
+    .mainbar__mobile { display: none; }
+  }
+
+  .menu-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px; background: none; border: 0;
+    color: var(--ink); cursor: pointer; border-radius: var(--radius-sm);
+  }
+
+  .drawer { position: fixed; inset: 0; z-index: 150; }
+  .drawer[hidden] { display: none; }
+  .drawer__scrim { position: absolute; inset: 0; background: rgba(20, 26, 34, .5); }
+  .drawer__panel {
+    position: absolute; inset-block: 0; right: 0;
+    width: min(88%, 400px); background: var(--paper);
+    display: flex; flex-direction: column; overflow-y: auto;
+    padding: var(--space-4) var(--space-5) var(--space-8);
+    animation: slide-in var(--dur-base) var(--ease-standard);
+  }
+  @keyframes slide-in { from { transform: translateX(100%); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .drawer__panel { animation: none; } }
+  .drawer__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4); }
+  .drawer__title { font-size: var(--fs-micro); letter-spacing: .08em; text-transform: uppercase; color: var(--n-700); font-weight: 600; }
+  .drawer__list > li { border-bottom: 1px solid var(--n-200); }
+  .drawer__link {
+    display: block; padding: 16px 0; min-height: 56px;
+    font-size: var(--fs-h4); font-weight: 650;
+    color: var(--ink); text-decoration: none;
+  }
+  .drawer__link[aria-current="page"] { color: var(--blue-700); }
+  .drawer__sub { padding: 0 0 var(--space-3) var(--space-4); }
+  .drawer__sub a {
+    display: block; padding: 10px 0; min-height: 44px;
+    color: var(--n-700); text-decoration: none; font-size: var(--fs-small);
+  }
+  .drawer__actions { margin-top: var(--space-6); display: grid; gap: var(--space-3); }
+  .drawer__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  /* A real navigation link in the drawer, so it is sized like one. */
+  .drawer__minor {
+    display: inline-flex; align-items: center; align-self: start;
+    min-height: 44px; padding-block: 8px;
+    font-size: var(--fs-small); color: var(--n-700);
+  }
+</style>
+
+<script>
+  /* Overlay header: swap to the solid bar once the opening photograph has
+     scrolled away. A sentinel + IntersectionObserver, so nothing runs on
+     scroll. */
+  {
+    const header = document.querySelector<HTMLElement>('[data-header].header--overlay');
+    const sentinel = document.querySelector<HTMLElement>('[data-header-sentinel]');
+    if (header && sentinel && 'IntersectionObserver' in window) {
+      new IntersectionObserver(
+        ([e]) => header.classList.toggle('is-stuck', !e.isIntersecting),
+        { rootMargin: '0px' },
+      ).observe(sentinel);
+    }
+  }
+
+  const drawer = document.getElementById('mobile-drawer');
+  const openBtn = document.getElementById('menu-open');
+  const closeBtn = document.getElementById('menu-close');
+  const panel = drawer?.querySelector<HTMLElement>('.drawer__panel');
+  const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+  function openDrawer() {
+    if (!drawer || !openBtn) return;
+    drawer.hidden = false;
+    openBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    panel?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+  }
+  function closeDrawer() {
+    if (!drawer || !openBtn) return;
+    drawer.hidden = true;
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    openBtn.focus();
+  }
+  openBtn?.addEventListener('click', openDrawer);
+  closeBtn?.addEventListener('click', closeDrawer);
+  drawer?.querySelector('[data-drawer-close]')?.addEventListener('click', closeDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (drawer?.hidden !== false) return;
+    if (e.key === 'Escape') { closeDrawer(); return; }
+    if (e.key !== 'Tab' || !panel) return;
+    const items = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE));
+    if (!items.length) return;
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  // Desktop submenus: click to open, Esc closes, outside click closes.
+  const groups = document.querySelectorAll<HTMLElement>('.pnav__group');
+  groups.forEach((group) => {
+    const toggle = group.querySelector<HTMLButtonElement>('.pnav__toggle');
+    const menu = group.querySelector<HTMLElement>('.pnav__submenu');
+    if (!toggle || !menu) return;
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+    };
+    toggle.addEventListener('click', () => setOpen(menu.hidden === true));
+    document.addEventListener('click', (e) => {
+      if (!group.contains(e.target as Node)) setOpen(false);
+    });
+    group.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Escape') { setOpen(false); toggle.focus(); }
+    });
+  });
+</script>

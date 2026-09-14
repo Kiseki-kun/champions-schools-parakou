@@ -1,0 +1,64 @@
+# calendar — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: calendar
+title: Three terms, and the hours of each section
+lead: The school year runs in three terms. Each section has its own opening and closing hours.
+hero:
+  eyebrow: Calendar & hours
+blocks:
+- type: index
+  tone: tint
+  eyebrow: The school year
+  title: Our three terms
+  items:
+  - index: '01'
+    name: First term
+    meta: September – December
+  - index: '02'
+    name: Second term
+    meta: January to early April
+  - index: '03'
+    name: Third term
+    meta: April to June
+- type: index
+  tone: paper
+  eyebrow: Opening and closing hours
+  title: The school day, by section
+  items:
+  - index: '01'
+    name: Nursery
+    meta: Nursery 1 – 3 · Maternelle 1 au 3
+    asideLabel: Hours
+    aside: 7:30 – 2:30
+  - index: '02'
+    name: Primary
+    meta: Primary 1 – 6 · CI au CM2
+    asideLabel: Hours
+    aside: 7:30 – 3:30
+  - index: '03'
+    name: College
+    meta: JSS 1 – SS 1 · 6ème au 3ème
+    asideLabel: Hours
+    aside: 7:00 – 4:00
+- type: prose
+  measure: wide
+  tone: paper
+  title: A note on dates
+  body:
+  - The months above are the school’s own description of its three terms. For the exact opening and
+    closing dates of a given school year, please contact the school.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Ask the school about this year
+  body: Write or call. Enquiries reach the school’s official email address.
+  primary:
+    label: Contact the school
+    page: contact
+  secondary:
+    label: Request admission
+    page: admissions
+  image: hero-nursery-gate

@@ -1,0 +1,57 @@
+---
+/**
+ * The Future Campus concept treatment: an offset rule, corner registration
+ * ticks and a label chip — all OUTSIDE the image. The image itself is never
+ * filtered, graded or overlaid.
+ *
+ * Applied automatically by SchoolImage to any manifest entry with
+ * status: concept. A page author cannot omit it.
+ */
+import { getSite } from '../../i18n/ui';
+import type { Locale } from '../../i18n/routes';
+
+interface Props { locale: Locale; caption?: string | null }
+const { locale, caption = null } = Astro.props;
+const site = await getSite(locale);
+---
+<figure class="concept">
+  <div class="concept__frame">
+    <span class="tick tick--tl" aria-hidden="true"></span>
+    <span class="tick tick--tr" aria-hidden="true"></span>
+    <span class="tick tick--bl" aria-hidden="true"></span>
+    <span class="tick tick--br" aria-hidden="true"></span>
+    <slot />
+  </div>
+  <p class="concept__chip"><span aria-hidden="true">◆</span>{site.ui.conceptLabel}</p>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .concept { margin: 0; }
+  .concept__frame { position: relative; padding: 11px; }
+  .concept__frame::before {
+    content: ""; position: absolute; inset: 0;
+    border: 1px solid var(--blue-300);
+    border-radius: var(--radius-lg);
+    pointer-events: none;
+  }
+  .concept__frame :global(img) { width: 100%; height: auto; border-radius: var(--radius-md); }
+  .tick { position: absolute; width: 12px; height: 12px; pointer-events: none; }
+  .tick::before, .tick::after { content: ""; position: absolute; background: var(--blue-600); }
+  .tick::before { width: 12px; height: 1.5px; top: 0; left: 0; }
+  .tick::after  { width: 1.5px; height: 12px; top: 0; left: 0; }
+  .tick--tl { top: 0; left: 0; }
+  .tick--tr { top: 0; right: 0; transform: scaleX(-1); }
+  .tick--bl { bottom: 0; left: 0; transform: scaleY(-1); }
+  .tick--br { bottom: 0; right: 0; transform: scale(-1); }
+  .concept__chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--blue-900); color: var(--gold-300);
+    font-size: var(--fs-micro); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: var(--radius-pill);
+    margin: -18px 0 0 var(--space-4); position: relative;
+    box-shadow: var(--shadow-1);
+  }
+  .concept__chip span { font-size: 0.7em; }
+</style>

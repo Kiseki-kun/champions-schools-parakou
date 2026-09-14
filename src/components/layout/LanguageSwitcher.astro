@@ -1,0 +1,66 @@
+---
+/**
+ * Resolves pageKey -> the same key's slug in the other locale, so switching
+ * always lands on the equivalent page, never the homepage. Both slugs come
+ * from one row of the route map, so a missing counterpart is impossible.
+ * No flags: flags denote countries, not languages (W3C).
+ */
+import { LOCALES, pathFor, type Locale, type PageKey } from '../../i18n/routes';
+interface Props {
+  pageKey: PageKey; locale: Locale; label: string; tone?: 'dark' | 'light';
+  /**
+   * Whether this instance carries the navigation landmark.
+   *
+   * The same switcher is placed up to three times on a page — the header, the
+   * footer, and the mobile drawer — and each one was a <nav> with the same
+   * accessible name. Opening a screen reader's landmark list then showed
+   * "Language navigation" two or three times over with no way to tell them
+   * apart, which is noise rather than navigation (axe: landmark-unique).
+   *
+   * So one instance is the landmark and the rest are the same control
+   * repeated. Nothing about the links changes: each keeps its own name, its
+   * lang/hreflang and its aria-current either way.
+   */
+  landmark?: boolean;
+}
+const { pageKey, locale, label, tone = 'dark', landmark = true } = Astro.props;
+const NAMES: Record<Locale, string> = { fr: 'Français', en: 'English' };
+const SHORT: Record<Locale, string> = { fr: 'FR', en: 'EN' };
+const Tag = landmark ? 'nav' : 'div';
+---
+<Tag class={`lang lang--${tone}`} aria-label={landmark ? label : undefined}>
+  {LOCALES.map((l, i) => (
+    <>
+      {i > 0 && <span class="lang__div" aria-hidden="true"></span>}
+      <a
+        href={pathFor(pageKey, l)}
+        hreflang={l}
+        lang={l}
+        class:list={['lang__link', l === locale && 'is-active']}
+        aria-current={l === locale ? 'true' : undefined}
+      >
+        <span aria-hidden="true">{SHORT[l]}</span>
+        <span class="visually-hidden">{NAMES[l]}</span>
+      </a>
+    </>
+  ))}
+</Tag>
+
+<style>
+  .lang { display: inline-flex; align-items: center; gap: 10px; }
+  .lang__div { width: 1px; height: 14px; background: currentColor; opacity: .4; }
+  .lang__link {
+    text-decoration: none; font-size: var(--fs-small); font-weight: 600;
+    padding: 4px 2px; min-height: 44px; display: inline-flex; align-items: center;
+    /* "FR" and "EN" are two narrow characters: the link stood 44px tall but
+       only 23px wide, a pixel under the 24×24 that WCAG 2.2 asks of a target
+       (2.5.8). It would have squeaked through on the spacing exception; three
+       pixels of minimum width means it does not have to. Centred, so nothing
+       about the mark moves. */
+    min-width: 26px; justify-content: center;
+  }
+  .lang--dark .lang__link { color: var(--paper); opacity: .85; }
+  .lang--dark .lang__link.is-active { color: var(--gold-300); opacity: 1; font-weight: 700; }
+  .lang--light .lang__link { color: var(--n-700); }
+  .lang--light .lang__link.is-active { color: var(--blue-700); font-weight: 700; }
+</style>

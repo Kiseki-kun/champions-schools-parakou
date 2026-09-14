@@ -1,0 +1,61 @@
+# leadership — EN
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: en
+page: leadership
+title: The people who lead the school
+lead: The Directeur Général and the three heads who lead Nursery, Primary and College.
+hero:
+  image: staff-group
+  focus: 50% 38%
+  eyebrow: Leadership
+blocks:
+- type: people
+  eyebrow: Head of Sections
+  title: Our Heads of Section
+  intro: Each section of the school has a head responsible for it.
+  items:
+  - index: '01'
+    name: M. Houtunde Houngbedji Sylvain
+    role: Directeur Général
+    image: head-dg
+  - index: '02'
+    name: Mrs. Afolabi Demilade
+    role: Headmistress — Nursery
+    image: head-nursery
+  - index: '03'
+    name: Mr. Obaje Joseph
+    role: Headmaster — Primary
+    image: head-primary
+  - index: '04'
+    name: Mme Idrissou Djoueratou
+    role: Censeur du Collège
+    image: head-college
+- type: prose
+  measure: wide
+  tone: tint
+  eyebrow: Our teachers
+  title: Native speakers in both languages
+  body:
+  - All classes are co-taught or led by native speakers of English and French, providing authentic
+    pronunciation and cultural context.
+  - 'That is what makes the 50/50 model work in practice rather than only on the timetable: a child
+    hears each language from someone who speaks it as their own.'
+- type: quote
+  eyebrow: From the Founders’ Message
+  quote: To our teachers and staff, thank you for bringing knowledge, patience and purpose into our
+    classrooms every day.
+  attribution: Rev. & Pastor Mrs. MOMOH — Founders, Champions Schools
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Read the Founders’ Message
+  body: The conviction the school was founded on, in the Founders’ own words.
+  primary:
+    label: Founders’ Message
+    page: founders
+  secondary:
+    label: Contact the school
+    page: contact
+  image: college-group

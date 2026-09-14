@@ -1,0 +1,59 @@
+{
+  "name": "champions-schools-parakou",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "predev": "astro sync",
+    "dev": "astro dev",
+    "prebuild": "astro sync",
+    "build": "astro build",
+    "preview": "astro preview --port 4322",
+    "check": "astro check",
+    "assets": "node scripts/prepare-assets.mjs",
+    "test:console": "node tests/console-check.mjs",
+    "test:interaction": "node tests/interaction-check.mjs",
+    "test:pages": "node tests/pages-parity.mjs",
+    "test:links": "node tests/links-check.mjs",
+    "test:facts": "node tests/facts-check.mjs",
+    "test:functional": "node tests/functional-check.mjs",
+    "test:bilingual": "node tests/verify-bilingual.mjs",
+    "test:weight": "node tests/weight.mjs",
+    "test:hero": "node tests/hero-check.mjs",
+    "test:home": "node tests/home-check.mjs",
+    "test:responsive": "node tests/responsive-check.mjs",
+    "test:pages-responsive": "node tests/pages-responsive.mjs",
+    "test:contrast": "node tests/contrast-check.mjs",
+    "test:polish": "node tests/polish-check.mjs",
+    "test:hero-contrast": "node tests/hero-contrast.mjs",
+    "test:a11y": "node tests/a11y-check.mjs",
+    "test:focus": "node tests/focus-check.mjs",
+    "test:keyboard": "node tests/keyboard-check.mjs",
+    "test:seo": "node tests/seo-check.mjs",
+    "test:security": "node tests/security-check.mjs",
+    "test:headers": "node tests/headers-check.mjs",
+    "test:qa": "node tests/qa-check.mjs",
+    "test:gallery": "node tests/gallery-check.mjs",
+    "test": "npm run test:pages && npm run test:facts && npm run test:links && npm run test:bilingual && npm run test:console && npm run test:functional && npm run test:interaction && npm run test:home && npm run test:hero && npm run test:responsive && npm run test:pages-responsive && npm run test:polish && npm run test:contrast && npm run test:hero-contrast && npm run test:a11y && npm run test:focus && npm run test:keyboard && npm run test:seo && npm run test:security && npm run test:headers && npm run test:qa && npm run test:gallery && npm run test:weight"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/public-sans": "^5.3.0",
+    "astro": "^7.3.2",
+    "sharp": "^0.35.4",
+    "zod": "^4.6.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "axe-core": "^4.13.0",
+    "js-yaml": "^5.4.1",
+    "playwright": "^1.63.0",
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.0"
+  }
+}

@@ -1,0 +1,62 @@
+# leadership — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: leadership
+title: Celles et ceux qui dirigent l’école
+lead: Le directeur général et les trois responsables qui dirigent la maternelle, le primaire et le
+  collège.
+hero:
+  image: staff-group
+  focus: 50% 38%
+  eyebrow: Direction
+blocks:
+- type: people
+  eyebrow: Responsables de section
+  title: Nos responsables de section
+  intro: Chaque section de l’école a un responsable.
+  items:
+  - index: '01'
+    name: M. Houtunde Houngbedji Sylvain
+    role: Directeur Général
+    image: head-dg
+  - index: '02'
+    name: Mrs. Afolabi Demilade
+    role: Directrice de la Maternelle
+    image: head-nursery
+  - index: '03'
+    name: Mr. Obaje Joseph
+    role: Directeur du Primaire
+    image: head-primary
+  - index: '04'
+    name: Mme Idrissou Djoueratou
+    role: Censeur du Collège
+    image: head-college
+- type: prose
+  measure: wide
+  tone: tint
+  eyebrow: Nos enseignants
+  title: Des locuteurs natifs dans les deux langues
+  body:
+  - Toutes les classes sont co-animées ou dirigées par des locuteurs natifs de l’anglais et du français,
+    ce qui apporte une prononciation authentique et un contexte culturel réel.
+  - 'C’est ce qui fait vivre le modèle 50/50 dans les faits, et pas seulement sur l’emploi du temps
+    : l’enfant entend chaque langue de la bouche de quelqu’un dont c’est la langue.'
+- type: quote
+  eyebrow: Extrait du message des fondateurs
+  quote: À nos enseignants et à notre personnel, merci d’apporter chaque jour savoir, patience et
+    sens du but dans nos classes.
+  attribution: Rev. & Pastor Mrs. MOMOH — Fondateurs, Champions Schools
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Lire le message des fondateurs
+  body: La conviction qui a fondé l’école, dans les mots des fondateurs.
+  primary:
+    label: Message des fondateurs
+    page: founders
+  secondary:
+    label: Contacter l’école
+    page: contact
+  image: college-group

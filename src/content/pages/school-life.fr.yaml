@@ -1,0 +1,95 @@
+# school-life — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: school-life
+title: L’école ne s’arrête pas à la porte de la classe
+lead: Les élèves sont encouragés à explorer, créer, concourir, collaborer et découvrir le monde qui
+  les entoure.
+hero:
+  image: excursion-sculpture-ride
+  focus: 50% 42%
+  eyebrow: Vie scolaire
+blocks:
+- type: mosaic
+  eyebrow: Au-delà des murs
+  title: Apprendre hors de la salle de classe
+  body:
+  - Des sorties éducatives à l’apprentissage par la technologie, des compétitions académiques aux
+    activités parascolaires, nous croyons qu’une éducation qui a du sens se joue dans la salle de
+    classe et au-delà.
+  - La journée sportive inter-maisons, les cours pratiques et les sorties font partie de l’année
+    scolaire, et non d’un supplément.
+  lead: excursion-sculpture
+  support:
+  - sports-day-houses
+  - practical-tie-dye
+  chipsLabel: Nos clubs
+  chips:
+  - Jet Club
+  - Press Club
+  - Literary Club
+  - Arts and Drama Club
+- type: feature
+  side: right
+  image: assembly
+  focus: 50% 42%
+  eyebrow: Caractère et valeurs
+  title: Une éducation qui dépasse l’instruction
+  body:
+  - Nous avons reconnu très tôt que l’éducation doit dépasser l’instruction académique. Les valeurs
+    chrétiennes et la formation du caractère font partie intégrante de la vie scolaire et encouragent
+    les élèves à développer l’intégrité, le sens des responsabilités, la compassion et le respect
+    d’autrui.
+  - Un enfant véritablement éduqué n’est pas seulement instruit. Un enfant véritablement éduqué est
+    prêt à penser, à diriger, à servir et à faire la différence.
+- type: figure
+  image: excursion-friends
+  ratio: 16/9
+  focus: 50% 38%
+  full: true
+- type: index
+  tone: tint
+  eyebrow: Ce dont bénéficient nos élèves
+  title: L’étendue de l’expérience Champions
+  intro: 'À mesure que l’école a grandi, l’expérience Champions s’est élargie. Aujourd’hui, nos
+    élèves bénéficient de :'
+  items:
+  - index: '01'
+    name: Un internat
+    body: L’école dispose d’un internat en plus de son externat.
+  - index: '02'
+    name: La technologie et l’apprentissage sur ordinateur
+    body: Les élèves travaillent avec des ordinateurs et des outils numériques dans le cadre de leur
+      formation.
+  - index: '03'
+    name: Les compétitions académiques
+    body: Nos élèves se sont distingués dans des compétitions comme l’English Challenge Championship.
+  - index: '04'
+    name: Les sorties éducatives et l’apprentissage par l’expérience
+    body: Une éducation menée au-delà des manuels, par des visites, des travaux pratiques et des
+      projets.
+  - index: '05'
+    name: La formation du caractère et des valeurs
+    body: L’intégrité, le sens des responsabilités, la compassion et le respect d’autrui, cultivés
+      dans la vie scolaire.
+  - index: '06'
+    name: Le leadership et le développement personnel
+    body: Des occasions pour les élèves de découvrir leurs capacités et de prendre des responsabilités.
+  - index: '07'
+    name: La communauté
+    body: Nous saisissons les occasions de contribuer à la vie de la communauté, notamment par notre
+      participation aux programmes de sensibilisation au cancer de la Pink Foundation.
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Voyez l’école par vous-même
+  body: Des photographies de la vie scolaire, ou écrivez-nous pour une place pour votre enfant.
+  primary:
+    label: Ouvrir la galerie
+    page: gallery
+  secondary:
+    label: Demander une inscription
+    page: admissions
+  image: hero-demonstration

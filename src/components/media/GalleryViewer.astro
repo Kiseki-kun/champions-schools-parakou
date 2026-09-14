@@ -1,0 +1,308 @@
+---
+/**
+ * THE FULL-SCREEN PHOTOGRAPH VIEWER.
+ *
+ * Rendered once per page. Every photograph on the page that was built with
+ * `lightbox` carries `data-lb` plus the attributes this reads; the order the
+ * viewer steps through is the order they appear in the document, so Next
+ * always means "the next photograph down the page".
+ *
+ * Deliberately hand-written rather than a library. What a lightbox package
+ * would add here is a few hundred kilobytes, a second focus model and a second
+ * set of accessibility conventions to keep in step with Phases 9 and 10. What
+ * it has to do is small and completely specified:
+ *
+ *   · open on click or Enter/Space, from a real <button>
+ *   · one image, its own aspect ratio, never cropped and never stretched
+ *   · previous / next / close, as buttons with real names in both languages
+ *   · position counter — 17 / 53
+ *   · Escape closes, ArrowLeft / ArrowRight move, Home / End jump
+ *   · focus is trapped while open and returns to the photograph that opened it
+ *   · the page behind does not scroll
+ *   · swipe on touch
+ *   · prefers-reduced-motion removes the transitions, not the function
+ *
+ * The full-size image is NOT in the markup. Each button carries its URL in a
+ * data attribute, and the viewer assigns it on open, so a visitor who never
+ * opens a photograph never downloads one.
+ */
+import type { Locale } from '../../i18n/routes';
+import type { SiteData } from '../../i18n/ui';
+
+interface Props { locale: Locale; site: SiteData }
+const { site } = Astro.props;
+---
+
+<div class="lb" data-lightbox hidden>
+  <div class="lb__scrim" data-lb-scrim></div>
+
+  {/* aria-modal with role=dialog, labelled by the live caption line so the
+      dialog announces which photograph is open, not just "dialog". */}
+  <div class="lb__panel" role="dialog" aria-modal="true"
+       aria-label={site.ui.galleryRegion} data-lb-panel>
+
+    <figure class="lb__figure">
+      {/* alt is written on open from the photograph's own manifest alt text. */}
+      <img class="lb__img" data-lb-img alt="" decoding="async" />
+      <figcaption class="lb__cap">
+        <span data-lb-caption></span>
+      </figcaption>
+    </figure>
+
+    <div class="lb__bar">
+      <button type="button" class="lb__btn" data-lb-prev aria-label={site.ui.galleryPrev}>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+          <path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      {/* aria-live=polite, so stepping through announces the new position to a
+          screen reader without stealing focus. */}
+      <p class="lb__count" data-lb-count aria-live="polite"></p>
+
+      <button type="button" class="lb__btn" data-lb-next aria-label={site.ui.galleryNext}>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+          <path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <button type="button" class="lb__btn lb__close" data-lb-close aria-label={site.ui.galleryClose}>
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .lb {
+    position: fixed; inset: 0; z-index: 200;
+    /* The gesture belongs to the viewer while it is open: no scroll chaining to
+       the page behind, and no touch panning of the overlay itself — a swipe
+       here means previous/next. */
+    overscroll-behavior: contain;
+    touch-action: none;
+  }
+  .lb[hidden] { display: none; }
+
+  /* The school's own near-black rather than a neutral one, so the photographs
+     sit on the same warm ground the hero scrim uses. */
+  .lb__scrim { position: absolute; inset: 0; background: rgba(22, 19, 15, .965); }
+
+  .lb__panel {
+    position: absolute; inset: 0;
+    display: grid; grid-template-rows: 1fr auto;
+    padding: clamp(12px, 3vw, 32px);
+    padding-bottom: max(clamp(12px, 3vw, 32px), env(safe-area-inset-bottom));
+  }
+
+  .lb__figure {
+    margin: 0; min-height: 0;
+    display: grid; grid-template-rows: minmax(0, 1fr) auto;
+    justify-items: center; align-content: center; gap: var(--space-4);
+  }
+  /* contain, never cover: the viewer's job is to show the whole photograph at
+     its own proportions. */
+  .lb__img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, .04);
+  }
+  .lb__cap {
+    color: rgba(251, 250, 248, .88);
+    font-size: var(--fs-small);
+    text-align: center; max-width: 62ch;
+    border-left: 2px solid var(--gold-300);
+    padding-left: var(--space-4);
+  }
+  .lb__cap:empty, .lb__cap span:empty { border: 0; padding: 0; }
+
+  .lb__bar {
+    display: flex; align-items: center; justify-content: center;
+    gap: var(--space-4); padding-top: var(--space-5);
+  }
+  .lb__count {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-size: var(--fs-small); letter-spacing: .06em;
+    color: var(--paper); min-width: 7ch; text-align: center;
+  }
+
+  .lb__btn {
+    display: grid; place-items: center;
+    width: 48px; height: 48px;            /* 2.5.8 with room to spare */
+    border-radius: 999px; border: 1px solid rgba(251, 250, 248, .28);
+    background: rgba(251, 250, 248, .08); color: var(--paper);
+    cursor: pointer; transition: background .2s ease, border-color .2s ease;
+  }
+  .lb__btn:hover { background: rgba(251, 250, 248, .18); border-color: rgba(251, 250, 248, .5); }
+  .lb__btn[disabled] { opacity: .35; cursor: default; }
+  /* The two-tone ring from Phase 10, inverted for a dark ground: the paper ring
+     hugs the control and the ink ring sits outside it. */
+  .lb__btn:focus-visible {
+    outline: 3px solid var(--paper);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba(22, 19, 15, .9);
+  }
+
+  .lb__close { position: absolute; top: clamp(12px, 3vw, 32px); right: clamp(12px, 3vw, 32px); }
+
+  @media (min-width: 900px) {
+    /* From here the previous/next controls move to the edges of the frame, which
+       is where a hand already is, and the counter keeps the centre. */
+    .lb__panel { grid-template-rows: 1fr auto; }
+    .lb__bar { gap: var(--space-6); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lb__btn { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-lightbox]');
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lb]'));
+
+  if (root && triggers.length) {
+    const panel = root.querySelector<HTMLElement>('[data-lb-panel]')!;
+    const img = root.querySelector<HTMLImageElement>('[data-lb-img]')!;
+    const capEl = root.querySelector<HTMLElement>('[data-lb-caption]')!;
+    const countEl = root.querySelector<HTMLElement>('[data-lb-count]')!;
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-lb-prev]')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-lb-next]')!;
+    const closeBtn = root.querySelector<HTMLButtonElement>('[data-lb-close]')!;
+    const scrim = root.querySelector<HTMLElement>('[data-lb-scrim]')!;
+
+    const total = triggers.length;
+    let index = -1;
+    let opener: HTMLElement | null = null;
+
+    /* Preloaded viewer images, so stepping back and forth does not re-fetch. */
+    const warmed = new Set<string>();
+    const warm = (i: number) => {
+      const t = triggers[(i + total) % total];
+      const url = t?.dataset.lbFull;
+      if (!url || warmed.has(url)) return;
+      warmed.add(url);
+      const pre = new Image();
+      pre.decoding = 'async';
+      pre.src = url;
+    };
+
+    function show(i: number) {
+      index = (i % total + total) % total;
+      const t = triggers[index];
+      /* width/height before src: the box is reserved at the right shape, so the
+         panel does not jump as each photograph arrives. */
+      const w = t.dataset.lbW, h = t.dataset.lbH;
+      if (w) img.width = Number(w);
+      if (h) img.height = Number(h);
+      img.src = t.dataset.lbFull || '';
+      img.alt = t.dataset.lbAlt || '';
+      const cap = t.dataset.lbCaption || '';
+      capEl.textContent = cap;
+      countEl.textContent = `${index + 1} / ${total}`;
+      /* The neighbours, once the current one is on its way. */
+      warm(index + 1);
+      warm(index - 1);
+    }
+
+    /* ---------- focus containment ---------- */
+    const focusables = () =>
+      Array.from(panel.querySelectorAll<HTMLElement>('button:not([disabled])'))
+        .filter((el) => el.offsetParent !== null);
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); show(index + 1); return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(index - 1); return; }
+      if (e.key === 'Home') { e.preventDefault(); show(0); return; }
+      if (e.key === 'End') { e.preventDefault(); show(total - 1); return; }
+      if (e.key !== 'Tab') return;
+      const list = focusables();
+      if (!list.length) return;
+      const first = list[0], last = list[list.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey && (active === first || !panel.contains(active))) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+
+    function open(i: number, from: HTMLElement) {
+      opener = from;
+      /* Lock the page behind.
+         `overflow: hidden` on the root, NOT `position: fixed` on the body. The
+         fixed-body trick takes the page out of flow, so the document loses its
+         height while the viewer is open and the scroll position has to be
+         saved and put back by hand — which was measured doing exactly the wrong
+         thing here: closing the viewer left the visitor hundreds of pixels
+         above the photograph they had been looking at. Hiding the overflow
+         keeps the page exactly where it is, so there is nothing to restore and
+         nothing to race. The scrollbar's width is paid back as padding so the
+         page does not jump sideways as it disappears. */
+      const bar = window.innerWidth - document.documentElement.clientWidth;
+      if (bar > 0) document.documentElement.style.paddingRight = `${bar}px`;
+      document.documentElement.style.overflow = 'hidden';
+      root!.hidden = false;
+      show(i);
+      closeBtn.focus();
+      document.addEventListener('keydown', onKey, true);
+    }
+
+    function close() {
+      root!.hidden = true;
+      document.removeEventListener('keydown', onKey, true);
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.paddingRight = '';
+      /* Back to the photograph that was opened, not to the top of the page.
+         preventScroll matters: .focus() scrolls its element into view by
+         default, which would move the page a second time and undo the line
+         above — the visitor would close the viewer and find themselves
+         somewhere other than where they left off. */
+      opener?.focus({ preventScroll: true });
+      opener = null;
+      /* Let go of the decoded image so a long session does not hold every
+         photograph it looked at. */
+      img.removeAttribute('src');
+    }
+
+    triggers.forEach((t, i) => t.addEventListener('click', () => open(i, t)));
+    prevBtn.addEventListener('click', () => show(index - 1));
+    nextBtn.addEventListener('click', () => show(index + 1));
+    closeBtn.addEventListener('click', close);
+    /* Clicking away from the photograph closes. The panel covers the scrim, so
+       a scrim listener alone would never fire: what actually has to be tested
+       is whether the click landed on the empty field rather than on the
+       photograph, its caption or a control. */
+    const closeOnBackdrop = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      if (t === panel || t === scrim || t.classList.contains('lb__figure')) close();
+    };
+    panel.addEventListener('click', closeOnBackdrop);
+    scrim.addEventListener('click', close);
+
+    /* ---------- touch ---------- */
+    let x0 = 0, y0 = 0, t0 = 0;
+    panel.addEventListener('touchstart', (e) => {
+      const t = e.changedTouches[0];
+      x0 = t.clientX; y0 = t.clientY; t0 = Date.now();
+    }, { passive: true });
+    panel.addEventListener('touchend', (e) => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - x0, dy = t.clientY - y0;
+      /* A swipe, not a tap and not a scroll: far enough, quick enough, and
+         more horizontal than vertical. */
+      if (Date.now() - t0 > 700) return;
+      if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      show(index + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+</script>

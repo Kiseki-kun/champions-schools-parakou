@@ -1,0 +1,52 @@
+# contact — FR
+# Every claim is traceable to 01-School-Information/school-information.docx.
+# Copy-editing corrections from 01-DISCOVERY-AND-REQUIREMENTS.md §9.4 are applied;
+# no factual content is changed. Nothing here is invented.
+
+locale: fr
+page: contact
+title: Parler à l’école
+lead: Une adresse, deux numéros de téléphone et une adresse électronique — celles de l’école, et
+  les seules que ce site publie.
+hero:
+  image: college-group
+  focus: 50% 40%
+  eyebrow: Contact
+blocks:
+- type: contact
+  eyebrow: Nous joindre
+  title: Champions Schools Parakou
+  body:
+  - Les demandes parviennent à l’adresse électronique officielle de l’école. Vous pouvez aussi appeler
+    pendant les heures de classe.
+  addressLabel: Adresse
+  phoneLabel: Téléphone
+  emailLabel: E-mail
+- type: index
+  tone: tint
+  eyebrow: Quand appeler
+  title: Les horaires, par section
+  items:
+  - index: '01'
+    name: Maternelle
+    asideLabel: Horaires
+    aside: 7h30 – 14h30
+  - index: '02'
+    name: Primaire
+    asideLabel: Horaires
+    aside: 7h30 – 15h30
+  - index: '03'
+    name: Collège
+    asideLabel: Horaires
+    aside: 7h00 – 16h00
+- type: cta
+  eyebrow: Godliness, Excellence, Leadership
+  title: Vous souhaitez une place ?
+  body: Les quatre documents demandés pour l’admission, et les niveaux que votre enfant peut rejoindre.
+  primary:
+    label: Admissions
+    page: admissions
+  secondary:
+    label: Calendrier et horaires
+    page: calendar
+  image: hero-nursery-gate
