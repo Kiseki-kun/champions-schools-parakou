@@ -102,3 +102,16 @@ ui:
   formSubmit: Envoyer le message
   comingSoon: Le contenu de cette page est en cours de préparation.
   foundationNotice: Cette page fait partie de la structure du site. Son contenu sera ajouté lors d’une phase ultérieure.
+  portal: Espace parents
+  portalAria: "Espace parents : consulter les résultats de votre enfant (application)"
+  portalTitle: Suivez la scolarité de votre enfant depuis votre téléphone
+  portalLead: Notes des tests et des devoirs, messages de l’école et situation des frais de scolarité, réunis dans l’application Espace parents.
+  portalB1: Les notes et les résultats de votre enfant
+  portalB2: Les messages et rappels de l’école
+  portalB3: La situation des frais de scolarité
+  portalCta: Ouvrir l’Espace parents
+  portalInstall: Sur la page qui s’ouvre, votre navigateur vous propose d’ajouter l’application à votre écran d’accueil. Elle fonctionne sur téléphone, tablette et ordinateur.
+  portalMockWelcome: Bienvenue
+  portalMockResults: Résultats
+  portalMockMessages: Messages
+  portalMockFees: Frais de scolarité

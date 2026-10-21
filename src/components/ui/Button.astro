@@ -2,7 +2,7 @@
 interface Props {
   href?: string;
   type?: 'button' | 'submit';
-  variant?: 'primary' | 'secondary' | 'ghost' | 'ondark' | 'onphoto' | 'route';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'ondark' | 'onphoto' | 'route' | 'portal';
   size?: 'md' | 'sm';
   class?: string;
   [key: string]: any;
@@ -43,6 +43,11 @@ const Tag = href ? 'a' : 'button';
   .btn--onphoto:hover { background: rgba(251, 250, 248, .14); color: var(--paper); border-color: var(--paper); }
   .btn--route { background: var(--paper); color: var(--blue-700); border: 1.5px solid var(--n-500); }
   .btn--route:hover { background: var(--blue-50); border-color: var(--blue-600); color: var(--blue-700); }
+  /* The parents' portal: the one gold action on the paper bar, so a parent
+     finds it without reading the navigation. The 1.5px gold-500 edge keeps
+     the button's boundary visible against paper (1.4.11). */
+  .btn--portal { background: var(--gold-300); color: var(--blue-900); border: 1.5px solid var(--gold-500); }
+  .btn--portal:hover { background: var(--gold-200); color: var(--blue-900); }
   .btn:disabled, .btn[aria-disabled="true"] {
     background: var(--n-300); color: var(--n-700); border-color: var(--n-300); cursor: not-allowed;
   }

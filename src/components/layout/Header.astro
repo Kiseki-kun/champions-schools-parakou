@@ -1,6 +1,6 @@
 ---
 import { pathFor, type Locale, type PageKey, PRIMARY_NAV } from '../../i18n/routes';
-import { navLabel, telHref, type SiteData } from '../../i18n/ui';
+import { navLabel, telHref, PORTAL_URL, type SiteData } from '../../i18n/ui';
 import PrimaryNav from './PrimaryNav.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import Button from '../ui/Button.astro';
@@ -37,6 +37,11 @@ const current = markCurrent ? currentKey : null;
         <Icon name="phone" size={16} />{site.headerPhone}
       </a>
       <div class="utility__spacer"></div>
+      {/* The parents' portal, always in view on desktop. A gold pill on the
+          deep bar: it is the only gold thing up here. */}
+      <a href={PORTAL_URL} class="utility__portal" aria-label={site.ui.portalAria}>
+        <Icon name="portal" size={18} />{site.ui.portal}
+      </a>
       <LanguageSwitcher pageKey={currentKey} locale={locale} label={site.ui.languageLabel} tone="dark" />
     </div>
   </div>
@@ -57,6 +62,9 @@ const current = markCurrent ? currentKey : null;
 
       <div class="mainbar__desktop">
         <PrimaryNav site={site} locale={locale} current={current} />
+        <Button href={PORTAL_URL} variant="portal" size="sm" class="portal-btn" aria-label={site.ui.portalAria}>
+          <Icon name="portal" size={20} /><span class="visually-hidden">{site.ui.portal}</span>
+        </Button>
         <Button href={pathFor('admissions', locale)} variant="primary" size="sm">
           {navLabel(site, 'admissions')}
         </Button>
@@ -82,6 +90,14 @@ const current = markCurrent ? currentKey : null;
         <Icon name="close" size={24} />
       </button>
     </div>
+    <a href={PORTAL_URL} class="drawer__portal" aria-label={site.ui.portalAria}>
+      <Icon name="portal" size={30} />
+      <span class="drawer__portal-text">
+        <strong>{site.ui.portal}</strong>
+        <span>{site.ui.portalB1}</span>
+      </span>
+      <Icon name="arrow" size={22} />
+    </a>
     <nav aria-label={site.ui.menu}>
       <ul role="list" class="drawer__list">
         {PRIMARY_NAV.map(({ key, children }) => (
@@ -159,6 +175,21 @@ const current = markCurrent ? currentKey : null;
     background: var(--gold-300); color: var(--blue-900);
   }
   .header--overlay :global(.btn--primary:hover) { background: var(--gold-200); color: var(--blue-900); }
+  /* Admissions is already the gold action on the photograph, so the portal
+     button takes paper there and stays visibly a different action. */
+  /* The utility bar carries the portal pill; it is hidden once the header
+     sticks, so the portal then stays reachable as a compact icon button.
+     (A full-width label here pushes Admissions off the bar below 1500px.) */
+  .mainbar__desktop :global(.portal-btn) { display: none; }
+  .header--overlay.is-stuck .mainbar__desktop :global(.portal-btn) { display: inline-flex; min-width: 44px; padding-inline: 10px; }
+  /* 1100–1279px is too narrow for both buttons once the utility bar is gone:
+     the portal keeps the slot and Admissions stays one click away in the
+     navigation beside it. */
+  @media (max-width: 1279px) {
+    .header--overlay.is-stuck .mainbar__desktop :global(.btn--primary) { display: none; }
+  }
+  .header--overlay :global(.btn--portal) { background: var(--paper); border-color: var(--paper); color: var(--blue-900); }
+  .header--overlay :global(.btn--portal:hover) { background: var(--gold-100); border-color: var(--gold-100); }
   /* No focus-ring override here any more. The site-wide two-tone ring
      (global.css) carries its own paper band, which is what makes it visible on
      this photograph — a single gold ring was fine here but meant three
@@ -187,6 +218,14 @@ const current = markCurrent ? currentKey : null;
   }
   .utility__link:hover { color: var(--gold-300); }
   .utility__spacer { margin-left: auto; }
+  .utility__portal {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-block: 5px; padding: 4px 14px 4px 11px; min-height: 30px;
+    background: var(--gold-300); color: var(--blue-900);
+    border-radius: var(--radius-pill); font-weight: 650; text-decoration: none; white-space: nowrap;
+  }
+  .utility__portal:hover { background: var(--gold-200); color: var(--blue-900); }
+  .utility__portal + :global(.lang) { margin-left: var(--space-2); }
   @media (max-width: 1099px) { .utility { display: none; } }
 
   .mainbar { border-bottom: 1px solid var(--n-200); background: var(--paper); }
@@ -255,7 +294,7 @@ const current = markCurrent ? currentKey : null;
     .mainbar__desktop :global(.pnav > ul) { gap: clamp(7px, 1vw, 15px); }
     .mainbar__desktop :global(.pnav__link) { font-size: var(--fs-micro); }
     .mainbar__desktop :global(.pnav__toggle) { width: 22px; }
-    .mainbar__desktop :global(.btn--sm) { padding-inline: 15px; font-size: var(--fs-micro); }
+    .mainbar__desktop :global(.btn--sm) { padding-inline: 13px; font-size: var(--fs-micro); gap: 6px; }
   }
   .mainbar__mobile { display: flex; margin-left: auto; align-items: center; gap: var(--space-3); }
   @media (min-width: 1100px) {
@@ -296,6 +335,17 @@ const current = markCurrent ? currentKey : null;
     color: var(--n-700); text-decoration: none; font-size: var(--fs-small);
   }
   .drawer__actions { margin-top: var(--space-6); display: grid; gap: var(--space-3); }
+  .drawer__portal {
+    margin-bottom: var(--space-4);
+    display: flex; align-items: center; gap: var(--space-3);
+    padding: var(--space-4); border-radius: var(--radius-lg);
+    background: var(--gold-300); color: var(--blue-900);
+    border: 1.5px solid var(--gold-500); text-decoration: none;
+  }
+  .drawer__portal:hover { background: var(--gold-200); }
+  .drawer__portal-text { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.25; }
+  .drawer__portal-text strong { font-size: var(--fs-h4); font-weight: 700; }
+  .drawer__portal-text span { font-size: var(--fs-small); }
   .drawer__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
   /* A real navigation link in the drawer, so it is sized like one. */
   .drawer__minor {

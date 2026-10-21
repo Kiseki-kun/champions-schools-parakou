@@ -80,7 +80,7 @@ const BANDS = [
   ['hdr-nav', '.header--overlay .pnav__link', PAPER, 1, 4.5],
 ];
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const worst = {};
 let measured = 0;

@@ -33,7 +33,7 @@ const LABELS = {
 
 const fails = [];
 const ok = (c, m) => { if (!c) fails.push(m); };
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 let opened = 0;
 
 for (const [locale, route] of Object.entries(ROUTES)) {

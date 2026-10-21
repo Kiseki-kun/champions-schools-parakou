@@ -31,7 +31,7 @@ const ROUTES = [
   ['fr', '/fr/confidentialite/'],                   ['en', '/en/privacy/'],
 ];
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const ok = (c, m) => { if (!c) fails.push(m); };
 let checks = 0;

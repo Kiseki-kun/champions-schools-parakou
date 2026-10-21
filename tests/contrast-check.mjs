@@ -11,7 +11,7 @@
 import { chromium } from 'playwright';
 
 const BASE = process.argv[2] || 'http://localhost:4322';
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const notes = [];
 /* Elements with no opaque background behind them — text on photography.

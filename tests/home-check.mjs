@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { load as parseYaml } from 'js-yaml';
 
 const BASE = process.argv[2] || 'http://localhost:4322';
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const ok = (c, m) => { if (!c) fails.push(m); };
 

@@ -15,7 +15,7 @@ const full = rest.includes('--full');
 const widths = rest.filter((a) => /^\d+$/.test(a)).map(Number);
 mkdirSync(out, { recursive: true });
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 for (const width of widths.length ? widths : [390, 768, 1280, 1600]) {
   const page = await browser.newPage({ viewport: { width, height: 900 } });
   await page.goto(base + route, { waitUntil: 'networkidle' });

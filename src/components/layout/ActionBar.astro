@@ -1,7 +1,7 @@
 ---
-/** Sticky conversion bar below 1100px. Call, WhatsApp and Admissions at equal weight. */
+/** Sticky conversion bar below 1100px. Call, WhatsApp, the parents' portal (gold) and Admissions. */
 import { pathFor, type Locale } from '../../i18n/routes';
-import { telHref, waHref, type SiteData } from '../../i18n/ui';
+import { telHref, waHref, PORTAL_URL, type SiteData } from '../../i18n/ui';
 import Icon from '../ui/Icon.astro';
 interface Props { site: SiteData; locale: Locale }
 const { site, locale } = Astro.props;
@@ -16,6 +16,9 @@ const { site, locale } = Astro.props;
   <a href={waHref(site.headerPhone)} rel="noopener noreferrer" target="_blank">
     <Icon name="whatsapp" size={20} />{site.ui.whatsapp}
   </a>
+  <a href={PORTAL_URL} class="actionbar__portal" aria-label={site.ui.portalAria}>
+    <Icon name="portal" size={20} />{site.ui.portal}
+  </a>
   <a href={pathFor('admissions', locale)} class="actionbar__primary">
     <Icon name="arrow" size={20} />{site.nav.admissions}
   </a>
@@ -24,7 +27,7 @@ const { site, locale } = Astro.props;
 <style>
   .actionbar {
     position: fixed; inset-inline: 0; bottom: 0; z-index: 90;
-    display: grid; grid-template-columns: repeat(3, 1fr);
+    display: grid; grid-template-columns: repeat(4, 1fr);
     background: var(--paper); border-top: 1px solid var(--n-200);
     padding-bottom: env(safe-area-inset-bottom);
   }
@@ -40,6 +43,8 @@ const { site, locale } = Astro.props;
      white below never applied and the label rendered blue-700 on blue-600 —
      1.27:1, an invisible primary action on every page below 1100px. */
   .actionbar a.actionbar__primary { background: var(--blue-600); color: var(--paper); }
+  .actionbar a.actionbar__portal { background: var(--gold-300); color: var(--blue-900); }
+  .actionbar a.actionbar__portal:hover { background: var(--gold-200); color: var(--blue-900); }
   .actionbar a.actionbar__primary:hover { background: var(--blue-700); color: var(--paper); }
   @media (min-width: 1100px) { .actionbar { display: none; } }
 </style>

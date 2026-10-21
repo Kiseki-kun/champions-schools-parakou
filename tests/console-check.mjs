@@ -15,7 +15,7 @@ const PATHS = [
   '/fr/contact/', '/en/contact/',
   '/fr/confidentialite/', '/en/privacy/',
 ];
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 let problems = 0;
 for (const vp of [{ width: 320, height: 720, name: '320' }, { width: 1280, height: 900, name: '1280' }]) {
   const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });

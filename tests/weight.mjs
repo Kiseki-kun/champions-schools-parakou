@@ -28,7 +28,7 @@ const ROUTES = [
   '/fr/confidentialite/', '/en/privacy/',
 ];
 
-const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const b = await chromium.launch();
 const fails = [];
 let worst = { kb: 0, route: '' };
 

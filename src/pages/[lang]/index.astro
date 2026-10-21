@@ -31,7 +31,7 @@
  */
 import { getEntry } from 'astro:content';
 import { LOCALES, pathFor, type Locale } from '../../i18n/routes';
-import { getHome, getSite, telHref, waHref } from '../../i18n/ui';
+import { getHome, getSite, telHref, waHref, PORTAL_URL } from '../../i18n/ui';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroSequence from '../../components/home/HeroSequence.astro';
 import SchoolImage from '../../components/media/SchoolImage.astro';
@@ -113,6 +113,38 @@ const HERO_FOCUS = ['50% 36%', '50% 48%', '53% 33%', '50% 30%', '50% 38%'];
           </div>
         ))}
       </dl>
+    </div>
+  </section>
+
+  <!-- 2b ─ PARENTS' PORTAL ─────────────────────────────────────────────
+       A parent who lands here to see results must not have to hunt. A bright
+       gold field between two dark/light sections, one sentence, one button.
+       The phone is drawn in CSS and carries NO pupil data, only the names of
+       the three things the app holds. -->
+  <section class="portal" aria-labelledby="portal-title">
+    <div class="container container--wide portal__inner">
+      <div class="portal__say">
+        <h2 id="portal-title" class="portal__title">{site.ui.portalTitle}</h2>
+        <p class="portal__lead">{site.ui.portalLead}</p>
+        <ul role="list" class="portal__list">
+          <li><Icon name="check" size={22} />{site.ui.portalB1}</li>
+          <li><Icon name="check" size={22} />{site.ui.portalB2}</li>
+          <li><Icon name="check" size={22} />{site.ui.portalB3}</li>
+        </ul>
+        <a href={PORTAL_URL} class="portal__cta">
+          <Icon name="portal" size={24} />{site.ui.portalCta}<Icon name="arrow" size={22} />
+        </a>
+        <p class="portal__install">{site.ui.portalInstall}</p>
+      </div>
+      <div class="portal__phone" aria-hidden="true">
+        <div class="phone">
+          <div class="phone__bar"></div>
+          <p class="phone__hello">{site.ui.portalMockWelcome}</p>
+          <div class="phone__row"><span class="phone__dot"></span>{site.ui.portalMockResults}</div>
+          <div class="phone__row"><span class="phone__dot"></span>{site.ui.portalMockMessages}</div>
+          <div class="phone__row"><span class="phone__dot"></span>{site.ui.portalMockFees}</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -405,6 +437,49 @@ const HERO_FOCUS = ['50% 36%', '50% 48%', '53% 33%', '50% 30%', '50% 38%'];
   }
   .kicker--gold { color: var(--gold-300); }
   .kicker--gold::before { background: var(--gold-300); }
+
+  /* ══ 2b — the parents' portal ═════════════════════════════════════════ */
+  .portal { background: var(--gold-300); color: var(--blue-900); padding-block: var(--space-9); }
+  .portal__inner { display: grid; gap: var(--space-8); align-items: center; }
+  @media (min-width: 900px) {
+    .portal__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: var(--space-10); }
+  }
+  .portal__title {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: var(--fs-statement); line-height: 1.08; letter-spacing: -0.025em;
+    max-width: 20ch; text-wrap: balance;
+  }
+  .portal__lead { margin-top: var(--space-4); font-size: var(--fs-lead); max-width: 52ch; }
+  .portal__list { margin-top: var(--space-5); display: grid; gap: var(--space-2); font-weight: 600; }
+  .portal__list li { display: flex; gap: var(--space-3); align-items: center; }
+  .portal__cta {
+    margin-top: var(--space-6);
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--space-3);
+    min-height: 60px; padding: 16px 28px; max-width: 100%;
+    background: var(--blue-900); color: var(--paper);
+    border-radius: var(--radius-md); text-decoration: none;
+    font-weight: 700; font-size: 1.125rem; line-height: 1.2; text-align: center;
+    box-shadow: 0 6px 0 var(--blue-700);
+    transition: background var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
+  }
+  .portal__cta:hover { background: var(--blue-800); color: var(--paper); transform: translateY(2px); box-shadow: 0 4px 0 var(--blue-700); }
+  @media (max-width: 560px) { .portal__cta { display: flex; } }
+  .portal__install { margin-top: var(--space-4); font-size: var(--fs-small); max-width: 52ch; }
+  .portal__phone { display: none; justify-self: center; }
+  @media (min-width: 900px) { .portal__phone { display: block; } }
+  .phone {
+    width: 230px; padding: 18px 16px 22px; border: 6px solid var(--blue-900);
+    border-radius: 34px; background: var(--paper); box-shadow: 0 18px 40px rgba(14, 33, 65, .28);
+    display: grid; gap: var(--space-3);
+  }
+  .phone__bar { width: 54px; height: 6px; border-radius: 3px; background: var(--n-300); justify-self: center; }
+  .phone__hello { font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; color: var(--blue-900); margin-block: var(--space-3) var(--space-1); }
+  .phone__row {
+    display: flex; align-items: center; gap: var(--space-3);
+    padding: 14px 12px; border-radius: var(--radius-md);
+    background: var(--blue-50); color: var(--blue-800); font-weight: 650; font-size: var(--fs-small);
+  }
+  .phone__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gold-500); flex: 0 0 12px; }
 
   /* ══ 2 — the record ══════════════════════════════════════════════════ */
   .record {

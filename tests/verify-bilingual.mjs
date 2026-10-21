@@ -9,7 +9,7 @@ async function walk(d, acc = []) {
   }
   return acc;
 }
-const files = (await walk(DIST)).sort();
+const files = (await walk(DIST)).map((f) => f.replaceAll('\\', '/')).sort();
 const pages = new Map();
 let fails = [];
 for (const f of files) {

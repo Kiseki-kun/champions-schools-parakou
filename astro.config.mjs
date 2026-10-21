@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { LOCALES, PAGE_KEYS, ROUTES, pathFor } from './src/i18n/routes.ts';
 
-const SITE = 'https://champions-schools-parakou.invalid';
+const SITE = 'https://championsschoolsparakou.com';
 
 /**
  * Language alternates for the sitemap, built from the route map.

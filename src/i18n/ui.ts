@@ -2,6 +2,9 @@ import { getCollection, getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type { Locale, PageKey } from './routes';
 
+/** The parents' portal (installable app). One place to change if the address ever moves. */
+export const PORTAL_URL = 'https://portail.championsschoolsparakou.com';
+
 export type SiteData = {
   locale: Locale;
   schoolName: string;

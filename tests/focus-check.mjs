@@ -34,7 +34,7 @@ const parse = (c) => {
   return m && (m[4] === undefined || +m[4] > 0.9) ? [+m[1], +m[2], +m[3]] : null;
 };
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const seen = new Set();
 let measured = 0;

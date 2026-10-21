@@ -10,7 +10,7 @@ import { chromium } from 'playwright';
 
 const BASE = process.argv[2] || 'http://localhost:4322';
 const WIDTHS = [320, 375, 390, 430, 768, 1024, 1280, 1600];
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const ok = (c, m) => { if (!c) fails.push(m); };
 

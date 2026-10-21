@@ -1,6 +1,6 @@
 ---
 import { FOOTER_NAV, pathFor, type Locale, type PageKey } from '../../i18n/routes';
-import { navLabel, telHref, type SiteData } from '../../i18n/ui';
+import { navLabel, telHref, PORTAL_URL, type SiteData } from '../../i18n/ui';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import Icon from '../ui/Icon.astro';
 import SchoolImage from '../media/SchoolImage.astro';
@@ -33,6 +33,7 @@ const year = new Date().getFullYear();
                aria-current={current === key ? 'page' : undefined}>{navLabel(site, key)}</a>
           </li>
         ))}
+        <li><a href={PORTAL_URL} class="footer__portal" aria-label={site.ui.portalAria}>{site.ui.portal}</a></li>
       </ul>
     </nav>
 
@@ -77,6 +78,7 @@ const year = new Date().getFullYear();
   .footer__emblem :global(img) { width: 100%; height: auto; border-radius: var(--radius-sm); }
   @media (max-width: 560px) { .footer__emblem { width: 112px; } }
 
+  .footer a.footer__portal { color: var(--gold-300); font-weight: 650; }
   .footer__name { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; color: var(--paper); }
   .footer__rule { margin-block: var(--space-3); }
   .footer__motto { color: var(--gold-300); font-size: var(--fs-small); font-weight: 600; letter-spacing: .04em; }

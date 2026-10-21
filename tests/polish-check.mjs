@@ -42,7 +42,7 @@ const ROUTES = [
    empty loop that quietly passes. */
 const CONCEPT_PAGES = new Set(['/fr/', '/en/', '/fr/futur-campus/', '/en/future-campus/']);
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const fails = [];
 const ok = (c, m) => { if (!c) fails.push(m); };
 let renders = 0;

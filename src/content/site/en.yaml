@@ -102,3 +102,16 @@ ui:
   formSubmit: Send message
   comingSoon: Content for this page is being prepared.
   foundationNotice: This page is part of the site structure. Its content is added in a later phase.
+  portal: Parents’ Portal
+  portalAria: "Parents’ Portal: view your child’s results (app)"
+  portalTitle: Follow your child’s progress from your phone
+  portalLead: Test and homework scores, messages from the school and the school-fees position, all in the Parents’ Portal app.
+  portalB1: Your child’s scores and results
+  portalB2: Messages and reminders from the school
+  portalB3: The school-fees position
+  portalCta: Open the Parents’ Portal
+  portalInstall: On the page that opens, your browser offers to add the app to your home screen. It works on phone, tablet and computer.
+  portalMockWelcome: Welcome
+  portalMockResults: Results
+  portalMockMessages: Messages
+  portalMockFees: School fees

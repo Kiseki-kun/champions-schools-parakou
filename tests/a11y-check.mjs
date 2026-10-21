@@ -42,7 +42,7 @@ const ROUTES = [
 
 const WCAG = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 const violations = new Map();   // rule -> {impact, help, nodes:Set, where:Set}
 const advisories = new Map();
 let runs = 0;
@@ -110,7 +110,7 @@ await browser.close();
    axe does not check this. Every control that is not an inline link inside a
    run of text has to be at least 24×24 CSS px. Measured at the three phone
    widths, with the drawer closed and open. */
-const browser2 = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser2 = await chromium.launch();
 const undersized = new Map();
 const TARGET_ROUTES = ['/fr/', '/en/', '/fr/contact/', '/fr/admissions/',
   '/fr/vie-scolaire/galerie/', '/fr/futur-campus/'];

@@ -44,7 +44,7 @@ async function walk(d, acc = []) {
   }
   return acc;
 }
-const files = (await walk(DIST)).sort();
+const files = (await walk(DIST)).map((f) => f.replaceAll('\\', '/')).sort();
 const routeOf = (f) => '/' + f.replace(/^dist\//, '').replace(/index\.html$/, '');
 const built = new Set(files.map(routeOf));
 
@@ -83,7 +83,7 @@ for (const f of files) {
     if (/^https?:\/\//i.test(href)) {
       external++;
       if (!href.startsWith('https://')) note(`${where}: external link is not https`);
-      if (!ALLOWED_WA.has(href)) note(`${where}: unexpected external destination`);
+      if (!ALLOWED_WA.has(href) && !href.startsWith('https://portail.championsschoolsparakou.com')) note(`${where}: unexpected external destination`);
       const target = ATTR(attrs, 'target');
       const rel = ATTR(attrs, 'rel') ?? '';
       if (target === '_blank' && !/noopener/.test(rel))

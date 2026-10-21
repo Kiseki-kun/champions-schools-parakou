@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://champions-schools-parakou.invalid/sitemap-index.xml
+Sitemap: https://championsschoolsparakou.com/sitemap-index.xml

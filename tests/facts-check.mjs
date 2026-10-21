@@ -65,7 +65,7 @@ async function walk(d, acc = []) {
   }
   return acc;
 }
-const files = (await walk(DIST)).sort();
+const files = (await walk(DIST)).map((f) => f.replaceAll('\\', '/')).sort();
 const strip = (html, foldApostrophes = true) => html
   .replace(/<script[\s\S]*?<\/script>/gi, ' ')
   .replace(/<style[\s\S]*?<\/style>/gi, ' ')

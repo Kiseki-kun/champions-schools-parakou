@@ -107,7 +107,7 @@ const ROUTES = [
   '/fr/confidentialite/', '/en/privacy/',
 ];
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 let checked = 0;
 for (const width of [375, 1280]) {
   const ctx = await browser.newContext({ viewport: { width, height: 900 } });

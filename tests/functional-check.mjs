@@ -43,7 +43,7 @@ const ROUTES = {
 const KEYS = Object.keys(ROUTES.fr);
 const path = (u) => new URL(u).pathname;
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
+const browser = await chromium.launch();
 
 /* Console errors are collected across every context below. */
 const consoleErrors = [];
@@ -575,7 +575,10 @@ done.push('chrome controls: header, drawer, action bar and footer measured at 32
     ok(atTop.pos === 'absolute', `${locale}: the homepage header is ${atTop.pos}, expected absolute over the photograph`);
 
     await page.evaluate(() => scrollTo({ top: 1600, behavior: 'instant' }));
-    await page.waitForTimeout(800);   // the header-drop animation is 260ms
+    await page.waitForFunction(() => {
+  const h = document.querySelector('[data-header]');
+  return h && h.classList.contains('is-stuck') && Math.abs(h.getBoundingClientRect().top) < 1;
+});
     const past = await page.evaluate(() => {
       const h = document.querySelector('[data-header]');
       const r = h.getBoundingClientRect();
